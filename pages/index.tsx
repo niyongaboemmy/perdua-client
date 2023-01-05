@@ -139,6 +139,7 @@ class _AppPage extends Component<AppPageProps, AppPageState> {
                     type="text"
                     className="bg-white py-2 px-4 pl-12 rounded-lg w-full border border-gray-400"
                     placeholder="Search book"
+                    autoFocus={true}
                     value={this.state.search_data}
                     onChange={(e) =>
                       this.setState({ search_data: e.target.value })
