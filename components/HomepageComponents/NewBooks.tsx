@@ -11,13 +11,15 @@ import {
 import { API_URL } from "../../utils/api";
 import Container from "../Container/Container";
 
-export const LoadingBooks = () => {
+export const LoadingBooks = (props: { cols: number }) => {
   return (
     <div className="grid grid-cols-12 gap-4">
       {[1, 2, 3, 4, 5, 6].map((count, i) => (
         <div
           key={i + 1}
-          className={`col-span-6 md:col-span-3 lg:col-span-2 h-64 rounded-md bg-white animate__animated animate__fadeIn animate__infinite ${
+          className={`col-span-6 md:col-span-3 lg:col-span-${
+            props.cols
+          } h-64 rounded-md bg-white animate__animated animate__fadeIn animate__infinite ${
             i % 2 !== 0 ? "animate__slower" : "animate__slow"
           }`}
         >
@@ -102,7 +104,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
             Button A
           </button> */}
           {this.state.loading === true || this.state.books === null ? (
-            <LoadingBooks />
+            <LoadingBooks cols={2} />
           ) : (
             <div className="grid grid-cols-12 gap-5">
               {this.state.books.map((book, i) => (
@@ -141,7 +143,9 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                       </div>
                     ))}
                   </div>
-                  <div className="font-bold">{}</div>
+                  {/* <div className="font-bold">{book.price.map((price, p) => (
+                    <div></div>
+                  ))}</div> */}
                   {/* <div className="hidden rounded group-hover:flex flex-row justify-between gap-2 group-hover:text-green-700 font-bold border-t mt-2 pt-2">
                   <span>View details</span>
                   <div></div>

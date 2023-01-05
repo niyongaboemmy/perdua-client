@@ -35,6 +35,7 @@ interface BookStoreState {
   selectedLanguage: BookLanguage | null;
   selectedCategory: BookCategory | null;
   books: GetBookInterface[] | null;
+  hideNav: boolean;
 }
 
 class _BookStore extends Component<BookStoreProps, BookStoreState> {
@@ -51,8 +52,12 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
       selectedLanguage: null,
       selectedCategory: null,
       books: null,
+      hideNav: false,
     };
   }
+  SetHideNav = (hideNav: boolean) => {
+    this.setState({ hideNav: hideNav });
+  };
   selectedBooksCategoryId = () => {
     if (this.state.books === null) {
       return [];
@@ -174,7 +179,11 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
         >
           <div className="pt-20 px-2 md:px-4">
             <div className="grid grid-cols-12 gap-4">
-              <div className={`col-span-12 lg:col-span-3`}>
+              <div
+                className={`col-span-12 lg:col-span-${
+                  this.state.hideNav === true ? "12" : "3"
+                }`}
+              >
                 <SideNavFilterContent
                   router={this.props.router}
                   initializeSelectLanguage={this.initializeSelectLanguage}
@@ -206,9 +215,15 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                   }}
                   loading={this.state.loading_data}
                   selectedBooksCategoryId={this.selectedBooksCategoryId()}
+                  hideNav={this.state.hideNav}
+                  setHideNav={this.SetHideNav}
                 />
               </div>
-              <div className="col-span-12 lg:col-span-9">
+              <div
+                className={`col-span-12 lg:col-span-${
+                  this.state.hideNav === true ? "12" : "9"
+                }`}
+              >
                 <div className="bg-white rounded-lg p-3 min-h-screen mb-3">
                   {this.state.books === null ||
                   this.state.loading_data === true ? (

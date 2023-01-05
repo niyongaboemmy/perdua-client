@@ -1,6 +1,6 @@
 import { NextRouter } from "next/router";
 import React, { Component } from "react";
-import { BiReset } from "react-icons/bi";
+import { BiCategory, BiReset } from "react-icons/bi";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { FiChevronsLeft } from "react-icons/fi";
 import { ImRadioUnchecked } from "react-icons/im";
@@ -17,10 +17,17 @@ interface sideNavFilterProps {
   onSelectCategory: (data: BookCategory | null) => void;
   loading: boolean;
   selectedBooksCategoryId: string[];
+  hideNav: boolean;
+  setHideNav: (hideNav: boolean) => void;
 }
 interface sideNavFilterState {}
 
 class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
+  constructor(props: sideNavFilterProps) {
+    super(props);
+
+    this.state = {};
+  }
   componentDidMount(): void {
     this.props.initializeSelectLanguage();
   }
@@ -28,16 +35,50 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
     if (this.props.systemBasicInfo.basic_info === null) {
       return <Loading className="bg-white" />;
     }
-    return (
-      <div className="">
-        <div className="bg-white rounded-lg p-4">
-          <div className="flex flex-row items-center gap-3">
-            <div>
-              <div className="flex items-center justify-center h-9 w-9 rounded-full cursor-pointer bg-gray-100 hover:bg-yellow-600 hover:text-white">
-                <FiChevronsLeft className="text-2xl" />
+    if (this.props.hideNav === true) {
+      return (
+        <div className="h-10">
+          <div
+            className="flex flex-row items-center justify-between gap-2 fixed top-16 left-0 right-0 bg-white px-3 md:px-6 py-3"
+            style={{ zIndex: 9 }}
+          >
+            <div className="font-bold text-xl">List of books</div>
+            <div
+              onClick={() => this.props.setHideNav(false)}
+              className="bg-white border border-green-600 text-green-700 text-sm hover:text-white rounded-lg p-1 pr-3 w-max cursor-pointer font-bold flex flex-row items-center gap-2 animate__animated animate__zoomIn"
+            >
+              <div>
+                <div className="rounded-full bg-green-600 text-white flex items-center justify-center p-1">
+                  <BiCategory className="text-xl" />
+                </div>
               </div>
+              <div>Show filter</div>
             </div>
-            <div className="font-semibold">Books Languages</div>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <div
+        // className="fixed lg:block top-30 left-4 right-4 bg-gray-100 h-auto border border-b border-gray-200 lg:border-none rounded-md lg:rounded-none shadow-lg lg:shadow-none"
+        style={{ zIndex: 9 }}
+      >
+        <div className="bg-white rounded-lg p-4 animate__animated animate__fadeInLeft animate__fast">
+          <div className="flex flex-row items-center justify-between gap-2">
+            <div className="flex flex-row items-center gap-3">
+              <div>
+                <div className="flex items-center justify-center h-9 w-9 rounded-full cursor-pointer bg-gray-100 hover:bg-yellow-600 hover:text-white">
+                  <FiChevronsLeft className="text-2xl" />
+                </div>
+              </div>
+              <div className="font-semibold">Books Languages</div>
+            </div>
+            <div
+              onClick={() => this.props.setHideNav(true)}
+              className="block lg:hidden bg-red-600 text-white rounded-md px-3 py-2 w-max cursor-pointer"
+            >
+              Close
+            </div>
           </div>
           {/* Data here */}
           <div className="mt-3">
@@ -68,7 +109,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
             ))}
           </div>
         </div>
-        <div className="bg-white rounded-lg p-4 mt-4">
+        <div className="bg-white rounded-lg p-4 mt-4 animate__animated animate__fadeInLeft">
           <div className="flex flex-row items-center justify-between gap-3">
             <div className="flex flex-row items-center gap-3">
               <div>
