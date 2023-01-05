@@ -365,7 +365,6 @@ export const FC_GetBase64Img = (default_value: string): string => {
 // };
 
 export const commaFy = (num: number) => {
-  console.log("num: ", num);
   if (num === undefined || num.toString().length === 0) {
     return "";
   }

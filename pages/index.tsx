@@ -24,9 +24,9 @@ const MainHomePageContent = dynamic(
   () => import("../components/HomepageComponents/HomepageContent")
 );
 
-export const config = {
-  unstable_runtimeJS: false,
-};
+// export const config = {
+//   unstable_runtimeJS: false,
+// };
 
 class _AppPage extends Component<AppPageProps, AppPageState> {
   constructor(props: AppPageProps) {
