@@ -15,6 +15,12 @@ import { SystemBasicInfoData } from "../../actions";
 import dynamic from "next/dynamic";
 
 interface HomepageContentProps {
+  FC_GetBasicSystemInfo: (
+    callBack: (
+      loading: boolean,
+      res: { type: "success" | "error"; msg: string } | null
+    ) => void
+  ) => void;
   systemBasicInfo: SystemBasicInfoData;
 }
 interface HomepageContentState {}
@@ -26,6 +32,25 @@ export class HomepageContent extends Component<
   HomepageContentProps,
   HomepageContentState
 > {
+  componentDidMount(): void {
+    if (this.props.systemBasicInfo.basic_info === null) {
+      this.setState({ loading: true });
+      this.props.FC_GetBasicSystemInfo(
+        (
+          loading: boolean,
+          res: { type: "success" | "error"; msg: string } | null
+        ) => {
+          this.setState({ loading: loading });
+          if (res !== null && res.type === "error") {
+            this.setState({ error: res.msg, loading: false });
+          }
+          if (res !== null && res.type === "success") {
+            this.setState({ error: "", loading: false });
+          }
+        }
+      );
+    }
+  }
   render() {
     return (
       <div>
