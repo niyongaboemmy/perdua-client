@@ -13,7 +13,7 @@ import {
 interface PageContainerProps {
   page_title?: string;
   page_description?: string;
-  logo?: any;
+  logo?: string;
   children: ReactNode;
   className?: string;
 }
@@ -42,7 +42,12 @@ export class PageContainer extends Component<
             }
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="ico" href={DEFAULT_ICON.src} />
+          <link
+            rel="ico"
+            href={
+              this.props.logo === undefined ? DEFAULT_ICON.src : this.props.logo
+            }
+          />
         </Head>
         <main
           className={`${
