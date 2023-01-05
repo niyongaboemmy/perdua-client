@@ -39,7 +39,3 @@
 .bg-red-600 {
   background-color: rgba(220, 38, 38) !important;
 }
-
-.col-span-9 {
-  grid-column: span 9 / span 9;
-}
