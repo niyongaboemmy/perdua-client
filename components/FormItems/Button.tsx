@@ -4,6 +4,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset";
   title: string;
   className?: string;
+  disabled?: boolean;
   theme?:
     | "primary"
     | "light-primary"
@@ -59,6 +60,7 @@ export class Button extends Component<ButtonProps, ButtonState> {
   render() {
     return (
       <button
+        disabled={this.props.disabled}
         onClick={this.props.onClick}
         className={`px-4 py-2 rounded cursor-pointer text-base ${this.GetBgColor()} ${this.GetTextColor()} ${
           this.props.className !== undefined ? this.props.className : ""

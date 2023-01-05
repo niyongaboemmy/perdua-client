@@ -244,3 +244,33 @@ export const FC_GetNewBooksByLanguageAndCategoryAndLimit = async (
     callBack(false, { type: "error", msg: errorToText(error), data: [] });
   }
 };
+
+// Get upcoming books with language, category, and limit
+export const FC_GetBooksByKeyword = async (
+  search_data: string,
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+      data: GetBookInterface[];
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  setAxiosToken();
+  try {
+    const res = await axios.get<GetBookInterface[]>(
+      `${API_URL}/books/search/title/${search_data}`
+    );
+    console.log({ books_by_limit: res.data });
+    callBack(false, {
+      type: "success",
+      msg: "Data loaded successfully!",
+      data: res.data,
+    });
+  } catch (error: any) {
+    console.log("err: ", { ...error });
+    callBack(false, { type: "error", msg: errorToText(error), data: [] });
+  }
+};

@@ -8,6 +8,7 @@ import Container from "../Container/Container";
 
 interface BookCategoriesProps {
   book_languages: BookLanguage[];
+  setShowOpenModal: (status: boolean) => void;
 }
 interface BookCategoriesState {}
 
@@ -26,7 +27,10 @@ class BookCategories extends Component<
                 Choose the category for books you want in the store
               </div>
               <div className="w-full md:w-2/3 lg:w-1/2 mt-4">
-                <div className="relative w-full">
+                <div
+                  className="relative w-full"
+                  onClick={() => this.props.setShowOpenModal(true)}
+                >
                   <input
                     type="text"
                     className="bg-white py-3 px-4 pl-12 rounded-lg w-full border"

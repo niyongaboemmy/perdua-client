@@ -15,6 +15,7 @@ import { SystemBasicInfoData } from "../../actions";
 import dynamic from "next/dynamic";
 
 interface HomepageContentProps {
+  setShowOpenModal: (status: boolean) => void;
   FC_GetBasicSystemInfo: (
     callBack: (
       loading: boolean,
@@ -165,6 +166,7 @@ export class HomepageContent extends Component<
           {this.props.systemBasicInfo.basic_info !== null ? (
             <BooksCategoriesContent
               book_languages={this.props.systemBasicInfo.basic_info.languages}
+              setShowOpenModal={this.props.setShowOpenModal}
             />
           ) : (
             <Loading className="bg-white" />
