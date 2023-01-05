@@ -180,8 +180,8 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
           <div className="pt-20 px-2 md:px-4">
             <div className="grid grid-cols-12 gap-4">
               <div
-                className={`col-span-12 lg:col-span-${
-                  this.state.hideNav === true ? "12" : "3"
+                className={`col-span-12 lg:${
+                  this.state.hideNav === true ? "col-span-12" : "col-span-3"
                 }`}
               >
                 <SideNavFilterContent
@@ -220,8 +220,8 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                 />
               </div>
               <div
-                className={`col-span-12 lg:col-span-${
-                  this.state.hideNav === true ? "12" : "9"
+                className={`col-span-12 lg:${
+                  this.state.hideNav === true ? "col-span-12" : "col-span-9"
                 }`}
               >
                 <div className="bg-white rounded-lg p-3 min-h-screen mb-3">
