@@ -274,3 +274,34 @@ export const FC_GetBooksByKeyword = async (
     callBack(false, { type: "error", msg: errorToText(error), data: [] });
   }
 };
+
+// Submit Book Review
+export const FC_SubmitBookReview = async (
+  data: {
+    book_id: string;
+    review: string;
+    rating: number;
+  },
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+    } | null
+  ) => void
+) => {
+  console.log("Submitted data: ", data);
+  callBack(true, null);
+  setAxiosToken();
+  try {
+    const res = await axios.post(`${API_URL}/books/review`, data);
+    console.log({ submit_review: res.data });
+    callBack(false, {
+      type: "success",
+      msg: "Review submitted successfully!",
+    });
+  } catch (error: any) {
+    console.log("err: ", { ...error });
+    callBack(false, { type: "error", msg: errorToText(error) });
+  }
+};
