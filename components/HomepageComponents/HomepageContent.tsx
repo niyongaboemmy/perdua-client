@@ -83,7 +83,7 @@ export class HomepageContent extends Component<
                   <div>
                     <AiOutlineShoppingCart className="text-2xl" />
                   </div>
-                  <span>Our shop</span>
+                  <span className="font-semibold">Our shop</span>
                   <div>
                     <BsArrowRight className="text-2xl" />
                   </div>
