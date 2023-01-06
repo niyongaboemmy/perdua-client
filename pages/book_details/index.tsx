@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import { BookDetails } from "../../components/BookDetails/BookDetails";
 import { useRouter } from "next/router";
 import Container from "../../components/Container/Container";
@@ -7,10 +7,18 @@ import Link from "next/link";
 import PageContainer from "../../components/PageContainer/PageContainer";
 import { API_URL } from "../../utils/api";
 import { ImageFolder } from "../../actions/books.action";
+import Modal, {
+  ModalMarginTop,
+  ModalSize,
+  Themes,
+} from "../../components/Modal/Modal";
+import ContactPage from "../contact";
+import { BsArrowLeft } from "react-icons/bs";
 
 const BookDetailsPage = () => {
   const router = useRouter();
   const { book, product_title, product_image } = router.query;
+  const [openContactUs, setOpenContactUs] = useState<boolean>(false);
   if (
     book === undefined ||
     product_title === undefined ||
@@ -50,18 +58,59 @@ const BookDetailsPage = () => {
     );
   }
   return (
-    <PageContainer
-      page_title={`${product_title} | Perdua Publishers`}
-      logo={
-        product_image !== null && product_image !== undefined
-          ? `${API_URL}/${ImageFolder.cover}/${product_image}`
-          : undefined
-      }
-    >
-      <div className="pt-20">
-        {book !== undefined && <BookDetails book_id={book as string} />}
-      </div>
-    </PageContainer>
+    <Fragment>
+      <PageContainer
+        page_title={`${product_title} | Perdua Publishers`}
+        logo={
+          product_image !== null && product_image !== undefined
+            ? `${API_URL}/${ImageFolder.cover}/${product_image}`
+            : undefined
+        }
+      >
+        <div className="pt-20">
+          {book !== undefined && (
+            <BookDetails
+              book_id={book as string}
+              openContactUs={setOpenContactUs}
+            />
+          )}
+        </div>
+      </PageContainer>
+      {openContactUs === true && (
+        <Modal
+          backDrop={true}
+          theme={Themes.default}
+          close={() => setOpenContactUs(false)}
+          backDropClose={true}
+          widthSizeClass={ModalSize.maxWidth}
+          marginTop={ModalMarginTop.small}
+          displayClose={true}
+          padding={{
+            title: true,
+            body: undefined,
+            footer: undefined,
+          }}
+          title={
+            <div className="flex flex-row items-center gap-2">
+              <div>
+                <div
+                  onClick={() => setOpenContactUs(false)}
+                  className="flex items-center justify-center h-10 w-10 bg-gray-100 rounded-full cursor-pointer hover:bg-green-700 hover:text-white"
+                >
+                  <BsArrowLeft className="text-2xl" />
+                </div>
+              </div>
+              <div className="text-2xl text-green-600">
+                Contact us information
+              </div>
+            </div>
+          }
+        >
+          <div className="border-b border-gray-300"></div>
+          <ContactPage is_component={true} />
+        </Modal>
+      )}
+    </Fragment>
   );
 };
 

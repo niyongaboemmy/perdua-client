@@ -39,6 +39,7 @@ const LoadingBillItem = () => {
 
 interface BookDetailsProps {
   book_id: string;
+  openContactUs: (status: boolean) => void;
 }
 
 interface BookDetailsState {
@@ -300,12 +301,18 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       </div>
                     </div>
                     <div className="flex flex-row items-center gap-2 mt-3">
-                      <Link
+                      {/* <Link
                         href={"/contact"}
                         className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
                       >
                         Contact Us
-                      </Link>
+                      </Link> */}
+                      <div
+                        className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
+                        onClick={() => this.props.openContactUs(true)}
+                      >
+                        Contact Us
+                      </div>
                       <div
                         onClick={() => this.setState({ book_review: true })}
                         className="bg-white rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-300 hover:border-green-700"

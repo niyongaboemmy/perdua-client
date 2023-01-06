@@ -7,6 +7,7 @@ import { AiOutlineLogout, AiOutlineShoppingCart } from "react-icons/ai";
 import { StoreState } from "../../reducers";
 import { Auth, FC_Logout } from "../../actions";
 import { connect } from "react-redux";
+import Link from "next/link";
 
 interface NavBarProps {
   auth: Auth;
@@ -49,16 +50,20 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
           <div className="flex flex-row items-center justify-between gap-2">
             {/* Left icon */}
             <div className="flex flex-row items-center justify-center">
-              <Image
-                priority={true}
-                src={Logo}
-                alt="Perdua"
-                className="h-14 w-auto"
-              />
-              <div className="text-xl font-bold flex flex-row items-center gap-1 ml-2">
-                <div className="text-green-600">Perdua</div>
-                <div className="text-lg text-gray-800">Publishers Ltd</div>
-              </div>
+              <Link href={"/"}>
+                <Image
+                  priority={true}
+                  src={Logo}
+                  alt="Perdua"
+                  className="h-14 w-auto"
+                />
+              </Link>
+              <Link href={"/"}>
+                <div className="text-xl font-bold flex flex-row items-center gap-1 ml-2">
+                  <div className="text-green-600">Perdua</div>
+                  <div className="text-lg text-gray-800">Publishers Ltd</div>
+                </div>
+              </Link>
             </div>
             {/* Right nav */}
             {this.props.auth.isAuthenticated === false ? (
