@@ -72,6 +72,9 @@ const BookDetailsPage = () => {
             <BookDetails
               book_id={book as string}
               openContactUs={setOpenContactUs}
+              pushPath={(path: string) => {
+                router.push(path);
+              }}
             />
           )}
         </div>

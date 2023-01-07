@@ -40,6 +40,7 @@ const LoadingBillItem = () => {
 interface BookDetailsProps {
   book_id: string;
   openContactUs: (status: boolean) => void;
+  pushPath: (path: string) => void;
 }
 
 interface BookDetailsState {
@@ -64,10 +65,10 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
       related_books: null,
     };
   }
-  GetBookDetailsById = () => {
+  GetBookDetailsById = (book_id: string) => {
     this.state.loading === false && this.setState({ loading: true });
     FC_GetBookDetailsById(
-      this.props.book_id,
+      book_id,
       (
         loading: boolean,
         res: {
@@ -129,7 +130,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
     );
   };
   componentDidMount = () => {
-    this.GetBookDetailsById();
+    this.GetBookDetailsById(this.props.book_id);
   };
   render() {
     // if (this.state.book_details === null || this.state.loading === true) {
@@ -155,8 +156,8 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                   <Image
                     src={`${API_URL}/${ImageFolder.cover}/${this.state.book_details.book_cover}`}
                     alt={this.state.book_details.title}
-                    height={100}
-                    width={100}
+                    height={2000}
+                    width={1500}
                     className="w-full h-auto rounded-md hover:shadow-xl"
                   />
                 </div>
@@ -381,13 +382,26 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                               itm.book_id !== this.state.book_details?.book_id
                           )
                           .map((item, i) => (
-                            <Link
+                            <div
                               key={i + 1}
-                              href={`/book_details?book=${item.book_id}&product_title=${item.title}&product_image=${item.book_cover}`}
                               className={`col-span-4 md:col-span-3 lg:col-span-2`}
                             >
-                              <BookItem item={item} onClick={() => {}} />
-                            </Link>
+                              <BookItem
+                                item={item}
+                                onClick={() => {
+                                  this.setState({
+                                    book_details: null,
+                                    related_books: null,
+                                    loading: true,
+                                    loading_related: true,
+                                  });
+                                  this.GetBookDetailsById(item.book_id);
+                                  this.props.pushPath(
+                                    `/book_details?book=${item.book_id}&product_title=${item.title}&product_image=${item.book_cover}`
+                                  );
+                                }}
+                              />
+                            </div>
                           ))
                       )}
                     </div>

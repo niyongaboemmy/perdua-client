@@ -27,9 +27,9 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
           <Image
             src={`${API_URL}/${ImageFolder.cover}/${this.props.item.book_cover}`}
             alt={this.props.item.title}
-            className={`rounded-md group-hover:rounded-b-none w-full h-auto`}
-            width={100}
-            height={100}
+            className={`rounded-md group-hover:rounded-b-none w-auto h-auto min-w-full min-h-full object-cover`}
+            height={300}
+            width={300}
           />
         </div>
         <div className="p-3 pt-0">

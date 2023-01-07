@@ -114,15 +114,15 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                   className="col-span-6 md:col-span-3 lg:col-span-2 group cursor-pointer relative"
                 >
                   <div
-                    className="w-full rounded-xl object-cover"
-                    style={{ height: "260px", overflow: "hidden" }}
+                    className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn"
+                    style={{ height: "300px", overflow: "hidden" }}
                   >
                     <Image
                       src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
                       alt={book.title}
-                      height={100}
-                      width={100}
-                      className="rounded-xl group-hover:shadow min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
+                      height={300}
+                      width={300}
+                      className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
                     />
                   </div>
                   <div className="mt-2 truncate group-hover:text-green-600">
