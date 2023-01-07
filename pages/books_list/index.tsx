@@ -29,6 +29,7 @@ import Loading from "../../components/Loading/Loading";
 import Modal, { ModalSize, Themes } from "../../components/Modal/Modal";
 import { ProtectedPage } from "../../components/ProtectedPage/ProtectedPage";
 import SelectCustom from "../../components/SelectCustom/SelectCustom";
+import UpdateBookCover from "../../components/UpdateBookCover/UpdateBookCover";
 import UpdateBookPrice from "../../components/UpdateBookPrice/UpdateBookPrice";
 import { StoreState } from "../../reducers";
 import { commaFy, DATE, search } from "../../utils/functions";
@@ -534,6 +535,15 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                                 },
                         });
                       }}
+                      onSubmitted={(book_id: string) => {
+                        if (this.state.selected_language !== null) {
+                          this.setState({ selectedBook: null, loading: true });
+                          this.GetBooksListByLanguage(
+                            this.state.selected_language.language_id,
+                            book_id
+                          );
+                        }
+                      }}
                     />
                   </div>
                 )}
@@ -567,6 +577,60 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                       </div>
                     </div>
                     <UpdateBookPrice
+                      book={this.state.selectedBook.data}
+                      onGoBack={() => {
+                        this.setState({
+                          selectedBook:
+                            this.state.selectedBook === null
+                              ? null
+                              : {
+                                  data: this.state.selectedBook.data,
+                                  action: "selection",
+                                },
+                        });
+                      }}
+                      onSubmitted={(book_id: string) => {
+                        if (this.state.selected_language !== null) {
+                          this.setState({ selectedBook: null, loading: true });
+                          this.GetBooksListByLanguage(
+                            this.state.selected_language.language_id,
+                            book_id
+                          );
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {this.state.selectedBook.action === "edit_image" && (
+                  <div>
+                    <div className="flex flex-row items-center gap-4 bg-gray-100 rounded-md p-3">
+                      <div>
+                        <div
+                          onClick={() =>
+                            this.setState({
+                              selectedBook:
+                                this.state.selectedBook === null
+                                  ? null
+                                  : {
+                                      data: this.state.selectedBook.data,
+                                      action: "selection",
+                                    },
+                            })
+                          }
+                          className="bg-green-600 text-white hover:bg-green-800 hover:text-white flex items-center justify-center rounded-full h-10 w-10 cursor-pointer"
+                        >
+                          <HiArrowSmLeft className="text-4xl" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-extrabold text-xl">
+                          Update book cover image
+                        </div>
+                      </div>
+                    </div>
+                    <UpdateBookCover
                       book={this.state.selectedBook.data}
                       onGoBack={() => {
                         this.setState({

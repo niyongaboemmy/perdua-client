@@ -428,7 +428,7 @@ export const FC_AddBookAuthor = async (
 export const FC_UpdateBookCoverImage = async (
   data: {
     book_id: string;
-    book_cover: number;
+    book_cover: File;
   },
   callback: (
     loading: boolean,
@@ -438,10 +438,10 @@ export const FC_UpdateBookCoverImage = async (
   callback(true, null);
   try {
     setAxiosToken();
-    await axios.post(`${API_URL}/books/book_cover`, {
-      book_id: data.book_id,
-      book_cover: data.book_cover,
-    });
+    const formData = new FormData();
+    formData.append("book_id", data.book_id);
+    formData.append("book_cover", data.book_cover);
+    await axios.patch(`${API_URL}/books/cover`, formData);
     callback(false, {
       type: "success",
       msg: "Book cover has updated successfully!",

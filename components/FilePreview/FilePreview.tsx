@@ -37,7 +37,13 @@ const FilePreview = (props: {
           full_height={true}
         />
       ) : (
-        <Image src={src} alt={alt} className="w-full h-auto" />
+        <Image
+          src={src}
+          alt={alt}
+          height="200"
+          width={200}
+          className="w-full h-auto"
+        />
       )}
     </div>
   );

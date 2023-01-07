@@ -39,6 +39,7 @@ interface RegisterBookFormProps {
   systemBasicInfo: SystemBasicInfoData;
   bookDetails: GetBookInterface;
   onGoBack: () => void;
+  onSubmitted: (book_id: string) => void;
 }
 interface RegisterBookFormState {
   loading_form: boolean;
@@ -268,30 +269,7 @@ class _EditBookForm extends Component<
     }
   };
   // Reset form
-  resetForm = () => {
-    this.setState({
-      loading_form: false,
-      language_id: this.props.bookDetails.language_id,
-      category_id: this.props.bookDetails.category_id,
-      publisher_id: this.props.bookDetails.publisher_id,
-      title: this.props.bookDetails.title,
-      short_description: this.props.bookDetails.short_description,
-      isbn: this.props.bookDetails.isbn,
-      num_pages: this.props.bookDetails.num_pages.toString(),
-      book_cover: this.props.bookDetails.book_cover,
-      availability: this.props.bookDetails.availability,
-      publication_date: this.props.bookDetails.publication_date,
-      authors: this.props.bookDetails.book_authors,
-      price: this.props.bookDetails.price.toString(),
-      error: null,
-      success: "",
-      // ----------
-      openSelectLanguage: false,
-      openSelectCategory: false,
-      openSelectPublisher: false,
-      openSelectAuthors: false,
-    });
-  };
+
   render() {
     if (this.props.systemBasicInfo.basic_info === null) {
       return (
@@ -987,7 +965,7 @@ class _EditBookForm extends Component<
           <Modal
             backDrop={true}
             theme={Themes.default}
-            close={() => () => this.resetForm()}
+            close={() => this.props.onSubmitted(this.props.bookDetails.book_id)}
             backDropClose={true}
             widthSizeClass={ModalSize.medium}
             displayClose={false}
@@ -1004,17 +982,13 @@ class _EditBookForm extends Component<
               <div className="font-bold mt-0 text-2xl">Action succeeded</div>
               <div className="text-base">{this.state.success}</div>
               <div className="flex flex-row items-center justify-center gap-3 border-t border-gray-300 w-full pt-4 mt-2">
-                <Link
-                  href={"/books_list"}
-                  className="px-4 py-2 rounded-md bg-gray-100 hover:bg-gray-200 font-semibold"
-                >
-                  Go to books list
-                </Link>
                 <Button
-                  title="Register other book"
+                  title="Continue"
                   theme="success"
                   type="button"
-                  onClick={() => this.resetForm()}
+                  onClick={() =>
+                    this.props.onSubmitted(this.props.bookDetails.book_id)
+                  }
                 />
               </div>
             </div>
