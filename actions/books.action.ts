@@ -331,7 +331,7 @@ export const FC_UpdateBookDetails = async (
   callback(true, null);
   try {
     setAxiosToken();
-    await axios.patch(`${API_URL}/books/update`, data);
+    await axios.patch(`${API_URL}/books/data`, data);
     callback(false, {
       type: "success",
       msg: "Book has updated successfully!",
