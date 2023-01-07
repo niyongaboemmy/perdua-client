@@ -20,6 +20,7 @@ export interface RegisterBookData {
 }
 
 export interface UpdateBookData {
+  book_id: string;
   language_id: string;
   category_id: string;
   publisher_id: string;

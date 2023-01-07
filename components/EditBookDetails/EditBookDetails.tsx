@@ -210,6 +210,7 @@ class _EditBookForm extends Component<
     }
     // Register book
     const data: UpdateBookData = {
+      book_id: this.props.bookDetails.book_id,
       authors: this.state.authors,
       availability: this.state.availability,
       book_cover: this.state.book_cover,
