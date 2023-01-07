@@ -64,6 +64,8 @@ export class HomepageContent extends Component<
             priority={true}
             alt="Books"
             className="h-screen min-w-full w-auto object-cover animate__animated animate__fadeIn"
+            height={2000}
+            width={2000}
           />
           <div className="absolute top-40 md:top-60 lg:top-0 bottom-0 right-0 left-0 flex flex-col lg:justify-center">
             <Container className="flex flex-col">
