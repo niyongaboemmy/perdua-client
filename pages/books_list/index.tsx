@@ -105,11 +105,6 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
       }
     );
   };
-  componentDidMount = () => {
-    if (this.props.systemBasicInfo.basic_info === null) {
-      this.setState({ loading: true });
-    }
-  };
   render() {
     if (this.props.systemBasicInfo.basic_info === null) {
       return (
