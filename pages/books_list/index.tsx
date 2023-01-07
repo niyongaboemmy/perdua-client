@@ -421,6 +421,7 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                       )[]
                     ).map((menu, i) => (
                       <div
+                        key={i + 1}
                         className={`col-span-12 md:col-span-4 lg:col-span-3 p-3 flex flex-col items-center justify-center group border border-gray-200 cursor-pointer hover:border-green-600 rounded-lg`}
                         onClick={() =>
                           this.state.selectedBook !== null &&
