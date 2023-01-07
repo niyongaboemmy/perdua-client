@@ -19,6 +19,21 @@ export interface RegisterBookData {
   price: number;
 }
 
+export interface UpdateBookData {
+  language_id: string;
+  category_id: string;
+  publisher_id: string;
+  title: string;
+  short_description: string;
+  isbn: string;
+  num_pages: string;
+  book_cover: string;
+  availability: BookAvailability;
+  publication_date: string;
+  authors: string[];
+  price: number;
+}
+
 export interface GetBookInterface {
   availability: BookAvailability;
   book_authors: string[];
@@ -303,5 +318,138 @@ export const FC_SubmitBookReview = async (
   } catch (error: any) {
     console.log("err: ", { ...error });
     callBack(false, { type: "error", msg: errorToText(error) });
+  }
+};
+
+export const FC_UpdateBookDetails = async (
+  data: UpdateBookData,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.patch(`${API_URL}/books/update`, data);
+    callback(false, {
+      type: "success",
+      msg: "Book has updated successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_UpdateBookPrice = async (
+  data: {
+    book_id: string;
+    book_price: number;
+  },
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.patch(`${API_URL}/books/price`, {
+      book_id: data.book_id,
+      price: data.book_price,
+    });
+    callback(false, {
+      type: "success",
+      msg: "Book has updated successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_RemoveBook = async (
+  book_id: string,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.delete(`${API_URL}/books/${book_id}`);
+    callback(false, {
+      type: "success",
+      msg: "Book has deleted successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_AddBookAuthor = async (
+  data: {
+    book_id: string;
+    author_id: number;
+  },
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.post(`${API_URL}/books/author`, {
+      book_id: data.book_id,
+      author_id: data.author_id,
+    });
+    callback(false, {
+      type: "success",
+      msg: "Book author has added successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_UpdateBookCoverImage = async (
+  data: {
+    book_id: string;
+    book_cover: number;
+  },
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.post(`${API_URL}/books/book_cover`, {
+      book_id: data.book_id,
+      book_cover: data.book_cover,
+    });
+    callback(false, {
+      type: "success",
+      msg: "Book cover has updated successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
   }
 };

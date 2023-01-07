@@ -41,6 +41,7 @@ interface BookDetailsProps {
   book_id: string;
   openContactUs: (status: boolean) => void;
   pushPath: (path: string) => void;
+  type?: "details" | "preview";
 }
 
 interface BookDetailsState {
@@ -87,7 +88,9 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
         }
         if (res !== null && res.type === "success") {
           this.setState({ error: "", book_details: res.data, loading: false });
-          res.data !== null && this.GetRelatedBooks(res.data);
+          res.data !== null &&
+            this.props.type !== "preview" &&
+            this.GetRelatedBooks(res.data);
         }
       }
     );
@@ -152,13 +155,13 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                   style={{ height: "360px" }}
                 ></div>
               ) : (
-                <div className="bg-gray-100">
+                <div className="bg-gray-100 rounded-xl">
                   <Image
                     src={`${API_URL}/${ImageFolder.cover}/${this.state.book_details.book_cover}`}
                     alt={this.state.book_details.title}
                     height={2000}
                     width={1500}
-                    className="w-full h-auto rounded-md hover:shadow-xl"
+                    className="w-full h-auto rounded-md"
                   />
                 </div>
               )}
@@ -178,14 +181,16 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
             ) : (
               <div className="col-span-12 md:col-span-7 lg:col-span-8 p-3 md:p-6 bg-white">
                 <div className="flex flex-row items-center gap-2">
-                  <div>
-                    <Link
-                      href={`/store?language_id=${this.state.book_details.language_id}`}
-                      className="bg-gray-100 hover:bg-green-700 hover:text-white rounded-full flex items-center justify-center h-10 w-10 cursor-pointer"
-                    >
-                      <BsArrowLeft className="text-2xl" />
-                    </Link>
-                  </div>
+                  {this.props.type !== "preview" && (
+                    <div>
+                      <Link
+                        href={`/store?language_id=${this.state.book_details.language_id}`}
+                        className="bg-gray-100 hover:bg-green-700 hover:text-white rounded-full flex items-center justify-center h-10 w-10 cursor-pointer"
+                      >
+                        <BsArrowLeft className="text-2xl" />
+                      </Link>
+                    </div>
+                  )}
                   <div className="text-2xl font-bold">
                     {this.state.book_details.title}
                   </div>
@@ -271,64 +276,67 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                     </div>
                   </div>
                 </div>
-
-                <div className="border-b py-5"></div>
-                {this.state.book_review === false ? (
-                  <div>
-                    <div className="flex flex-row items-center gap-2 w-full mt-3">
-                      <div className="font-bold">Book Reviews</div>
+                {this.props.type !== "preview" && (
+                  <>
+                    <div className="border-b py-5"></div>
+                    {this.state.book_review === false ? (
                       <div>
-                        <div className="flex flex-row items-center gap-0">
-                          {[1, 2, 3, 4, 5].map((rating, r) => (
-                            <div key={r + 1}>
-                              {this.state.book_details !== null &&
-                              this.state.book_details.rating !== 0 &&
-                              this.state.book_details.rating !== 5 ? (
-                                <AiFillStar
-                                  className={`text-lg text-${
-                                    rating <= this.state.book_details.rating
-                                      ? "yellow-400"
-                                      : "gray-300"
-                                  }`}
-                                />
-                              ) : (
-                                <BsStarHalf
-                                  className={`text-lg text-yellow-400`}
-                                />
-                              )}
+                        <div className="flex flex-row items-center gap-2 w-full mt-3">
+                          <div className="font-bold">Book Reviews</div>
+                          <div>
+                            <div className="flex flex-row items-center gap-0">
+                              {[1, 2, 3, 4, 5].map((rating, r) => (
+                                <div key={r + 1}>
+                                  {this.state.book_details !== null &&
+                                  this.state.book_details.rating !== 0 &&
+                                  this.state.book_details.rating !== 5 ? (
+                                    <AiFillStar
+                                      className={`text-lg text-${
+                                        rating <= this.state.book_details.rating
+                                          ? "yellow-400"
+                                          : "gray-300"
+                                      }`}
+                                    />
+                                  ) : (
+                                    <BsStarHalf
+                                      className={`text-lg text-yellow-400`}
+                                    />
+                                  )}
+                                </div>
+                              ))}
                             </div>
-                          ))}
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    <div className="flex flex-row items-center gap-2 mt-3">
-                      {/* <Link
+                        <div className="flex flex-row items-center gap-2 mt-3">
+                          {/* <Link
                         href={"/contact"}
                         className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
                       >
                         Contact Us
                       </Link> */}
-                      <div
-                        className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
-                        onClick={() => this.props.openContactUs(true)}
-                      >
-                        Contact Us
+                          <div
+                            className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
+                            onClick={() => this.props.openContactUs(true)}
+                          >
+                            Contact Us
+                          </div>
+                          <div
+                            onClick={() => this.setState({ book_review: true })}
+                            className="bg-white rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-300 hover:border-green-700"
+                          >
+                            Submit review
+                          </div>
+                        </div>
                       </div>
-                      <div
-                        onClick={() => this.setState({ book_review: true })}
-                        className="bg-white rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-300 hover:border-green-700"
-                      >
-                        Submit review
+                    ) : (
+                      <div className="mt-4">
+                        <BookReview
+                          book_details={this.state.book_details}
+                          onClose={() => this.setState({ book_review: false })}
+                        />
                       </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="mt-4">
-                    <BookReview
-                      book_details={this.state.book_details}
-                      onClose={() => this.setState({ book_review: false })}
-                    />
-                  </div>
+                    )}
+                  </>
                 )}
               </div>
             )}
@@ -339,90 +347,92 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
             </div> */}
           </div>
           {/* Related products */}
-          <div className="grid grid-cols-12 gap-4 mt-4">
-            <div className="col-span-12 md:col-span-9">
-              <div className="bg-white rounded-md p-2">
-                <div className="flex flex-row items-center justify-between gap-2">
-                  <div className="text-xl font-bold ml-1 md:ml-3">
-                    Related books
-                  </div>
-                  <div>
-                    <Link
-                      href={"/store"}
-                      className="flex flex-row items-center justify-end gap-3 bg-gray-100 rounded-md w-max px-3 py-2 cursor-pointer hover:bg-green-600 hover:text-white"
-                    >
-                      <div>Visit the store</div>
-                      <div>
-                        <div className="flex items-center justify-center h-7 w-7 rounded-md bg-green-600 text-white">
-                          <BsArrowRight className="text-xl" />
-                        </div>
-                      </div>
-                    </Link>
-                  </div>
-                </div>
-                <div className="mt-6">
-                  {this.state.loading_related === true ||
-                  this.state.related_books === null ? (
+          {this.props.type !== "preview" && (
+            <div className="grid grid-cols-12 gap-4 mt-4">
+              <div className="col-span-12 md:col-span-9">
+                <div className="bg-white rounded-md p-2">
+                  <div className="flex flex-row items-center justify-between gap-2">
+                    <div className="text-xl font-bold ml-1 md:ml-3">
+                      Related books
+                    </div>
                     <div>
-                      <LoadingBooks cols={3} />
-                    </div>
-                  ) : (
-                    <div className="grid grid-cols-8 md:grid-cols-12 lg:grid-cols-8 gap-3">
-                      {this.state.related_books.filter(
-                        (itm) =>
-                          itm.book_id !== this.state.book_details?.book_id
-                      ).length === 0 ? (
-                        <div className="col-span-8 bg-gray-100 rounded p-4 text-xl font-light text-center mt-2">
-                          No related books found
+                      <Link
+                        href={"/store"}
+                        className="flex flex-row items-center justify-end gap-3 bg-gray-100 rounded-md w-max px-3 py-2 cursor-pointer hover:bg-green-600 hover:text-white"
+                      >
+                        <div>Visit the store</div>
+                        <div>
+                          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-green-600 text-white">
+                            <BsArrowRight className="text-xl" />
+                          </div>
                         </div>
-                      ) : (
-                        this.state.related_books
-                          .filter(
-                            (itm) =>
-                              itm.book_id !== this.state.book_details?.book_id
-                          )
-                          .map((item, i) => (
-                            <div
-                              key={i + 1}
-                              className={`col-span-4 md:col-span-3 lg:col-span-2`}
-                            >
-                              <BookItem
-                                item={item}
-                                onClick={() => {
-                                  this.setState({
-                                    book_details: null,
-                                    related_books: null,
-                                    loading: true,
-                                    loading_related: true,
-                                  });
-                                  this.GetBookDetailsById(item.book_id);
-                                  this.props.pushPath(
-                                    `/book_details?book=${item.book_id}&product_title=${item.title}&product_image=${item.book_cover}`
-                                  );
-                                }}
-                              />
-                            </div>
-                          ))
-                      )}
+                      </Link>
                     </div>
-                  )}
+                  </div>
+                  <div className="mt-6">
+                    {this.state.loading_related === true ||
+                    this.state.related_books === null ? (
+                      <div>
+                        <LoadingBooks cols={3} />
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-8 md:grid-cols-12 lg:grid-cols-8 gap-3">
+                        {this.state.related_books.filter(
+                          (itm) =>
+                            itm.book_id !== this.state.book_details?.book_id
+                        ).length === 0 ? (
+                          <div className="col-span-8 bg-gray-100 rounded p-4 text-xl font-light text-center mt-2">
+                            No related books found
+                          </div>
+                        ) : (
+                          this.state.related_books
+                            .filter(
+                              (itm) =>
+                                itm.book_id !== this.state.book_details?.book_id
+                            )
+                            .map((item, i) => (
+                              <div
+                                key={i + 1}
+                                className={`col-span-4 md:col-span-3 lg:col-span-2`}
+                              >
+                                <BookItem
+                                  item={item}
+                                  onClick={() => {
+                                    this.setState({
+                                      book_details: null,
+                                      related_books: null,
+                                      loading: true,
+                                      loading_related: true,
+                                    });
+                                    this.GetBookDetailsById(item.book_id);
+                                    this.props.pushPath(
+                                      `/book_details?book=${item.book_id}&product_title=${item.title}&product_image=${item.book_cover}`
+                                    );
+                                  }}
+                                />
+                              </div>
+                            ))
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+              <div className="col-span-12 md:col-span-3 overflow-hidden">
+                <div className="bg-white rounded-md p-2 h-full">
+                  <div>
+                    {this.state.loading === false && (
+                      <Image
+                        src={ADS_IMAGE}
+                        alt=""
+                        className="w-full rounded-md"
+                      />
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="col-span-12 md:col-span-3 overflow-hidden">
-              <div className="bg-white rounded-md p-2 h-full">
-                <div>
-                  {this.state.loading === false && (
-                    <Image
-                      src={ADS_IMAGE}
-                      alt=""
-                      className="w-full rounded-md"
-                    />
-                  )}
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </Container>
     );
