@@ -33,6 +33,10 @@ interface AppPageState {
   show_open_modal: boolean;
   search_result: GetBookInterface[] | null;
   loading_search_result: boolean;
+  loaded_books_languages: {
+    language_id: string;
+    loaded: boolean;
+  }[];
 }
 
 const MainHomePageContent = dynamic(
@@ -54,6 +58,7 @@ class _AppPage extends Component<AppPageProps, AppPageState> {
       show_open_modal: false,
       search_result: null,
       loading_search_result: false,
+      loaded_books_languages: [],
     };
   }
   GetBooksListByKeyword = (e: React.FormEvent<HTMLFormElement>) => {

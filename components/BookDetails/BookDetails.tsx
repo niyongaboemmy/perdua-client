@@ -409,6 +409,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                                       `/book_details?book=${item.book_id}&product_title=${item.title}&product_image=${item.book_cover}`
                                     );
                                   }}
+                                  hide_price={true}
                                 />
                               </div>
                             ))

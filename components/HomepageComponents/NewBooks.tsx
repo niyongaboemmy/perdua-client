@@ -80,7 +80,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
         <Container>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
             <div>
-              <div className="text-3xl font-bold">Discover Your Next Book</div>
+              <div className="text-3xl font-bold">New Upcoming Books</div>
               <div className="text-gray-500 text-sm">
                 List of recently added books you can read. Select your
                 preference

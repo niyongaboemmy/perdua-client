@@ -28,6 +28,9 @@ interface HomepageContentState {}
 
 const NewBooksContent = dynamic(() => import("./NewBooks"));
 const BooksCategoriesContent = dynamic(() => import("./BookCategories"));
+const BooksByLanguageContainerContent = dynamic(
+  () => import("./BooksByLanguageContainer")
+);
 
 export class HomepageContent extends Component<
   HomepageContentProps,
@@ -173,6 +176,11 @@ export class HomepageContent extends Component<
           ) : (
             <Loading className="bg-white" />
           )}
+          {this.props.systemBasicInfo.basic_info !== null &&
+            this.props.systemBasicInfo.basic_info.languages.length > 0 &&
+            this.props.systemBasicInfo.basic_info.languages.map((item, i) => (
+              <BooksByLanguageContainerContent language={item} key={i + 1} />
+            ))}
           <AboutUs />
         </div>
       </div>

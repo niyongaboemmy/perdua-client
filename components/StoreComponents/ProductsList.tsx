@@ -93,7 +93,7 @@ class ProductsList extends Component<ProductsListProps, ProductsListState> {
                 key={i + 1}
                 className={`col-span-6 md:col-span-3 lg:col-span-2`}
               >
-                <BookItem item={item} onClick={() => {}} />
+                <BookItem item={item} onClick={() => {}} hide_price={true} />
               </Link>
             ))
           )}

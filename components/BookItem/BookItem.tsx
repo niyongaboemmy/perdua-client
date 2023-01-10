@@ -16,8 +16,10 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
   render() {
     return (
       <div
-        title={`${this.props.item.title} - ${commaFy(this.props.item.price)}`}
-        className={`cursor-pointer bg-white rounded-lg group border border-white hover:border-green-600 animate__animated animate__fadeIn`}
+        title={`${this.props.item.title} - ${
+          this.props.hide_price !== true ? commaFy(this.props.item.price) : ""
+        }`}
+        className={`cursor-pointer bg-white rounded-lg group border border-white hover:border-green-600 animate__animated animate__fadeIn h-full`}
         onClick={this.props.onClick}
       >
         <div
@@ -35,7 +37,7 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
         <div className="p-3 pt-0">
           <div className="flex flex-col">
             {this.props.hide_title !== true && (
-              <div className="text-sm">{this.props.item.title}</div>
+              <div className="text-sm truncate">{this.props.item.title}</div>
             )}
             {this.props.hide_price !== true && (
               <div className="text-xl font-bold -mt-1 text-gray-800 group-hover:text-green-600">
