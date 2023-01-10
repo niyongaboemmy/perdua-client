@@ -42,14 +42,14 @@ class ServicesSection extends Component<
                 </div>
               </div>
             </div>
-            <div className="col-span-12 md:col-span-7 px-3">
+            <div className="col-span-12 lg:col-span-7 px-0 md:px-3">
               <div className="grid grid-cols-12 gap-3">
                 {PerduaServices.map((item, i) => {
                   const SelectedIcon = item.icon;
                   return (
                     <div
                       key={i + 1}
-                      className="col-span-12 md:col-span-6 rounded-xl m-2 p-4 pt-8 group bg-white"
+                      className="col-span-12 md:col-span-6 rounded-xl m-0 md:m-2 p-4 pt-8 group bg-white"
                     >
                       <div className="flex flex-col items-center text-center gap-3">
                         <div>
@@ -64,7 +64,7 @@ class ServicesSection extends Component<
                 })}
               </div>
             </div>
-            <div className="col-span-12 md:col-span-5 p-2">
+            <div className="col-span-12 lg:col-span-5 md:p-4 lg:p-2 mt-4 md:mt-0">
               <div className="bg-white w-full h-full rounded-xl overflow-hidden">
                 <Image
                   src={ServicesImage}

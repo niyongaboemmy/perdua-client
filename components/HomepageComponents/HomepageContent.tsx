@@ -29,6 +29,9 @@ interface HomepageContentState {}
 const NewBooksContent = dynamic(() => import("./NewBooks"));
 const BooksCategoriesContent = dynamic(() => import("./BookCategories"));
 const ServicesSectionContent = dynamic(() => import("./ServicesSection"));
+const BooksByAvailabilityContent = dynamic(
+  () => import("./BooksByAvailability")
+);
 const BooksByLanguageContainerContent = dynamic(
   () => import("./BooksByLanguageContainer")
 );
@@ -184,6 +187,13 @@ export class HomepageContent extends Component<
             ))}
           <AboutUs />
           <ServicesSectionContent />
+          {this.props.systemBasicInfo.basic_info !== null ? (
+            <BooksByAvailabilityContent
+              systemBasicInfo={this.props.systemBasicInfo.basic_info}
+            />
+          ) : (
+            <Loading className="bg-white" />
+          )}
         </div>
       </div>
     );

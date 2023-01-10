@@ -83,7 +83,7 @@ export class BooksByLanguageContainer extends Component<
     return (
       <Container className="bg-white py-6 my-3">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
             <div>
               <AiOutlineRead className="text-gray-300 text-6xl" />
             </div>

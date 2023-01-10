@@ -50,6 +50,9 @@ interface RegisterBookFormState {
   publication_date: string;
   authors: string[];
   price: string;
+  quantity: string;
+  theme: string[];
+  level: string[];
   error: {
     target:
       | "language_id"
@@ -64,6 +67,7 @@ interface RegisterBookFormState {
       | "publication_date"
       | "author_id"
       | "price"
+      | "quantity"
       | "main";
     msg: string;
   } | null;
@@ -98,6 +102,9 @@ class _RegisterBookForm extends Component<
       price: "",
       error: null,
       success: "",
+      quantity: "",
+      theme: [],
+      level: [],
       // ----------
       openSelectLanguage: false,
       openSelectCategory: false,
@@ -187,6 +194,14 @@ class _RegisterBookForm extends Component<
         },
       });
     }
+    if (this.state.quantity === "") {
+      return this.setState({
+        error: {
+          target: "quantity",
+          msg: "Please fill the quantity in the stock",
+        },
+      });
+    }
     if (this.state.book_cover === null) {
       return this.setState({
         error: {
@@ -217,6 +232,11 @@ class _RegisterBookForm extends Component<
       publisher_id: this.state.publisher_id,
       short_description: this.state.short_description,
       title: this.state.title,
+      quantity: isNaN(parseInt(this.state.quantity))
+        ? 0
+        : parseInt(this.state.quantity),
+      theme: JSON.stringify(this.state.theme),
+      level: this.state.level,
     };
     this.setState({ loading_form: true });
     FC_RegisterBook(
@@ -661,9 +681,9 @@ class _RegisterBookForm extends Component<
                     {/* ---------------------------------------------- */}
                     <div className="col-span-12 lg:col-span-6">
                       <div className="flex flex-col">
-                        <span>Publication date</span>
+                        <span>Publication year</span>
                         <input
-                          type="date"
+                          type="year"
                           disabled={this.state.loading_form}
                           className={`${
                             this.state.error?.target === "publication_date"
@@ -719,8 +739,41 @@ class _RegisterBookForm extends Component<
                           <option value=""></option>
                           <option value="IN_STOCK">In stock</option>
                           <option value="OUT_STOCK">Out of stock</option>
+                          <option value="COMING_SOON">Coming Soon</option>
                         </select>
                         {this.state.error?.target === "availability" && (
+                          <div className="mt-2">
+                            <Alert
+                              title="Invalid input"
+                              description={this.state.error.msg}
+                              type={"danger"}
+                              onClose={() => this.setState({ error: null })}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {/* ---------------------------------------------- */}
+                    <div className="col-span-12 lg:col-span-6">
+                      <div className="flex flex-col">
+                        <span>Stock / quantity</span>
+                        <input
+                          type="number"
+                          disabled={this.state.loading_form}
+                          className={`${
+                            this.state.error?.target === "quantity"
+                              ? "border border-red-600"
+                              : ""
+                          } bg-gray-100 rounded-md px-3 py-2 w-full font-semibold`}
+                          value={this.state.quantity}
+                          onChange={(e) =>
+                            this.setState({
+                              quantity: e.target.value,
+                              error: null,
+                            })
+                          }
+                        />
+                        {this.state.error?.target === "quantity" && (
                           <div className="mt-2">
                             <Alert
                               title="Invalid input"

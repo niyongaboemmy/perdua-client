@@ -93,7 +93,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
               >
                 <span>View all books</span>
                 <div>
-                  <div className="bg-green-600 text-white flex items-center justify-center h-8 w-8 rounded-full animate__animated animate__zoomIn animate__infinite">
+                  <div className="bg-green-600 text-white flex items-center justify-center h-8 w-8 rounded-full animate__animated animate__zoomIn">
                     <BsArrowRight className="text-xl" />
                   </div>
                 </div>

@@ -4,7 +4,11 @@ import { BsArrowLeft, BsArrowRight, BsStarHalf } from "react-icons/bs";
 import { commaFy } from "../../utils/functions";
 import Container from "../Container/Container";
 import ADS_IMAGE from "../../assets/catalogue.jpeg";
-import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
+import {
+  AiFillStar,
+  AiOutlineRead,
+  AiOutlineShoppingCart,
+} from "react-icons/ai";
 import { BookReview } from "./BookReview";
 import Link from "next/link";
 import { BookItem } from "../BookItem/BookItem";
@@ -22,6 +26,7 @@ import { MdLanguage } from "react-icons/md";
 import { RiBook3Line } from "react-icons/ri";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { LoadingBooks } from "../HomepageComponents/NewBooks";
+import { HiDatabase } from "react-icons/hi";
 
 const LoadingBillItem = () => {
   return (
@@ -173,7 +178,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                 <div className="bg-gray-100 rounded-xl h-3 w-1/2  animate__animated animate__fadeIn animate__infinite mt-3"></div>
                 <div className="grid grid-cols-12 items-center gap-5 w-full pt-5 mt-8">
                   {/*  */}
-                  {[1, 2, 3, 4].map((load, l) => (
+                  {[1, 2, 3, 4, 5, 6].map((load, l) => (
                     <LoadingBillItem key={l + 1} />
                   ))}
                 </div>
@@ -198,6 +203,23 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                 <div className="my-2 text-gray-500 mt-4">
                   {this.state.book_details.short_description}
                 </div>
+                {this.state.book_details.book_level.length > 0 && (
+                  <div className="mb-2">
+                    <div className="font-semibold">Book level:</div>
+                    <div>
+                      {this.state.book_details.book_level.length > 0 &&
+                        this.state.book_details.book_level.map((level, l) => (
+                          <div
+                            key={l + 1}
+                            className="flex flex-row items-center gap-2 text-sm"
+                          >
+                            <div></div>
+                            <div>{level}</div>
+                          </div>
+                        ))}
+                    </div>
+                  </div>
+                )}
                 <div className="grid grid-cols-12 items-center gap-5 w-full pt-5">
                   <div className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 w-full">
                     <div>
@@ -229,6 +251,32 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       >
                         {this.state.book_details.category_name}
                       </Link>
+                    </div>
+                  </div>
+                  <div className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 w-full">
+                    <div>
+                      <div className="bg-gray-100 rounded-md h-12 w-12 flex items-center justify-center">
+                        <AiOutlineRead className="text-4xl text-gray-400" />
+                      </div>
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <span className="text-sm">Number of pages</span>
+                      <div className="font-bold">
+                        {commaFy(this.state.book_details.num_pages)}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 w-full">
+                    <div>
+                      <div className="bg-gray-100 rounded-md h-12 w-12 flex items-center justify-center">
+                        <HiDatabase className="text-4xl text-gray-400" />
+                      </div>
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <span className="text-sm">Total available</span>
+                      <div className="font-bold">
+                        {commaFy(this.state.book_details.quantity)}
+                      </div>
                     </div>
                   </div>
                   <div className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 w-full">
@@ -268,10 +316,15 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                     <div className="flex flex-col w-full">
                       <span className="text-sm">Book availability</span>
                       <div className="font-bold">
-                        {this.state.book_details.availability ===
-                        BookAvailability.IN_STOCK
+                        {this.state.book_details.quantity === 0
+                          ? "Out of stock"
+                          : this.state.book_details.availability ===
+                            BookAvailability.IN_STOCK
                           ? "In stock"
-                          : "Out of stock"}
+                          : this.state.book_details.availability ===
+                            BookAvailability.OUT_STOCK
+                          ? "Out of stock"
+                          : "Coming Soon"}
                       </div>
                     </div>
                   </div>

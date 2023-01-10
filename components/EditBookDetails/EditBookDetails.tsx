@@ -55,6 +55,9 @@ interface RegisterBookFormState {
   publication_date: string;
   authors: string[];
   price: string;
+  quantity: string;
+  theme: string[];
+  level: string[];
   error: {
     target:
       | "language_id"
@@ -68,6 +71,7 @@ interface RegisterBookFormState {
       | "availability"
       | "publication_date"
       | "author_id"
+      | "quantity"
       | "price"
       | "main";
     msg: string;
@@ -103,6 +107,13 @@ class _EditBookForm extends Component<
       price: this.props.bookDetails.price.toString(),
       error: null,
       success: "",
+      quantity: this.props.bookDetails.quantity.toString(),
+      theme:
+        this.props.bookDetails.theme === null ||
+        this.props.bookDetails.theme === ""
+          ? []
+          : JSON.parse(this.props.bookDetails.theme),
+      level: this.props.bookDetails.level,
       // ----------
       openSelectLanguage: false,
       openSelectCategory: false,
@@ -192,6 +203,14 @@ class _EditBookForm extends Component<
         },
       });
     }
+    if (this.state.quantity === "") {
+      return this.setState({
+        error: {
+          target: "quantity",
+          msg: "Please type the quantity in the stock",
+        },
+      });
+    }
     if (this.state.book_cover === "") {
       return this.setState({
         error: {
@@ -223,6 +242,11 @@ class _EditBookForm extends Component<
       publisher_id: this.state.publisher_id,
       short_description: this.state.short_description,
       title: this.state.title,
+      level: this.state.level,
+      quantity: isNaN(parseInt(this.state.quantity))
+        ? 0
+        : parseInt(this.state.quantity),
+      theme: JSON.stringify(this.state.theme),
     };
     this.setState({ loading_form: true });
     FC_UpdateBookDetails(
@@ -645,19 +669,16 @@ class _EditBookForm extends Component<
                     {/* ---------------------------------------------- */}
                     <div className="col-span-12 lg:col-span-6">
                       <div className="flex flex-col">
-                        <span>Publication date</span>
+                        <span>Publication year</span>
                         <input
-                          type="date"
+                          type="year"
                           disabled={this.state.loading_form}
                           className={`${
                             this.state.error?.target === "publication_date"
                               ? "border border-red-600"
                               : ""
                           } bg-gray-100 rounded-md px-3 py-2 w-full font-semibold`}
-                          value={DATE_DATA(
-                            this.state.publication_date,
-                            "YYYY-MM-DD"
-                          )}
+                          value={this.state.publication_date}
                           onChange={(e) =>
                             this.setState({
                               publication_date: e.target.value,
@@ -706,6 +727,7 @@ class _EditBookForm extends Component<
                           <option value=""></option>
                           <option value="IN_STOCK">In stock</option>
                           <option value="OUT_STOCK">Out of stock</option>
+                          <option value="COMING_SOON">Coming Soon</option>
                         </select>
                         {this.state.error?.target === "availability" && (
                           <div className="mt-2">
@@ -720,29 +742,26 @@ class _EditBookForm extends Component<
                       </div>
                     </div>
                     {/* ---------------------------------------------- */}
-                    {/* <div className="col-span-12 lg:col-span-6">
+                    <div className="col-span-12 lg:col-span-6">
                       <div className="flex flex-col">
-                        <span>Book cover page photo</span>
+                        <span>Stock / quantity</span>
                         <input
-                          type="file"
+                          type="number"
                           disabled={this.state.loading_form}
                           className={`${
-                            this.state.error?.target === "book_cover"
+                            this.state.error?.target === "quantity"
                               ? "border border-red-600"
                               : ""
-                          } bg-gray-100 rounded-md px-3 py-1 w-full mt-1`}
+                          } bg-gray-100 rounded-md px-3 py-2 w-full font-semibold`}
+                          value={this.state.quantity}
                           onChange={(e) =>
                             this.setState({
-                              book_cover:
-                                e.target.files === null ||
-                                e.target.files.length === 0
-                                  ? null
-                                  : e.target.files[0],
+                              quantity: e.target.value,
                               error: null,
                             })
                           }
                         />
-                        {this.state.error?.target === "book_cover" && (
+                        {this.state.error?.target === "quantity" && (
                           <div className="mt-2">
                             <Alert
                               title="Invalid input"
@@ -753,7 +772,8 @@ class _EditBookForm extends Component<
                           </div>
                         )}
                       </div>
-                    </div> */}
+                    </div>
+                    {/* ---------------------------------------------- */}
                     <div className="col-span-12 lg:col-span-12">
                       <div className="flex flex-row items-center justify-between gap-3">
                         <div className="font-bold flex flex-row items-center gap-2">
