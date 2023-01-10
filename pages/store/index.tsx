@@ -175,7 +175,7 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                     : ""
                 } books`
               : "Books store"
-          } | Perdua Publishers Ltd`}
+          } | Perdua Publishers`}
         >
           <div className="pt-20 px-2 md:px-4">
             <div className="grid grid-cols-12 gap-4">

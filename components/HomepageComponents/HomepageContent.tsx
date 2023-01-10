@@ -28,6 +28,7 @@ interface HomepageContentState {}
 
 const NewBooksContent = dynamic(() => import("./NewBooks"));
 const BooksCategoriesContent = dynamic(() => import("./BookCategories"));
+const ServicesSectionContent = dynamic(() => import("./ServicesSection"));
 const BooksByLanguageContainerContent = dynamic(
   () => import("./BooksByLanguageContainer")
 );
@@ -182,6 +183,7 @@ export class HomepageContent extends Component<
               <BooksByLanguageContainerContent language={item} key={i + 1} />
             ))}
           <AboutUs />
+          <ServicesSectionContent />
         </div>
       </div>
     );

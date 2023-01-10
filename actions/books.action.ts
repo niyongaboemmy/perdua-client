@@ -50,6 +50,10 @@ export interface GetBookInterface {
   short_description: string;
   title: string;
   rating: number;
+  best_sell: boolean;
+  quantity: number;
+  theme: string;
+  level: string[];
 }
 
 export interface BookAuthorDetails {
@@ -87,6 +91,10 @@ export interface GetBookDetailsInterface {
   short_description: string;
   title: string;
   rating: number;
+  best_sell: boolean;
+  quantity: number;
+  theme: string;
+  level: string[];
 }
 
 export enum ImageFolder {
@@ -96,6 +104,7 @@ export enum ImageFolder {
 export enum BookAvailability {
   IN_STOCK = "IN_STOCK",
   OUT_STOCK = "OUT_STOCK",
+  COMING_SOON = "COMING_SOON",
 }
 
 export const FC_RegisterBook = async (

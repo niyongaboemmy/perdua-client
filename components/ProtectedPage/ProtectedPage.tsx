@@ -180,7 +180,7 @@ class _ProtectedPage extends Component<ProtectedPageProps, ProtectedPageState> {
       );
     }
     return (
-      <PageContainer page_title="Admin Panel | Perdua Publishers Ltd">
+      <PageContainer page_title="Admin Panel | Perdua Publishers">
         <div className="pt-16">
           <div className="grid grid-cols-12 mt-2">
             <div className="col-span-12 md:col-span-2 pl-2">

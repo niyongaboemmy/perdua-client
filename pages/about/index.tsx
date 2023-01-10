@@ -4,10 +4,51 @@ import { BsCheckCircleFill } from "react-icons/bs";
 import { PageDetails } from "../../components/PageDetails/PageDetails";
 import { BiTask } from "react-icons/bi";
 import { FiTarget } from "react-icons/fi";
-import { MdOutlinePersonPin } from "react-icons/md";
+import {
+  MdOutlinePersonPin,
+  MdPublic,
+  MdPublishedWithChanges,
+  MdSettingsSuggest,
+  MdShoppingCart,
+} from "react-icons/md";
 import AboutImage from "../../assets/page_about.jpeg";
 import Image from "next/image";
-import { FaRegAddressBook } from "react-icons/fa";
+import { FaChalkboardTeacher, FaRegAddressBook } from "react-icons/fa";
+import { IconType } from "react-icons";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
+export const PerduaServices: {
+  id: string;
+  title: string;
+  icon: IconType;
+  color: string;
+}[] = [
+  {
+    id: "1",
+    title: "We publish novels and story books of Rwandan authors",
+    icon: MdPublic,
+    color: "green",
+  },
+  {
+    id: "2",
+    title:
+      "We sell books and distribute overstock to different communities that are in great need",
+    icon: MdShoppingCart,
+    color: "green",
+  },
+  {
+    id: "3",
+    title: "We support authors to edit and publish their books",
+    icon: MdSettingsSuggest,
+    color: "green",
+  },
+  {
+    id: "4",
+    title: "We develop modules/guide for NGOs and train their beneficiaries",
+    icon: FaChalkboardTeacher,
+    color: "green",
+  },
+];
 
 export class index extends Component {
   render() {
@@ -100,38 +141,20 @@ export class index extends Component {
                 )
               </div>
               <div className="p-2 md:p-6 flex flex-col gap-3">
-                <div className="flex flex-row items-center gap-4">
-                  <div>
-                    <BsCheckCircleFill className="text-2xl text-green-600" />
-                  </div>
-                  <div>
-                    We publish novels and story books of Rwandan authors.
-                  </div>
-                </div>
-                <div className="flex flex-row items-center gap-4">
-                  <div>
-                    <BsCheckCircleFill className="text-2xl text-green-600" />
-                  </div>
-                  <div>
-                    We distribute books to different communities that are in
-                    great need.
-                  </div>
-                </div>
-                <div className="flex flex-row items-center gap-4">
-                  <div>
-                    <BsCheckCircleFill className="text-2xl text-green-600" />
-                  </div>
-                  <div>We support authors to edit and publish their books.</div>
-                </div>
-                <div className="flex flex-row items-center gap-4">
-                  <div>
-                    <BsCheckCircleFill className="text-2xl text-green-600" />
-                  </div>
-                  <div>
-                    We develop modules/guide for NGOs and train their
-                    beneficiaries.
-                  </div>
-                </div>
+                {PerduaServices.map((item, i) => {
+                  const SelectedIcon = item.icon;
+                  return (
+                    <div
+                      key={i + 1}
+                      className="flex flex-row items-center gap-4"
+                    >
+                      <div>
+                        <SelectedIcon className="text-2xl text-green-600" />
+                      </div>
+                      <div>{item.title}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
             <div className="border-b my-10"></div>

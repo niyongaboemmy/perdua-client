@@ -17,7 +17,7 @@ interface PageDetailsState {}
 export class PageDetails extends Component<PageDetailsProps, PageDetailsState> {
   render() {
     return (
-      <PageContainer page_title={`${this.props.title} | Perdua Publishers Ltd`}>
+      <PageContainer page_title={`${this.props.title} | Perdua Publishers`}>
         <div>
           <div className="-mt-8 md:-mt-0">
             <Image src={PageHead} alt="" className="w-full" />

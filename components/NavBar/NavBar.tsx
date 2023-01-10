@@ -61,7 +61,7 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
               <Link href={"/"}>
                 <div className="text-xl font-bold flex flex-row items-center gap-1 ml-2">
                   <div className="text-green-600">Perdua</div>
-                  <div className="text-lg text-gray-800">Publishers Ltd</div>
+                  <div className="text-lg text-gray-800">Publishers</div>
                 </div>
               </Link>
             </div>

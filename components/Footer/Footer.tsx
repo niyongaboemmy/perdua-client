@@ -61,8 +61,8 @@ export class Footer extends Component<FooterProps, FooterState> {
           <Container>
             <div className="flex flex-col md:flex-row md:items-center gap-2 md:justify-between">
               <div>
-                Copyright © {new Date().getFullYear()} Perdua Publishers Ltd,
-                All rights reserved.
+                Copyright © {new Date().getFullYear()} Perdua Publishers, All
+                rights reserved.
               </div>
               <div className="text-gray-400">
                 Developers:{" "}

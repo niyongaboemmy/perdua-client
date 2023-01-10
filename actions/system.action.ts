@@ -29,11 +29,17 @@ export interface BookAuthor {
   email: string;
 }
 
+export interface BookLevel {
+  level_id: string;
+  level: string;
+}
+
 export interface SystemBasicInfo {
   categories: BookCategory[];
   languages: BookLanguage[];
   publishers: BookPublishers[];
   authors: BookAuthor[];
+  level: BookLevel[];
 }
 
 export interface GetBasicSystemInfoAction {
