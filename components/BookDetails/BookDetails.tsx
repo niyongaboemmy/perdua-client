@@ -149,7 +149,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
     //   );
     // }
     return (
-      <Container>
+      <Container lgPadding={this.props.type === "preview" ? "0" : undefined}>
         <div className="mb-8">
           <div className="grid grid-cols-12 gap-0 bg-white rounded-lg overflow-hidden">
             <div className="col-span-12 md:col-span-5 lg:col-span-4 p-2 md:p-3">
@@ -214,7 +214,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                             className="flex flex-row items-center gap-2 text-sm"
                           >
                             <div></div>
-                            <div>{level}</div>
+                            <div>{level.level}</div>
                           </div>
                         ))}
                     </div>

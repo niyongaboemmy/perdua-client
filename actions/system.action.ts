@@ -45,6 +45,7 @@ export interface SystemBasicInfo {
   publishers: BookPublishers[];
   authors: BookAuthor[];
   level: BookLevel[];
+  theme: BookTheme[];
 }
 
 export interface GetBasicSystemInfoAction {

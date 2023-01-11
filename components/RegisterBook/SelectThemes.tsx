@@ -5,78 +5,6 @@ import { ImCheckboxUnchecked } from "react-icons/im";
 import { BookAuthor, BookTheme, SystemBasicInfoData } from "../../actions";
 import { search } from "../../utils/functions";
 
-export const ThemesTemp: BookTheme[] = [
-  {
-    theme_id: "1",
-    theme: "Gender",
-  },
-  {
-    theme_id: "2",
-    theme: "Peace and values Education",
-  },
-  {
-    theme_id: "3",
-    theme: "Inclusiveness",
-  },
-  {
-    theme_id: "4",
-    theme: "Environment and sustainability",
-  },
-
-  {
-    theme_id: "5",
-    theme: "STEM",
-  },
-  {
-    theme_id: "6",
-    theme: "Animal, fun and Friendship",
-  },
-  {
-    theme_id: "7",
-    theme: "Financial education ",
-  },
-  {
-    theme_id: "8",
-    theme: "Entrepreneurship",
-  },
-  {
-    theme_id: "9",
-    theme: "Farming and discovery",
-  },
-  {
-    theme_id: "10",
-    theme: "Social emotional education",
-  },
-  {
-    theme_id: "11",
-    theme: "Behaving well",
-  },
-  {
-    theme_id: "12",
-    theme: "Hardworking",
-  },
-  {
-    theme_id: "13",
-    theme: "Bravery and adventure",
-  },
-  {
-    theme_id: "14",
-    theme: "Discipline and obedience",
-  },
-  {
-    theme_id: "15",
-    theme: "Health and hygiene",
-  },
-  {
-    theme_id: "16",
-    theme: "Compassion and friendship",
-  },
-  {
-    theme_id: "17",
-    theme: "Bravery, determination, and adventure",
-  },
-];
-
 const SelectThemes = (props: {
   systemBasicInfo: SystemBasicInfoData;
   themeDetails: (theme_id: string) => boolean;
@@ -96,11 +24,21 @@ const SelectThemes = (props: {
           className="bg-white border border-gray-500 px-3 py-2 rounded w-full mb-3"
         />
       </div>
-      {(search(ThemesTemp, searchData) as BookAuthor[]).length === 0 ? (
+      {(
+        search(
+          props.systemBasicInfo.basic_info.theme,
+          searchData
+        ) as BookAuthor[]
+      ).length === 0 ? (
         <div>No result found</div>
       ) : (
         <div>
-          {(search(ThemesTemp, searchData) as BookTheme[]).map((item, i) => (
+          {(
+            search(
+              props.systemBasicInfo.basic_info.theme,
+              searchData
+            ) as BookTheme[]
+          ).map((item, i) => (
             <div
               key={i + 1}
               className={`flex flex-row items-center justify-between gap-3 pr-4 p-1 rounded-md ${

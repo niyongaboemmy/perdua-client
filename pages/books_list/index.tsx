@@ -1,10 +1,13 @@
 import Link from "next/link";
 import React, { Component, Fragment } from "react";
 import { AiOutlineAppstoreAdd, AiOutlineRead } from "react-icons/ai";
-import { BsImage } from "react-icons/bs";
+import { BiCategory } from "react-icons/bi";
+import { BsFillTrashFill, BsImage } from "react-icons/bs";
+import { FiTarget } from "react-icons/fi";
 import { HiArrowSmLeft } from "react-icons/hi";
 import { IoPricetagsOutline } from "react-icons/io5";
 import {
+  MdAdminPanelSettings,
   MdKeyboardArrowDown,
   MdLibraryBooks,
   MdOutlineEditNote,
@@ -24,15 +27,19 @@ import {
 import { Alert } from "../../components/Alert/Alert";
 import BookPreview from "../../components/BookPreview/BookPreview";
 import Container from "../../components/Container/Container";
+import EditBookAuthors from "../../components/EditBookAuthors/EditBookAuthors";
 import { EditBookDetails } from "../../components/EditBookDetails/EditBookDetails";
+import EditBookLevels from "../../components/EditBookLevels/EditBookLevels";
+import EditBookThemes from "../../components/EditBookThemes/EditBookThemes";
 import Loading from "../../components/Loading/Loading";
 import Modal, { ModalSize, Themes } from "../../components/Modal/Modal";
 import { ProtectedPage } from "../../components/ProtectedPage/ProtectedPage";
+import RemoveBook from "../../components/Removebook/RemoveBook";
 import SelectCustom from "../../components/SelectCustom/SelectCustom";
 import UpdateBookCover from "../../components/UpdateBookCover/UpdateBookCover";
 import UpdateBookPrice from "../../components/UpdateBookPrice/UpdateBookPrice";
 import { StoreState } from "../../reducers";
-import { commaFy, DATE, search } from "../../utils/functions";
+import { commaFy, search } from "../../utils/functions";
 
 interface BooksListProps {
   auth: Auth;
@@ -49,7 +56,11 @@ interface BooksListState {
       | "preview"
       | "edit_details"
       | "edit_price"
-      | "edit_image";
+      | "edit_image"
+      | "authors"
+      | "levels"
+      | "themes"
+      | "remove";
   } | null;
   selected_language: BookLanguage | null;
   openSelectLanguage: boolean;
@@ -328,7 +339,7 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                                 {item.num_pages}
                               </td>
                               <td className="border px-3 py-2">
-                                {DATE(item.publication_date)}
+                                {item.publication_date}
                               </td>
                               <td className="border px-3 py-2">
                                 RWF {commaFy(item.price)}
@@ -407,12 +418,20 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                         "edit_details",
                         "edit_price",
                         "edit_image",
+                        "authors",
+                        "levels",
+                        "themes",
+                        "remove",
                       ] as (
                         | "selection"
                         | "preview"
                         | "edit_details"
                         | "edit_price"
                         | "edit_image"
+                        | "authors"
+                        | "levels"
+                        | "themes"
+                        | "remove"
                       )[]
                     ).map((menu, i) => (
                       <div
@@ -442,6 +461,18 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                             {menu === "edit_image" && (
                               <BsImage className="text-4xl" />
                             )}
+                            {menu === "authors" && (
+                              <MdAdminPanelSettings className="text-5xl" />
+                            )}
+                            {menu === "levels" && (
+                              <BiCategory className="text-5xl" />
+                            )}
+                            {menu === "themes" && (
+                              <FiTarget className="text-4xl" />
+                            )}
+                            {menu === "remove" && (
+                              <BsFillTrashFill className="text-4xl" />
+                            )}
                           </div>
                         </div>
                         <div className="font-bold text-center mt-3">
@@ -449,6 +480,10 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                           {menu === "edit_details" && "Edit book details"}
                           {menu === "edit_price" && "Edit book price"}
                           {menu === "edit_image" && "Edit book image"}
+                          {menu === "authors" && "Book authors"}
+                          {menu === "levels" && "Book levels"}
+                          {menu === "themes" && "Book themes"}
+                          {menu === "remove" && "Remove book"}
                         </div>
                       </div>
                     ))}
@@ -645,6 +680,207 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                           this.GetBooksListByLanguage(
                             this.state.selected_language.language_id,
                             book_id
+                          );
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {this.state.selectedBook.action === "authors" && (
+                  <div>
+                    <div className="flex flex-row items-center gap-4 bg-gray-100 rounded-md p-3">
+                      <div>
+                        <div
+                          onClick={() =>
+                            this.setState({
+                              selectedBook:
+                                this.state.selectedBook === null
+                                  ? null
+                                  : {
+                                      data: this.state.selectedBook.data,
+                                      action: "selection",
+                                    },
+                            })
+                          }
+                          className="bg-green-600 text-white hover:bg-green-800 hover:text-white flex items-center justify-center rounded-full h-10 w-10 cursor-pointer"
+                        >
+                          <HiArrowSmLeft className="text-4xl" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-extrabold text-xl">
+                          Book authors
+                        </div>
+                      </div>
+                    </div>
+                    <EditBookAuthors
+                      book={this.state.selectedBook.data}
+                      systemBasicInfo={this.props.systemBasicInfo}
+                      onGoBack={() => {
+                        this.setState({
+                          selectedBook:
+                            this.state.selectedBook === null
+                              ? null
+                              : {
+                                  data: this.state.selectedBook.data,
+                                  action: "selection",
+                                },
+                        });
+                      }}
+                      onSubmitted={(book_id: string) => {
+                        if (this.state.selected_language !== null) {
+                          this.setState({ selectedBook: null, loading: true });
+                          this.GetBooksListByLanguage(
+                            this.state.selected_language.language_id,
+                            book_id
+                          );
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {this.state.selectedBook.action === "levels" && (
+                  <div>
+                    <div className="flex flex-row items-center gap-4 bg-gray-100 rounded-md p-3">
+                      <div>
+                        <div
+                          onClick={() =>
+                            this.setState({
+                              selectedBook:
+                                this.state.selectedBook === null
+                                  ? null
+                                  : {
+                                      data: this.state.selectedBook.data,
+                                      action: "selection",
+                                    },
+                            })
+                          }
+                          className="bg-green-600 text-white hover:bg-green-800 hover:text-white flex items-center justify-center rounded-full h-10 w-10 cursor-pointer"
+                        >
+                          <HiArrowSmLeft className="text-4xl" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-extrabold text-xl">
+                          Book levels
+                        </div>
+                      </div>
+                    </div>
+                    <EditBookLevels
+                      book={this.state.selectedBook.data}
+                      systemBasicInfo={this.props.systemBasicInfo}
+                      onGoBack={() => {
+                        this.setState({
+                          selectedBook:
+                            this.state.selectedBook === null
+                              ? null
+                              : {
+                                  data: this.state.selectedBook.data,
+                                  action: "selection",
+                                },
+                        });
+                      }}
+                      onSubmitted={(book_id: string) => {
+                        if (this.state.selected_language !== null) {
+                          this.setState({ selectedBook: null, loading: true });
+                          this.GetBooksListByLanguage(
+                            this.state.selected_language.language_id,
+                            book_id
+                          );
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {this.state.selectedBook.action === "themes" && (
+                  <div>
+                    <div className="flex flex-row items-center gap-4 bg-gray-100 rounded-md p-3">
+                      <div>
+                        <div
+                          onClick={() =>
+                            this.setState({
+                              selectedBook:
+                                this.state.selectedBook === null
+                                  ? null
+                                  : {
+                                      data: this.state.selectedBook.data,
+                                      action: "selection",
+                                    },
+                            })
+                          }
+                          className="bg-green-600 text-white hover:bg-green-800 hover:text-white flex items-center justify-center rounded-full h-10 w-10 cursor-pointer"
+                        >
+                          <HiArrowSmLeft className="text-4xl" />
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-extrabold text-xl">
+                          Book themes
+                        </div>
+                      </div>
+                    </div>
+                    <EditBookThemes
+                      book={this.state.selectedBook.data}
+                      systemBasicInfo={this.props.systemBasicInfo}
+                      onGoBack={() => {
+                        this.setState({
+                          selectedBook:
+                            this.state.selectedBook === null
+                              ? null
+                              : {
+                                  data: this.state.selectedBook.data,
+                                  action: "selection",
+                                },
+                        });
+                      }}
+                      onSubmitted={(book_id: string) => {
+                        if (this.state.selected_language !== null) {
+                          this.setState({ selectedBook: null, loading: true });
+                          this.GetBooksListByLanguage(
+                            this.state.selected_language.language_id,
+                            book_id
+                          );
+                        }
+                      }}
+                    />
+                  </div>
+                )}
+              </div>
+              <div>
+                {this.state.selectedBook.action === "remove" && (
+                  <div>
+                    <div className="flex flex-row items-center gap-4 bg-gray-100 rounded-md p-3">
+                      <div>
+                        <div className="font-extrabold text-xl text-green-700">
+                          {this.state.selectedBook.data.title}
+                        </div>
+                      </div>
+                    </div>
+                    <RemoveBook
+                      book={this.state.selectedBook.data}
+                      onGoBack={() => {
+                        this.setState({
+                          selectedBook:
+                            this.state.selectedBook === null
+                              ? null
+                              : {
+                                  data: this.state.selectedBook.data,
+                                  action: "selection",
+                                },
+                        });
+                      }}
+                      onSubmitted={(book_id: string) => {
+                        if (this.state.selected_language !== null) {
+                          this.setState({ selectedBook: null, loading: true });
+                          this.GetBooksListByLanguage(
+                            this.state.selected_language.language_id,
+                            null
                           );
                         }
                       }}

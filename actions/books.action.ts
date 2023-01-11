@@ -2,8 +2,8 @@ import axios from "axios";
 import { API_URL } from "../utils/api";
 import { setAxiosToken } from "../utils/AxiosToken";
 import { errorToText } from "../utils/functions";
+import { BookLevel } from "./system.action";
 
-export interface BookInterface {}
 export interface RegisterBookData {
   language_id: string;
   category_id: string;
@@ -20,6 +20,7 @@ export interface RegisterBookData {
   quantity: number;
   theme: string | null;
   level: string[];
+  best_sell: 1 | 0;
 }
 
 export interface UpdateBookData {
@@ -39,6 +40,7 @@ export interface UpdateBookData {
   quantity: number;
   theme: string | null;
   level: string[];
+  best_sell: 1 | 0;
 }
 
 export interface GetBookInterface {
@@ -56,10 +58,11 @@ export interface GetBookInterface {
   short_description: string;
   title: string;
   rating: number;
-  best_sell: boolean;
+  best_sell: 1 | 0;
   quantity: number;
   theme: string | null;
   level: string[];
+  bookTheme: any[]; //To be removed
 }
 
 export interface BookAuthorDetails {
@@ -100,7 +103,7 @@ export interface GetBookDetailsInterface {
   best_sell: boolean;
   quantity: number;
   theme: string | null;
-  book_level: string[];
+  book_level: BookLevel[];
 }
 
 export enum ImageFolder {
@@ -136,6 +139,13 @@ export const FC_RegisterBook = async (
   formData.append("availability", data.availability);
   formData.append("publication_date", data.publication_date);
   formData.append("price", data.price.toString());
+  formData.append("quantity", data.quantity.toString());
+  formData.append("level", JSON.stringify(data.level));
+  formData.append(
+    "theme",
+    data.theme === null ? "" : JSON.stringify(JSON.parse(data.theme))
+  );
+  formData.append("best_sell", data.best_sell.toString());
   callback(true, null);
   try {
     setAxiosToken();
@@ -528,5 +538,133 @@ export const FC_GetBooksByAvailability = async (
   } catch (error: any) {
     console.log("err: ", { ...error });
     callBack(false, { type: "error", msg: errorToText(error), data: [] });
+  }
+};
+
+export const FC_RemoveBookAuthor = async (
+  book_id: string,
+  author_id: string,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.delete(`${API_URL}/books/author/${book_id}/${author_id}`);
+    callback(false, {
+      type: "success",
+      msg: "Book author has deleted successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_RemoveBookLevel = async (
+  book_id: string,
+  level_id: string,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.delete(`${API_URL}/books/level/${book_id}/${level_id}`);
+    callback(false, {
+      type: "success",
+      msg: "Book level has deleted successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_RemoveBookTheme = async (
+  book_id: string,
+  theme_id: string,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.delete(`${API_URL}/books/theme/${book_id}/${theme_id}`);
+    callback(false, {
+      type: "success",
+      msg: "Book level has deleted successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+// Add book level
+export const FC_AddBookLevel = async (
+  book_id: string,
+  level_id: string,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.post(`${API_URL}/books/level`, {
+      book_id: book_id,
+      level_id: level_id,
+    });
+    callback(false, {
+      type: "success",
+      msg: "Book level has updated successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+// Add book theme
+export const FC_AddBookTheme = async (
+  book_id: string,
+  theme_id: string,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.post(`${API_URL}/books/theme`, {
+      book_id: book_id,
+      theme_id: theme_id,
+    });
+    callback(false, {
+      type: "success",
+      msg: "Book theme has updated successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
   }
 };

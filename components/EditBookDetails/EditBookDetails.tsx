@@ -1,16 +1,14 @@
 import Image from "next/image";
-import Link from "next/link";
 import React, { Component, Fragment } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { BsFillCheckCircleFill, BsImage } from "react-icons/bs";
-import { MdClose, MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown } from "react-icons/md";
 import { connect } from "react-redux";
 import {
   Auth,
   BookCategory,
   BookLanguage,
   BookPublishers,
-  GetBookAuthorsByIds,
   GetBookCategoryById,
   GetBookLanguageById,
   GetBookPublisherById,
@@ -18,7 +16,6 @@ import {
 } from "../../actions";
 import {
   BookAvailability,
-  FC_RegisterBook,
   FC_UpdateBookDetails,
   GetBookInterface,
   ImageFolder,
@@ -26,7 +23,6 @@ import {
 } from "../../actions/books.action";
 import { StoreState } from "../../reducers";
 import { API_URL } from "../../utils/api";
-import { DATE_DATA } from "../../utils/functions";
 import { Alert } from "../Alert/Alert";
 import Button from "../FormItems/Button";
 import Loading from "../Loading/Loading";
@@ -58,6 +54,7 @@ interface RegisterBookFormState {
   quantity: string;
   theme: string[];
   level: string[];
+  best_sell: 1 | 0;
   error: {
     target:
       | "language_id"
@@ -73,6 +70,7 @@ interface RegisterBookFormState {
       | "author_id"
       | "quantity"
       | "price"
+      | "best_sell"
       | "main";
     msg: string;
   } | null;
@@ -114,6 +112,7 @@ class _EditBookForm extends Component<
           ? []
           : JSON.parse(this.props.bookDetails.theme),
       level: this.props.bookDetails.level,
+      best_sell: this.props.bookDetails.best_sell,
       // ----------
       openSelectLanguage: false,
       openSelectCategory: false,
@@ -247,6 +246,7 @@ class _EditBookForm extends Component<
         ? 0
         : parseInt(this.state.quantity),
       theme: JSON.stringify(this.state.theme),
+      best_sell: this.state.best_sell,
     };
     this.setState({ loading_form: true });
     FC_UpdateBookDetails(
@@ -773,129 +773,58 @@ class _EditBookForm extends Component<
                         )}
                       </div>
                     </div>
+                    {/* ----------------------- */}
                     {/* ---------------------------------------------- */}
                     <div className="col-span-12 lg:col-span-12">
-                      <div className="flex flex-row items-center justify-between gap-3">
-                        <div className="font-bold flex flex-row items-center gap-2">
-                          <span>Book authors</span>{" "}
-                          <div className="bg-yellow-600 text-white px-2 rounded-md text-sm">
-                            {this.state.authors.length}
+                      <div className="flex flex-col">
+                        <span>Best seller? </span>
+                        <select
+                          disabled={this.state.loading_form}
+                          className={`${
+                            this.state.error?.target === "best_sell"
+                              ? "border border-red-600"
+                              : ""
+                          } bg-gray-100 rounded-md px-3 py-2 mt-1 w-full font-semibold`}
+                          value={this.state.best_sell}
+                          onChange={(e) =>
+                            this.setState({
+                              best_sell:
+                                e.target.value !== ""
+                                  ? (parseInt(e.target.value) as 1 | 0)
+                                  : 0,
+                              error: null,
+                            })
+                          }
+                        >
+                          <option value=""></option>
+                          <option value="0">No</option>
+                          <option value="1">Yes, It is best seller</option>
+                        </select>
+                        {this.state.error?.target === "best_sell" && (
+                          <div className="mt-2">
+                            <Alert
+                              title="Invalid input"
+                              description={this.state.error.msg}
+                              type={"danger"}
+                              onClose={() => this.setState({ error: null })}
+                            />
                           </div>
-                        </div>
-                        <div>
-                          {this.state.authors.length > 0 && (
-                            <div
-                              onClick={() => {
-                                this.state.loading_form === false &&
-                                  this.setState({
-                                    openSelectAuthors: true,
-                                    error: null,
-                                  });
-                              }}
-                              className="bg-gray-100 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
-                            >
-                              Add authors
-                            </div>
-                          )}
-                        </div>
+                        )}
                       </div>
-                      {this.state.authors.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-md px-4 py-6 mt-3">
-                          <div></div>
-                          <div className="text-xl font-semibold">
-                            No authors added
-                          </div>
-                          <div className="text-sm mb-3">
-                            Click the following button to add authors for this
-                            book
-                          </div>
-                          <div>
-                            <div
-                              onClick={() => {
-                                this.state.loading_form === false &&
-                                  this.setState({
-                                    openSelectAuthors: true,
-                                    error: null,
-                                  });
-                              }}
-                              className="px-3 py-2 rounded-md w-max cursor-pointer bg-green-700 text-white hover:bg-green-800"
-                            >
-                              Select authors
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="mt-3">
-                          {GetBookAuthorsByIds(
-                            this.state.authors,
-                            this.props.systemBasicInfo.basic_info
-                          ) !== null &&
-                            GetBookAuthorsByIds(
-                              this.state.authors,
-                              this.props.systemBasicInfo.basic_info
-                            ).map((item, i) => (
-                              <div
-                                key={i + 1}
-                                className={`flex flex-row items-center justify-between gap-3 pr-4 p-1 rounded-md ${
-                                  this.authorDetails(item.author_id) === true
-                                    ? "bg-gray-100 font-extrabold"
-                                    : "bg-gray-100 hover:bg-green-700 hover:text-white"
-                                } group`}
-                              >
-                                <div className="flex flex-row items-center gap-3">
-                                  <div>
-                                    <div className="h-16 w-16 bg-white rounded overflow-hidden">
-                                      <Image
-                                        src={`${API_URL}/${ImageFolder.cover}/${item.author_pic}`}
-                                        alt=""
-                                        width={100}
-                                        height={100}
-                                        className={"object-cover"}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <div className="text-lg font-semibold">
-                                      {item.author_name}
-                                    </div>
-                                    <div className="flex flex-row items-center gap-3 text-sm font-normal">
-                                      <div>
-                                        Contact: <span>{item.phone},</span>
-                                      </div>
-                                      <div>
-                                        Email: <span>{item.email}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div
-                                    onClick={() => {
-                                      if (
-                                        window.confirm(
-                                          `Are you sure do you want to remove ${item.author_name}?`
-                                        ) === true &&
-                                        this.state.loading_form === false
-                                      ) {
-                                        this.selectAuthor(item.author_id);
-                                      }
-                                    }}
-                                    className="flex flex-row items-center justify-center gap-2 rounded-full bg-white h-10 w-10 text-red-700 font-bold text-sm cursor-pointer hover:bg-red-700 hover:text-white"
-                                  >
-                                    <div>
-                                      <MdClose className="text-3xl" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                        </div>
-                      )}
                     </div>
+                    {this.state.error?.target === "main" && (
+                      <div className="col-span-12 my-3">
+                        <Alert
+                          title={this.state.error.msg}
+                          type="danger"
+                          onClose={() => this.setState({ error: null })}
+                        />
+                      </div>
+                    )}
                     <div className="col-span-12 lg:col-span-12 flex flex-row items-center justify-end">
                       {this.state.authors.length > 0 &&
                         this.state.loading_form === false && (
-                          <div className="font-bold flex flex-row items-center justify-end gap-3">
+                          <div className="font-bold flex flex-row items-center justify-end gap-3 mt-4">
                             <Button
                               title="Back to details"
                               theme="primary"
@@ -940,7 +869,7 @@ class _EditBookForm extends Component<
                   ></div>
                 ) : (
                   <div
-                    className="animate__animated animate__zoomIn rounded-md mt-4 overflow-hidden"
+                    className="animate__animated animate__zoomIn rounded-md mt-4 overflow-hidden bg-gray-100"
                     style={{ minHeight: "300px" }}
                   >
                     <Image

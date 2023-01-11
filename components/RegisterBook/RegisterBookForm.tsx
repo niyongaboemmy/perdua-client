@@ -34,7 +34,7 @@ import Modal, { ModalSize, Themes } from "../Modal/Modal";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import SelectAuthors from "./SelectAuthors";
 import SelectLevels from "./SelectLevels";
-import SelectThemes, { ThemesTemp } from "./SelectThemes";
+import SelectThemes from "./SelectThemes";
 
 interface RegisterBookFormProps {
   auth: Auth;
@@ -57,6 +57,7 @@ interface RegisterBookFormState {
   quantity: string;
   theme: string[];
   level: string[];
+  best_sell: 1 | 0;
   error: {
     target:
       | "language_id"
@@ -69,6 +70,7 @@ interface RegisterBookFormState {
       | "book_cover"
       | "availability"
       | "publication_date"
+      | "best_sell"
       | "author_id"
       | "price"
       | "quantity"
@@ -111,6 +113,7 @@ class _RegisterBookForm extends Component<
       quantity: "",
       theme: [],
       level: [],
+      best_sell: 0,
       // ----------
       openSelectLanguage: false,
       openSelectCategory: false,
@@ -245,6 +248,7 @@ class _RegisterBookForm extends Component<
         : parseInt(this.state.quantity),
       theme: JSON.stringify(this.state.theme),
       level: this.state.level,
+      best_sell: this.state.best_sell,
     };
     this.setState({ loading_form: true });
     FC_RegisterBook(
@@ -772,7 +776,7 @@ class _RegisterBookForm extends Component<
                             this.state.error?.target === "availability"
                               ? "border border-red-600"
                               : ""
-                          } bg-gray-100 rounded-md px-3 py-3 w-full font-semibold`}
+                          } bg-gray-100 rounded-md px-3 py-2 w-full font-semibold`}
                           value={
                             this.state.availability === null
                               ? ""
@@ -838,7 +842,7 @@ class _RegisterBookForm extends Component<
                       </div>
                     </div>
                     {/* ---------------------------------------------- */}
-                    <div className="col-span-12 lg:col-span-12">
+                    <div className="col-span-12 lg:col-span-6">
                       <div className="flex flex-col">
                         <span>Book cover page photo</span>
                         <input
@@ -861,6 +865,44 @@ class _RegisterBookForm extends Component<
                           }
                         />
                         {this.state.error?.target === "book_cover" && (
+                          <div className="mt-2">
+                            <Alert
+                              title="Invalid input"
+                              description={this.state.error.msg}
+                              type={"danger"}
+                              onClose={() => this.setState({ error: null })}
+                            />
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    {/* ---------------------------------------------- */}
+                    <div className="col-span-12 lg:col-span-6">
+                      <div className="flex flex-col">
+                        <span>Best seller? </span>
+                        <select
+                          disabled={this.state.loading_form}
+                          className={`${
+                            this.state.error?.target === "best_sell"
+                              ? "border border-red-600"
+                              : ""
+                          } bg-gray-100 rounded-md px-3 py-2 mt-1 w-full font-semibold`}
+                          value={this.state.best_sell}
+                          onChange={(e) =>
+                            this.setState({
+                              best_sell:
+                                e.target.value !== ""
+                                  ? (parseInt(e.target.value) as 1 | 0)
+                                  : 0,
+                              error: null,
+                            })
+                          }
+                        >
+                          <option value=""></option>
+                          <option value="0">No</option>
+                          <option value="1">Yes, It is best seller</option>
+                        </select>
+                        {this.state.error?.target === "best_sell" && (
                           <div className="mt-2">
                             <Alert
                               title="Invalid input"
@@ -925,11 +967,13 @@ class _RegisterBookForm extends Component<
                         </div>
                       ) : (
                         <div className="mt-3">
-                          {GetBookThemesByIds(this.state.theme, ThemesTemp) !==
-                            null &&
+                          {GetBookThemesByIds(
+                            this.state.theme,
+                            this.props.systemBasicInfo.basic_info.theme
+                          ) !== null &&
                             GetBookThemesByIds(
                               this.state.theme,
-                              ThemesTemp
+                              this.props.systemBasicInfo.basic_info.theme
                             ).map((item, i) => (
                               <div
                                 key={i + 1}
@@ -1199,6 +1243,15 @@ class _RegisterBookForm extends Component<
                         </div>
                       )}
                     </div>
+                    {this.state.error?.target === "main" && (
+                      <div className="col-span-12 my-3">
+                        <Alert
+                          title={this.state.error.msg}
+                          type="danger"
+                          onClose={() => this.setState({ error: null })}
+                        />
+                      </div>
+                    )}
                     <div className="col-span-12 lg:col-span-12 flex flex-row items-center justify-end">
                       {this.state.authors.length > 0 &&
                         this.state.loading_form === false && (
