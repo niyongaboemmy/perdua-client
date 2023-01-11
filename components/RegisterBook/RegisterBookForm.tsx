@@ -13,7 +13,9 @@ import {
   GetBookAuthorsByIds,
   GetBookCategoryById,
   GetBookLanguageById,
+  GetBookLevelsByIds,
   GetBookPublisherById,
+  GetBookThemesByIds,
   SystemBasicInfoData,
 } from "../../actions";
 import {
@@ -31,6 +33,8 @@ import Loading from "../Loading/Loading";
 import Modal, { ModalSize, Themes } from "../Modal/Modal";
 import SelectCustom from "../SelectCustom/SelectCustom";
 import SelectAuthors from "./SelectAuthors";
+import SelectLevels from "./SelectLevels";
+import SelectThemes, { ThemesTemp } from "./SelectThemes";
 
 interface RegisterBookFormProps {
   auth: Auth;
@@ -77,6 +81,8 @@ interface RegisterBookFormState {
   openSelectCategory: boolean;
   openSelectPublisher: boolean;
   openSelectAuthors: boolean;
+  openSelectLevels: boolean;
+  openSelectThemes: boolean;
 }
 
 class _RegisterBookForm extends Component<
@@ -110,6 +116,8 @@ class _RegisterBookForm extends Component<
       openSelectCategory: false,
       openSelectPublisher: false,
       openSelectAuthors: false,
+      openSelectLevels: false,
+      openSelectThemes: false,
     };
   }
   FC_SubmitBook = (e: React.FormEvent<HTMLFormElement>) => {
@@ -281,6 +289,50 @@ class _RegisterBookForm extends Component<
       });
     } else {
       this.setState({ authors: [...temp_data, author_id] });
+    }
+  };
+  // Levels
+  levelDetails = (level_id: string): boolean => {
+    if (this.state.level !== null) {
+      const level = this.state.level.find(
+        (itm) => itm.toString() === level_id.toString()
+      );
+      if (level !== undefined) {
+        return true;
+      }
+    }
+    return false;
+  };
+  selectLevel = (level_id: string) => {
+    var temp_data = this.state.level;
+    if (this.state.level.find((itm) => itm === level_id) !== undefined) {
+      this.setState({
+        level: temp_data.filter((itm) => itm !== level_id),
+      });
+    } else {
+      this.setState({ level: [...temp_data, level_id] });
+    }
+  };
+  // Themes
+  themeDetails = (theme_id: string): boolean => {
+    if (this.state.theme !== null) {
+      const theme = this.state.theme.find(
+        (itm) => itm.toString() === theme_id.toString()
+      );
+      if (theme !== undefined) {
+        return true;
+      }
+    }
+    return false;
+  };
+  selectTheme = (theme_id: string) => {
+    var temp_data = this.state.theme;
+    if (this.state.theme.find((itm) => itm === theme_id) !== undefined) {
+      this.setState({
+        theme: temp_data.filter((itm) => itm !== theme_id),
+      });
+    } else {
+      this.setState({ theme: [...temp_data, theme_id] });
     }
   };
   // Reset form
@@ -786,7 +838,7 @@ class _RegisterBookForm extends Component<
                       </div>
                     </div>
                     {/* ---------------------------------------------- */}
-                    <div className="col-span-12 lg:col-span-6">
+                    <div className="col-span-12 lg:col-span-12">
                       <div className="flex flex-col">
                         <span>Book cover page photo</span>
                         <input
@@ -820,6 +872,215 @@ class _RegisterBookForm extends Component<
                         )}
                       </div>
                     </div>
+                    {/* Book themes section */}
+                    <div className="col-span-12 lg:col-span-12">
+                      <div className="flex flex-row items-center justify-between gap-3">
+                        <div className="font-bold flex flex-row items-center gap-2">
+                          <span>Book themes</span>{" "}
+                          <div className="bg-yellow-600 text-white px-2 rounded-md text-sm">
+                            {this.state.theme.length}
+                          </div>
+                        </div>
+                        <div>
+                          {this.state.theme.length > 0 && (
+                            <div
+                              onClick={() => {
+                                this.state.loading_form === false &&
+                                  this.setState({
+                                    openSelectThemes: true,
+                                    error: null,
+                                  });
+                              }}
+                              className="bg-white text-green-600 border border-green-600 hover:border-green-700 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
+                            >
+                              Add book themes
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {this.state.theme.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-md px-4 py-6 mt-3">
+                          <div></div>
+                          <div className="text-xl font-semibold">
+                            No book themes added
+                          </div>
+                          <div className="text-sm mb-3">
+                            Click the following button to add book themes for
+                            this book
+                          </div>
+                          <div>
+                            <div
+                              onClick={() => {
+                                this.state.loading_form === false &&
+                                  this.setState({
+                                    openSelectThemes: true,
+                                    error: null,
+                                  });
+                              }}
+                              className="px-3 py-2 rounded-md w-max cursor-pointer bg-green-700 text-white hover:bg-green-800"
+                            >
+                              Select book themes
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="mt-3">
+                          {GetBookThemesByIds(this.state.theme, ThemesTemp) !==
+                            null &&
+                            GetBookThemesByIds(
+                              this.state.theme,
+                              ThemesTemp
+                            ).map((item, i) => (
+                              <div
+                                key={i + 1}
+                                className={`flex flex-row items-center justify-between gap-3 p-1 rounded-md mb-2 ${
+                                  this.themeDetails(item.theme_id) === true
+                                    ? "bg-gray-100"
+                                    : "bg-gray-100 hover:bg-green-700 hover:text-white"
+                                } group`}
+                              >
+                                <div className="flex flex-row items-center gap-3">
+                                  <div>
+                                    <div className="h-10 w-10 bg-white group-hover:bg-green-600 group-hover:text-white rounded-full flex items-center justify-center font-bold overflow-hidden">
+                                      {i + 1}
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <div className="text-base">
+                                      {item.theme}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div
+                                    onClick={() => {
+                                      if (
+                                        window.confirm(
+                                          `Are you sure do you want to remove ${item.theme}?`
+                                        ) === true &&
+                                        this.state.loading_form === false
+                                      ) {
+                                        this.selectTheme(item.theme_id);
+                                      }
+                                    }}
+                                    className="flex flex-row items-center justify-center gap-2 rounded-full bg-white h-10 w-10 text-red-700 font-bold text-sm cursor-pointer hover:bg-red-700 hover:text-white"
+                                  >
+                                    <div>
+                                      <MdClose className="text-3xl" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+                    {/* Book levels page */}
+                    <div className="col-span-12 lg:col-span-12">
+                      <div className="flex flex-row items-center justify-between gap-3">
+                        <div className="font-bold flex flex-row items-center gap-2">
+                          <span>Book levels</span>{" "}
+                          <div className="bg-yellow-600 text-white px-2 rounded-md text-sm">
+                            {this.state.level.length}
+                          </div>
+                        </div>
+                        <div>
+                          {this.state.level.length > 0 && (
+                            <div
+                              onClick={() => {
+                                this.state.loading_form === false &&
+                                  this.setState({
+                                    openSelectLevels: true,
+                                    error: null,
+                                  });
+                              }}
+                              className="bg-white text-green-600 border border-green-600 hover:border-green-700 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
+                            >
+                              Add book level
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      {this.state.level.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-md px-4 py-6 mt-3">
+                          <div></div>
+                          <div className="text-xl font-semibold">
+                            No book levels added
+                          </div>
+                          <div className="text-sm mb-3">
+                            Click the following button to add book levels for
+                            this book
+                          </div>
+                          <div>
+                            <div
+                              onClick={() => {
+                                this.state.loading_form === false &&
+                                  this.setState({
+                                    openSelectLevels: true,
+                                    error: null,
+                                  });
+                              }}
+                              className="px-3 py-2 rounded-md w-max cursor-pointer bg-green-700 text-white hover:bg-green-800"
+                            >
+                              Select book level
+                            </div>
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="mt-3">
+                          {GetBookLevelsByIds(
+                            this.state.level,
+                            this.props.systemBasicInfo.basic_info
+                          ) !== null &&
+                            GetBookLevelsByIds(
+                              this.state.level,
+                              this.props.systemBasicInfo.basic_info
+                            ).map((item, i) => (
+                              <div
+                                key={i + 1}
+                                className={`flex flex-row items-center justify-between gap-3 p-1 rounded-md mb-2 ${
+                                  this.levelDetails(item.level_id) === true
+                                    ? "bg-gray-100"
+                                    : "bg-gray-100 hover:bg-green-700 hover:text-white"
+                                } group`}
+                              >
+                                <div className="flex flex-row items-center gap-3">
+                                  <div>
+                                    <div className="h-10 w-10 bg-white group-hover:bg-green-600 group-hover:text-white rounded-full flex items-center justify-center font-bold overflow-hidden">
+                                      {i + 1}
+                                    </div>
+                                  </div>
+                                  <div className="flex flex-col">
+                                    <div className="text-base">
+                                      {item.level}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div>
+                                  <div
+                                    onClick={() => {
+                                      if (
+                                        window.confirm(
+                                          `Are you sure do you want to remove ${item.level}?`
+                                        ) === true &&
+                                        this.state.loading_form === false
+                                      ) {
+                                        this.selectLevel(item.level_id);
+                                      }
+                                    }}
+                                    className="flex flex-row items-center justify-center gap-2 rounded-full bg-white h-10 w-10 text-red-700 font-bold text-sm cursor-pointer hover:bg-red-700 hover:text-white"
+                                  >
+                                    <div>
+                                      <MdClose className="text-3xl" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            ))}
+                        </div>
+                      )}
+                    </div>
+                    {/* Book authors section */}
                     <div className="col-span-12 lg:col-span-12">
                       <div className="flex flex-row items-center justify-between gap-3">
                         <div className="font-bold flex flex-row items-center gap-2">
@@ -838,7 +1099,7 @@ class _RegisterBookForm extends Component<
                                     error: null,
                                   });
                               }}
-                              className="bg-gray-100 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
+                              className="bg-white text-green-600 border border-green-600 hover:border-green-700 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
                             >
                               Add authors
                             </div>
@@ -886,13 +1147,13 @@ class _RegisterBookForm extends Component<
                                   this.authorDetails(item.author_id) === true
                                     ? "bg-gray-100 font-extrabold"
                                     : "bg-gray-100 hover:bg-green-700 hover:text-white"
-                                } group`}
+                                } mb-2 group`}
                               >
                                 <div className="flex flex-row items-center gap-3">
                                   <div>
                                     <div className="h-16 w-16 bg-white rounded overflow-hidden">
                                       <Image
-                                        src={`${API_URL}/${ImageFolder.cover}/${item.author_pic}`}
+                                        src={`${API_URL}/${ImageFolder.author}/${item.author_pic}`}
                                         alt=""
                                         width={100}
                                         height={100}
@@ -1019,6 +1280,61 @@ class _RegisterBookForm extends Component<
             </div>
           </Modal>
         )}
+        {/* Book levels selection */}
+        {this.state.openSelectLevels === true && (
+          <Modal
+            backDrop={true}
+            theme={Themes.default}
+            close={() =>
+              this.setState({ openSelectLevels: false, error: null })
+            }
+            backDropClose={true}
+            widthSizeClass={ModalSize.large}
+            displayClose={true}
+            padding={{
+              title: true,
+              body: true,
+              footer: undefined,
+            }}
+            title={"Book levels"}
+          >
+            <div>
+              <SelectLevels
+                levelDetails={this.levelDetails}
+                systemBasicInfo={this.props.systemBasicInfo}
+                onSelectLevel={this.selectLevel}
+              />
+            </div>
+          </Modal>
+        )}
+        {/* Book themes selection */}
+        {this.state.openSelectThemes === true && (
+          <Modal
+            backDrop={true}
+            theme={Themes.default}
+            close={() =>
+              this.setState({ openSelectThemes: false, error: null })
+            }
+            backDropClose={true}
+            widthSizeClass={ModalSize.large}
+            displayClose={true}
+            padding={{
+              title: true,
+              body: true,
+              footer: undefined,
+            }}
+            title={"Book themes"}
+          >
+            <div>
+              <SelectThemes
+                themeDetails={this.themeDetails}
+                systemBasicInfo={this.props.systemBasicInfo}
+                onSelectTheme={this.selectTheme}
+              />
+            </div>
+          </Modal>
+        )}
+        {/* Alert */}
         {this.state.success !== "" && (
           <Modal
             backDrop={true}

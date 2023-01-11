@@ -1,13 +1,11 @@
 import Link from "next/link";
 import React, { Component } from "react";
-import { BsCheckCircleFill } from "react-icons/bs";
 import { PageDetails } from "../../components/PageDetails/PageDetails";
 import { BiTask } from "react-icons/bi";
 import { FiTarget } from "react-icons/fi";
 import {
   MdOutlinePersonPin,
   MdPublic,
-  MdPublishedWithChanges,
   MdSettingsSuggest,
   MdShoppingCart,
 } from "react-icons/md";

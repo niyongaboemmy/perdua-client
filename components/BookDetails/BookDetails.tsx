@@ -22,7 +22,7 @@ import {
 } from "../../actions/books.action";
 import Loading from "../Loading/Loading";
 import { API_URL } from "../../utils/api";
-import { MdLanguage } from "react-icons/md";
+import { MdAdminPanelSettings, MdLanguage } from "react-icons/md";
 import { RiBook3Line } from "react-icons/ri";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { LoadingBooks } from "../HomepageComponents/NewBooks";
@@ -328,76 +328,116 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       </div>
                     </div>
                   </div>
-                </div>
-                {this.props.type !== "preview" && (
-                  <>
-                    <div className="border-b py-5"></div>
-                    {this.state.book_review === false ? (
-                      <div>
-                        <div className="flex flex-row items-center gap-2 w-full mt-3">
-                          <div className="font-bold">Book Reviews</div>
-                          <div>
-                            <div className="flex flex-row items-center gap-0">
-                              {[1, 2, 3, 4, 5].map((rating, r) => (
-                                <div key={r + 1}>
-                                  {this.state.book_details !== null &&
-                                  this.state.book_details.rating !== 0 &&
-                                  this.state.book_details.rating !== 5 ? (
-                                    <AiFillStar
-                                      className={`text-lg text-${
-                                        rating <= this.state.book_details.rating
-                                          ? "yellow-400"
-                                          : "gray-300"
-                                      }`}
-                                    />
-                                  ) : (
-                                    <BsStarHalf
-                                      className={`text-lg text-yellow-400`}
-                                    />
-                                  )}
+                  <div className="col-span-12 lg:col-span-12 flex flex-row gap-2 w-full">
+                    {/* <div>
+                      <div className="bg-gray-100 rounded-md h-12 w-12 flex items-center justify-center">
+                        <AiOutlineShoppingCart className="text-4xl text-gray-400" />
+                      </div>
+                    </div> */}
+                    <div className="flex flex-col w-full">
+                      <span className="text-lg font-bold ">Book author</span>
+                      <div className="">
+                        {this.state.book_details.book_authors.map(
+                          (author, a) => (
+                            <div
+                              key={a + 1}
+                              className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group"
+                            >
+                              <div>
+                                <div className="h-20 w-20 rounded-full overflow-hidden bg-gray-100">
+                                  <Image
+                                    src={`${API_URL}/${ImageFolder.author}/${author.author_pic}`}
+                                    alt=""
+                                    height={60}
+                                    width={60}
+                                    className={
+                                      "w-auto h-auto min-h-full min-w-full object-cover"
+                                    }
+                                  />
                                 </div>
-                              ))}
+                              </div>
+                              <div>
+                                <div className="font-bold text-lg group-hover:text-green-600">
+                                  {author.author_name}
+                                </div>
+                                <div className="text-sm">
+                                  Contact: {author.phone}
+                                </div>
+                                <div className="text-sm">
+                                  Email: {author.email}
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                        <div className="flex flex-row items-center gap-2 mt-3">
-                          {/* <Link
-                        href={"/contact"}
-                        className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
-                      >
-                        Contact Us
-                      </Link> */}
-                          <div
-                            className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
-                            onClick={() => this.props.openContactUs(true)}
-                          >
-                            Contact Us
-                          </div>
-                          <div
-                            onClick={() => this.setState({ book_review: true })}
-                            className="bg-white rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-300 hover:border-green-700"
-                          >
-                            Submit review
-                          </div>
-                        </div>
+                          )
+                        )}
                       </div>
-                    ) : (
-                      <div className="mt-4">
-                        <BookReview
-                          book_details={this.state.book_details}
-                          onClose={() => this.setState({ book_review: false })}
-                        />
-                      </div>
-                    )}
-                  </>
-                )}
+                    </div>
+                  </div>
+                </div>
               </div>
             )}
-            {/* <div className="col-span-2 px-3">
-              <div className="bg-white h-full">
-                <Image src={ADS_IMAGE} alt="" />
-              </div>
-            </div> */}
+          </div>
+          <div className="p-4 mt-4 rounded-lg bg-white">
+            <div className="text-lg font-bold">Book short description</div>
+            <div>{this.state.book_details?.short_description}</div>
+          </div>
+          <div>
+            {this.props.type !== "preview" &&
+              this.state.book_details !== null && (
+                <>
+                  {this.state.book_review === false ? (
+                    <div className="bg-white rounded-lg p-3 mt-4">
+                      <div className="flex flex-row items-center gap-2 w-full">
+                        <div className="font-bold text-lg">Book Reviews</div>
+                        <div>
+                          <div className="flex flex-row items-center gap-0">
+                            {[1, 2, 3, 4, 5].map((rating, r) => (
+                              <div key={r + 1}>
+                                {this.state.book_details !== null &&
+                                this.state.book_details.rating !== 0 &&
+                                this.state.book_details.rating !== 5 ? (
+                                  <AiFillStar
+                                    className={`text-lg text-${
+                                      rating <= this.state.book_details.rating
+                                        ? "yellow-400"
+                                        : "gray-300"
+                                    }`}
+                                  />
+                                ) : (
+                                  <BsStarHalf
+                                    className={`text-lg text-yellow-400`}
+                                  />
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex flex-row items-center gap-2 mt-3">
+                        <div
+                          className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
+                          onClick={() => this.props.openContactUs(true)}
+                        >
+                          Contact Us
+                        </div>
+                        <div
+                          onClick={() => this.setState({ book_review: true })}
+                          className="bg-white rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-300 hover:border-green-700"
+                        >
+                          Submit review
+                        </div>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="mt-4 bg-white rounded-lg p-4">
+                      <BookReview
+                        book_details={this.state.book_details}
+                        onClose={() => this.setState({ book_review: false })}
+                      />
+                    </div>
+                  )}
+                </>
+              )}
           </div>
           {/* Related products */}
           {this.props.type !== "preview" && (

@@ -43,7 +43,7 @@ export class Footer extends Component<FooterProps, FooterState> {
                   <Link href="/contact" className="mb-2">
                     Contact Us
                   </Link>
-                  <Link href="/contact" className="mb-2">
+                  <Link href="/authors" className="mb-2">
                     Meet Our Authors
                   </Link>
                 </div>

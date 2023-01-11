@@ -34,6 +34,11 @@ export interface BookLevel {
   level: string;
 }
 
+export interface BookTheme {
+  theme_id: string;
+  theme: string;
+}
+
 export interface SystemBasicInfo {
   categories: BookCategory[];
   languages: BookLanguage[];
@@ -133,6 +138,42 @@ export const GetBookAuthorsByIds = (
       );
       if (author !== undefined) {
         response.push(author);
+      }
+    }
+  }
+  return response;
+};
+
+export const GetBookLevelsByIds = (
+  level_ids: string[],
+  systemBasicInfo: SystemBasicInfo
+): BookLevel[] => {
+  const response: BookLevel[] = [];
+  if (systemBasicInfo.level.length > 0) {
+    for (const item of level_ids) {
+      const level = systemBasicInfo.level.find(
+        (itm) => itm.level_id.toString() === item.toString()
+      );
+      if (level !== undefined) {
+        response.push(level);
+      }
+    }
+  }
+  return response;
+};
+
+export const GetBookThemesByIds = (
+  theme_ids: string[],
+  themes: BookTheme[]
+): BookTheme[] => {
+  const response: BookTheme[] = [];
+  if (themes.length > 0) {
+    for (const item of theme_ids) {
+      const level = themes.find(
+        (itm) => itm.theme_id.toString() === item.toString()
+      );
+      if (level !== undefined) {
+        response.push(level);
       }
     }
   }
