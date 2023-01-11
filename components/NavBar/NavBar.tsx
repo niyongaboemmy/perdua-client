@@ -24,7 +24,7 @@ const NavigationComponent = (props: {
 }) => {
   return (
     <ActiveLink
-      activeClassName="bg-gray-100 font-semibold text-gray-700 animate__animated animate__bounceIn"
+      activeClassName="bg-green-50 font-semibold text-green-700 animate__animated animate__bounceIn"
       className={`bg-white px-6 py-3 hover:bg-primary-800 hover:text-white rounded-full ${
         props.className !== undefined ? props.className : ""
       }`}
@@ -67,10 +67,13 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
             </div>
             {/* Right nav */}
             {this.props.auth.isAuthenticated === false ? (
-              <div className="hidden md:flex flex-row items-center justify-end gap-3">
+              <div className="hidden md:flex flex-row items-center justify-end gap-1">
                 <NavigationComponent path="/">Home</NavigationComponent>
                 <NavigationComponent path="/about">
                   About Us
+                </NavigationComponent>
+                <NavigationComponent path="/authors">
+                  Authors
                 </NavigationComponent>
                 <NavigationComponent
                   path="/store"

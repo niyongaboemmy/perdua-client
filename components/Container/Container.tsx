@@ -12,8 +12,10 @@ const Container = (props: {
       }`}
     >
       <div
-        className={`container md:mx-auto px-3 md:px-4 xl:px-${
-          props.lgPadding !== undefined ? props.lgPadding : "32"
+        className={`container md:mx-auto px-3 ${
+          props.lgPadding !== undefined
+            ? `md:px-2 xl:px-${props.lgPadding}`
+            : "md:px-6 xl:px-32"
         }`}
       >
         {props.children}

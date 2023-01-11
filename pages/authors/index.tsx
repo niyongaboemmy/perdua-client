@@ -111,7 +111,14 @@ const MyComponent = (props: AppProps): JSX.Element => {
 
   return (
     <Fragment>
-      <PageDetails title="Authors" description="Perdua Publishers authors">
+      <PageDetails
+        title={`${
+          selectedAuthor !== null
+            ? `${selectedAuthor.author_name} books`
+            : "Authors"
+        }`}
+        description="Perdua Publishers authors"
+      >
         <div className="p-3 md:p-8">
           {props.systemBasicInfo.basic_info === null ? (
             <Loading className="bg-white" />
