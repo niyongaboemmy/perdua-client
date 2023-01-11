@@ -1,4 +1,6 @@
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useState } from "react";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { connect } from "react-redux";
@@ -7,7 +9,14 @@ import {
   FC_GetBasicSystemInfo,
   SystemBasicInfoData,
 } from "../../actions";
-import { ImageFolder } from "../../actions/books.action";
+import {
+  FC_GetBooksByAuthor,
+  GetBookInterface,
+  ImageFolder,
+} from "../../actions/books.action";
+import { BookItem } from "../../components/BookItem/BookItem";
+import Container from "../../components/Container/Container";
+import { LoadingBooks } from "../../components/HomepageComponents/NewBooks";
 import Loading from "../../components/Loading/Loading";
 import Modal, {
   ModalMarginTop,
@@ -17,6 +26,7 @@ import Modal, {
 import { PageDetails } from "../../components/PageDetails/PageDetails";
 import { StoreState } from "../../reducers";
 import { API_URL } from "../../utils/api";
+import { search } from "../../utils/functions";
 
 interface AppProps {
   systemBasicInfo: SystemBasicInfoData;
@@ -30,6 +40,56 @@ interface AppProps {
 
 const MyComponent = (props: AppProps): JSX.Element => {
   const [selectedAuthor, setSelectedAuthor] = useState<BookAuthor | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [books, setBooks] = useState<GetBookInterface[] | null>(null);
+  const [error, setError] = useState<string>("");
+  const [searchBooks, setSearchBooks] = useState<string>("");
+
+  const router = useRouter();
+  const { author_id } = router.query;
+
+  const GetBooksListByLanguage = (author_id: string) => {
+    setLoading(true);
+    FC_GetBooksByAuthor(
+      author_id,
+      (
+        loading: boolean,
+        res: {
+          type: "success" | "error";
+          msg: string;
+          data: GetBookInterface[];
+        } | null
+      ) => {
+        setLoading(loading);
+        if (res !== null && res.type === "error") {
+          setLoading(false);
+          setBooks([]);
+          setError(res.msg);
+        }
+        if (res !== null && res.type === "success") {
+          setLoading(false);
+          setBooks(res.data);
+          setError("");
+        }
+      }
+    );
+  };
+
+  const getSelectedAuthor = (author_id: string): BookAuthor | null => {
+    if (
+      author_id !== undefined &&
+      author_id !== null &&
+      author_id !== "" &&
+      props.systemBasicInfo.basic_info !== null
+    ) {
+      const selectedAuthorTemp = props.systemBasicInfo.basic_info.authors.find(
+        (itm) => itm.author_id.toString() === author_id
+      );
+      return selectedAuthorTemp === undefined ? null : selectedAuthorTemp;
+    }
+    return null;
+  };
+
   useEffect(() => {
     if (props.systemBasicInfo.basic_info === null) {
       props.FC_GetBasicSystemInfo(
@@ -41,6 +101,11 @@ const MyComponent = (props: AppProps): JSX.Element => {
           } | null
         ) => {}
       );
+    } else {
+      if (author_id !== undefined && author_id !== null && author_id !== "") {
+        setSelectedAuthor(getSelectedAuthor(author_id as string));
+        GetBooksListByLanguage(author_id as string);
+      }
     }
   }, [props]);
 
@@ -61,7 +126,10 @@ const MyComponent = (props: AppProps): JSX.Element => {
                     className="col-span-12 md:col-span-6 lg:col-span-3"
                   >
                     <div
-                      onClick={() => setSelectedAuthor(item)}
+                      onClick={() => {
+                        setSelectedAuthor(item);
+                        GetBooksListByLanguage(item.author_id);
+                      }}
                       className="flex flex-col items-center justify-center w-full h-full rounded-xl bg-gray-50 hover:bg-green-50 cursor-pointer hover:text-green-700 group"
                     >
                       <div className="w-full h-full overflow-hidden rounded-t-xl bg-gray-100">
@@ -102,7 +170,17 @@ const MyComponent = (props: AppProps): JSX.Element => {
         <Modal
           backDrop={true}
           theme={Themes.default}
-          close={() => setSelectedAuthor(null)}
+          close={() => {
+            setSelectedAuthor(null);
+            setBooks(null);
+            if (
+              author_id !== undefined &&
+              author_id !== null &&
+              author_id !== ""
+            ) {
+              router.push("/authors");
+            }
+          }}
           backDropClose={true}
           widthSizeClass={ModalSize.maxWidth}
           displayClose={true}
@@ -115,7 +193,17 @@ const MyComponent = (props: AppProps): JSX.Element => {
             <div className="flex flex-row items-center gap-3">
               <div>
                 <div
-                  onClick={() => setSelectedAuthor(null)}
+                  onClick={() => {
+                    setSelectedAuthor(null);
+                    setBooks(null);
+                    if (
+                      author_id !== undefined &&
+                      author_id !== null &&
+                      author_id !== ""
+                    ) {
+                      router.push("/authors");
+                    }
+                  }}
                   className="h-10 w-10 rounded-full flex items-center justify-center text-gray-500 cursor-pointer bg-gray-100 hover:text-white hover:bg-green-600"
                 >
                   <HiOutlineArrowSmLeft className="text-5xl" />
@@ -128,9 +216,60 @@ const MyComponent = (props: AppProps): JSX.Element => {
           }
           marginTop={ModalMarginTop.small}
         >
-          <div className="text-5xl text-gray-400 font-bold border-t -mt-3 p-6">
-            Coming soon ...
-          </div>
+          <Container>
+            <div>
+              {loading === true || books === null ? (
+                <div className="bg-white rounded-md">
+                  <LoadingBooks cols={2} />
+                  <Loading />
+                </div>
+              ) : (
+                <div>
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      placeholder="Search book by name..."
+                      className="bg-gray-100 rounded-md px-5 py-3 w-full"
+                      value={searchBooks}
+                      onChange={(e) => setSearchBooks(e.target.value)}
+                    />
+                  </div>
+                  <div className="grid grid-cols-12 w-full gap-6">
+                    {books.length === 0 ? (
+                      <div className="col-span-12 text-lg">
+                        No books found for{" "}
+                        <span className="font-bold">
+                          {selectedAuthor.author_name}
+                        </span>
+                      </div>
+                    ) : (search(books, searchBooks) as GetBookInterface[])
+                        .length === 0 ? (
+                      <div className="col-span-12 text-lg">
+                        No search result found for{" "}
+                        <span className="font-bold">{searchBooks}</span>
+                      </div>
+                    ) : (
+                      (search(books, searchBooks) as GetBookInterface[]).map(
+                        (item, i) => (
+                          <Link
+                            href={`/book_details?book=${item.book_id}&product_title=${item.title}&product_image=${item.book_cover}`}
+                            key={i + 1}
+                            className="col-span-6 md:col-span-3 lg:col-span-2 group cursor-pointer bg-gray-100"
+                          >
+                            <BookItem
+                              item={item}
+                              onClick={() => {}}
+                              hide_price={true}
+                            />
+                          </Link>
+                        )
+                      )
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+          </Container>
         </Modal>
       )}
     </Fragment>

@@ -329,45 +329,45 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                     </div>
                   </div>
                   <div className="col-span-12 lg:col-span-12 flex flex-row gap-2 w-full">
-                    {/* <div>
-                      <div className="bg-gray-100 rounded-md h-12 w-12 flex items-center justify-center">
-                        <AiOutlineShoppingCart className="text-4xl text-gray-400" />
-                      </div>
-                    </div> */}
                     <div className="flex flex-col w-full">
                       <span className="text-lg font-bold ">Book author</span>
                       <div className="">
                         {this.state.book_details.book_authors.map(
                           (author, a) => (
-                            <div
-                              key={a + 1}
-                              className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group"
+                            <Link
+                              href={`/authors?author_id=${author.author_id}`}
+                              title="Click to view list of books"
                             >
-                              <div>
-                                <div className="h-20 w-20 rounded-full overflow-hidden bg-gray-100">
-                                  <Image
-                                    src={`${API_URL}/${ImageFolder.author}/${author.author_pic}`}
-                                    alt=""
-                                    height={60}
-                                    width={60}
-                                    className={
-                                      "w-auto h-auto min-h-full min-w-full object-cover"
-                                    }
-                                  />
+                              <div
+                                key={a + 1}
+                                className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group"
+                              >
+                                <div>
+                                  <div className="h-20 w-20 rounded-full overflow-hidden bg-gray-100">
+                                    <Image
+                                      src={`${API_URL}/${ImageFolder.author}/${author.author_pic}`}
+                                      alt=""
+                                      height={60}
+                                      width={60}
+                                      className={
+                                        "w-auto h-auto min-h-full min-w-full object-cover"
+                                      }
+                                    />
+                                  </div>
+                                </div>
+                                <div>
+                                  <div className="font-bold text-lg group-hover:text-green-600">
+                                    {author.author_name}
+                                  </div>
+                                  <div className="text-sm">
+                                    Contact: {author.phone}
+                                  </div>
+                                  <div className="text-sm">
+                                    Email: {author.email}
+                                  </div>
                                 </div>
                               </div>
-                              <div>
-                                <div className="font-bold text-lg group-hover:text-green-600">
-                                  {author.author_name}
-                                </div>
-                                <div className="text-sm">
-                                  Contact: {author.phone}
-                                </div>
-                                <div className="text-sm">
-                                  Email: {author.email}
-                                </div>
-                              </div>
-                            </div>
+                            </Link>
                           )
                         )}
                       </div>

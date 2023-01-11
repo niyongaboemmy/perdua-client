@@ -668,3 +668,33 @@ export const FC_AddBookTheme = async (
     });
   }
 };
+
+// Get upcoming books by author id
+export const FC_GetBooksByAuthor = async (
+  author_id: string,
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+      data: GetBookInterface[];
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  setAxiosToken();
+  try {
+    const res = await axios.get<GetBookInterface[]>(
+      `${API_URL}/books/author/${author_id}`
+    );
+    console.log({ books_by_author: res.data });
+    callBack(false, {
+      type: "success",
+      msg: "Data loaded successfully!",
+      data: res.data,
+    });
+  } catch (error: any) {
+    console.log("err: ", { ...error });
+    callBack(false, { type: "error", msg: errorToText(error), data: [] });
+  }
+};
