@@ -42,8 +42,7 @@ class EditBookThemes extends Component<
 
     this.state = {
       loading: false,
-      themes:
-        this.props.book.theme === null ? [] : JSON.parse(this.props.book.theme),
+      themes: this.props.book.book_theme.map((itm) => itm),
       openSelectTheme: false,
       error: "",
       success: "",

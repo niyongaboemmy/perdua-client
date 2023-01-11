@@ -42,7 +42,7 @@ class EditBookLevels extends Component<
 
     this.state = {
       loading: false,
-      levels: this.props.book.level.map((itm) => itm),
+      levels: this.props.book.book_level.map((itm) => itm),
       openSelectLevel: false,
       error: "",
       success: "",

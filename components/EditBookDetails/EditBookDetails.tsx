@@ -106,12 +106,8 @@ class _EditBookForm extends Component<
       error: null,
       success: "",
       quantity: this.props.bookDetails.quantity.toString(),
-      theme:
-        this.props.bookDetails.theme === null ||
-        this.props.bookDetails.theme === ""
-          ? []
-          : JSON.parse(this.props.bookDetails.theme),
-      level: this.props.bookDetails.level,
+      theme: this.props.bookDetails.book_theme,
+      level: this.props.bookDetails.book_level,
       best_sell: this.props.bookDetails.best_sell,
       // ----------
       openSelectLanguage: false,

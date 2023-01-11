@@ -60,9 +60,8 @@ export interface GetBookInterface {
   rating: number;
   best_sell: 1 | 0;
   quantity: number;
-  theme: string | null;
-  level: string[];
-  bookTheme: any[]; //To be removed
+  book_level: string[];
+  book_theme: string[];
 }
 
 export interface BookAuthorDetails {
