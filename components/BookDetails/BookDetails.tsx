@@ -20,9 +20,8 @@ import {
   GetBookInterface,
   ImageFolder,
 } from "../../actions/books.action";
-import Loading from "../Loading/Loading";
 import { API_URL } from "../../utils/api";
-import { MdAdminPanelSettings, MdLanguage } from "react-icons/md";
+import { MdLanguage } from "react-icons/md";
 import { RiBook3Line } from "react-icons/ri";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { LoadingBooks } from "../HomepageComponents/NewBooks";
@@ -337,11 +336,9 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                             <Link
                               href={`/authors?author_id=${author.author_id}`}
                               title="Click to view list of books"
+                              key={a + 1}
                             >
-                              <div
-                                key={a + 1}
-                                className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group"
-                              >
+                              <div className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group">
                                 <div>
                                   <div className="h-20 w-20 rounded-full overflow-hidden bg-gray-100">
                                     <Image

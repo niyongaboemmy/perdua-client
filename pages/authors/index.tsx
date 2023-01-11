@@ -75,22 +75,22 @@ const MyComponent = (props: AppProps): JSX.Element => {
     );
   };
 
-  const getSelectedAuthor = (author_id: string): BookAuthor | null => {
-    if (
-      author_id !== undefined &&
-      author_id !== null &&
-      author_id !== "" &&
-      props.systemBasicInfo.basic_info !== null
-    ) {
-      const selectedAuthorTemp = props.systemBasicInfo.basic_info.authors.find(
-        (itm) => itm.author_id.toString() === author_id
-      );
-      return selectedAuthorTemp === undefined ? null : selectedAuthorTemp;
-    }
-    return null;
-  };
-
   useEffect(() => {
+    const getSelectedAuthor = (author_id: string): BookAuthor | null => {
+      if (
+        author_id !== undefined &&
+        author_id !== null &&
+        author_id !== "" &&
+        props.systemBasicInfo.basic_info !== null
+      ) {
+        const selectedAuthorTemp =
+          props.systemBasicInfo.basic_info.authors.find(
+            (itm) => itm.author_id.toString() === author_id
+          );
+        return selectedAuthorTemp === undefined ? null : selectedAuthorTemp;
+      }
+      return null;
+    };
     if (props.systemBasicInfo.basic_info === null) {
       props.FC_GetBasicSystemInfo(
         (
@@ -107,7 +107,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
         GetBooksListByLanguage(author_id as string);
       }
     }
-  }, [props]);
+  }, [props, author_id]);
 
   return (
     <Fragment>
