@@ -14,8 +14,8 @@ const Container = (props: {
       <div
         className={`container md:mx-auto px-3 ${
           props.lgPadding !== undefined
-            ? `md:px-2 xl:px-${props.lgPadding}`
-            : "md:px-6 xl:px-32"
+            ? `md:px-2 lg:px-${props.lgPadding}`
+            : "md:px-2 lg:px-6"
         }`}
       >
         {props.children}
