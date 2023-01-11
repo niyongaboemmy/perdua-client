@@ -77,7 +77,11 @@ export class Footer extends Component<FooterProps, FooterState> {
                     <RiInstagramFill className="text-2xl" />
                   </div>
                 </Link>
-                <Link href={""} target="_blank" className="">
+                <Link
+                  href={"https://www.youtube.com/@perduapublishers9567"}
+                  target="_blank"
+                  className=""
+                >
                   <div className="h-10 w-10 flex items-center justify-center bg-white text-red-600 hover:bg-red-600 hover:text-white rounded-full">
                     <IoLogoYoutube className="text-2xl" />
                   </div>
