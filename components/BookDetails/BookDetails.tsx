@@ -200,8 +200,16 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       </Link>
                     </div>
                   )}
-                  <div className="text-2xl font-bold">
-                    {this.state.book_details.title}
+                  <div className="text-2xl font-bold flex flex-row items-center gap-2">
+                    <span>{this.state.book_details.title}</span>
+                    {this.state.book_details.best_sell === 1 && (
+                      <div className="px-1 pr-3 py-1 rounded-full bg-green-600 text-white font-bold w-max text-sm flex flex-row items-center gap-1">
+                        <div>
+                          <AiFillStar className="text-white text-xl animate__animated animate__rotateIn animate__slow animate__infinite" />
+                        </div>
+                        <span className="truncate">Best seller</span>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {this.state.book_details.book_theme.length > 0 && (

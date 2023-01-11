@@ -1,5 +1,11 @@
 import Link from "next/link";
 import React, { Component } from "react";
+import { AiFillInstagram, AiFillTwitterCircle } from "react-icons/ai";
+import { BsFacebook, BsTwitter } from "react-icons/bs";
+import { FaInstagramSquare } from "react-icons/fa";
+import { ImFacebook } from "react-icons/im";
+import { IoLogoYoutube } from "react-icons/io5";
+import { RiInstagramFill } from "react-icons/ri";
 import Container from "../Container/Container";
 
 interface FooterProps {}
@@ -53,6 +59,38 @@ export class Footer extends Component<FooterProps, FooterState> {
               <div className="font-bold text-xl mb-3">Stay Connected</div>
               <div className="text-sm text-gray-200">
                 Stay connected and get interesting news & coupon
+              </div>
+              <div className="flex flex-row items-center gap-2 mt-5">
+                <Link
+                  href={
+                    "https://web.facebook.com/Perdua-Publishers-174267909938480"
+                  }
+                  target="_blank"
+                  className=""
+                >
+                  <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
+                    <ImFacebook className="text-2xl" />
+                  </div>
+                </Link>
+                <Link href={""} target="_blank" className="">
+                  <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-600 hover:bg-yellow-600 hover:text-white rounded-full">
+                    <RiInstagramFill className="text-2xl" />
+                  </div>
+                </Link>
+                <Link href={""} target="_blank" className="">
+                  <div className="h-10 w-10 flex items-center justify-center bg-white text-red-600 hover:bg-red-600 hover:text-white rounded-full">
+                    <IoLogoYoutube className="text-2xl" />
+                  </div>
+                </Link>
+                <Link
+                  href={"https://twitter.com/PerduaP"}
+                  target="_blank"
+                  className=""
+                >
+                  <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
+                    <BsTwitter className="text-2xl" />
+                  </div>
+                </Link>
               </div>
             </div>
           </div>

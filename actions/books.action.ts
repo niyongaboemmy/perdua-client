@@ -99,7 +99,7 @@ export interface GetBookDetailsInterface {
   short_description: string;
   title: string;
   rating: number;
-  best_sell: boolean;
+  best_sell: 1 | 0;
   quantity: number;
   book_theme: BookTheme[];
   book_level: BookLevel[];
