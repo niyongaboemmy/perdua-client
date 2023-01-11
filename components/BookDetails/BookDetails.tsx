@@ -1,6 +1,11 @@
 import Image from "next/image";
 import React, { Component } from "react";
-import { BsArrowLeft, BsArrowRight, BsStarHalf } from "react-icons/bs";
+import {
+  BsArrowLeft,
+  BsArrowRight,
+  BsCheckCircle,
+  BsStarHalf,
+} from "react-icons/bs";
 import { commaFy } from "../../utils/functions";
 import Container from "../Container/Container";
 import ADS_IMAGE from "../../assets/catalogue.jpeg";
@@ -199,26 +204,25 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                     {this.state.book_details.title}
                   </div>
                 </div>
-                <div className="my-2 text-gray-500 mt-4">
-                  {this.state.book_details.short_description}
-                </div>
-                {this.state.book_details.book_level.length > 0 && (
-                  <div className="mb-2">
-                    <div className="font-semibold">Book level:</div>
-                    <div>
-                      {this.state.book_details.book_level.length > 0 &&
-                        this.state.book_details.book_level.map((level, l) => (
-                          <div
-                            key={l + 1}
-                            className="flex flex-row items-center gap-2 text-sm"
-                          >
-                            <div></div>
-                            <div>{level.level}</div>
+                {this.state.book_details.book_theme.length > 0 && (
+                  <div className="my-2 text-gray-500 mt-5 mb-2">
+                    <div className="font-bold text-black">Book themes</div>
+                    <div className="grid grid-cols-12 gap-1 mt-2">
+                      {this.state.book_details.book_theme.map((theme, t) => (
+                        <div
+                          key={t + 1}
+                          className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 text-sm"
+                        >
+                          <div>
+                            <BsCheckCircle className="text-2xl text-green-600" />
                           </div>
-                        ))}
+                          <span>{theme.theme}</span>
+                        </div>
+                      ))}
                     </div>
                   </div>
                 )}
+
                 <div className="grid grid-cols-12 items-center gap-5 w-full pt-5">
                   <div className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 w-full">
                     <div>
@@ -327,16 +331,39 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       </div>
                     </div>
                   </div>
+                  <div className="col-span-12">
+                    {this.state.book_details.book_theme.length > 0 && (
+                      <div className="my-2 text-gray-500 -mt-2 mb-2">
+                        <div className="font-bold text-black">Book levels</div>
+                        <div className="grid grid-cols-12 gap-1 mt-2">
+                          {this.state.book_details.book_level.map(
+                            (level, l) => (
+                              <div
+                                key={l + 1}
+                                className="col-span-12 lg:col-span-6 flex flex-row items-center gap-2 text-sm"
+                              >
+                                <div>
+                                  <BsCheckCircle className="text-2xl text-green-600" />
+                                </div>
+                                <span>{level.level}</span>
+                              </div>
+                            )
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                   <div className="col-span-12 lg:col-span-12 flex flex-row gap-2 w-full">
                     <div className="flex flex-col w-full">
-                      <span className="text-lg font-bold ">Book author</span>
-                      <div className="">
+                      <span className="text-base font-bold ">Book authors</span>
+                      <div className="grid grid-cols-12 gap-2">
                         {this.state.book_details.book_authors.map(
                           (author, a) => (
                             <Link
                               href={`/authors?author_id=${author.author_id}`}
                               title="Click to view list of books"
                               key={a + 1}
+                              className="col-span-12 lg:col-span-6"
                             >
                               <div className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group">
                                 <div>

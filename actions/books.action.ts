@@ -2,7 +2,7 @@ import axios from "axios";
 import { API_URL } from "../utils/api";
 import { setAxiosToken } from "../utils/AxiosToken";
 import { errorToText } from "../utils/functions";
-import { BookLevel } from "./system.action";
+import { BookLevel, BookTheme } from "./system.action";
 
 export interface RegisterBookData {
   language_id: string;
@@ -101,7 +101,7 @@ export interface GetBookDetailsInterface {
   rating: number;
   best_sell: boolean;
   quantity: number;
-  theme: string | null;
+  book_theme: BookTheme[];
   book_level: BookLevel[];
 }
 
