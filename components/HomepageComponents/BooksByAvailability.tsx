@@ -108,7 +108,7 @@ class BooksByAvailability extends Component<
                 <Link
                   href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
                   key={i + 1}
-                  className="col-span-12 md:col-span-12 lg:col-span-6 group cursor-pointer relative bg-gray-10 rounded-xl shadow-xl"
+                  className="col-span-12 md:col-span-12 lg:col-span-6 group cursor-pointer relative bg-gray-10 rounded-xl bg-gray-100 hover:bg-green-50"
                   title={book.title}
                 >
                   <div className="grid grid-cols-12 gap-2">

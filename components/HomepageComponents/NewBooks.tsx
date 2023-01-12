@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { BsArrowRight, BsStarHalf } from "react-icons/bs";
 import {
+  FC_GetBestSellerBooks,
   FC_GetNewBooksByLimit,
   GetBookInterface,
   ImageFolder,
@@ -51,7 +52,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
   }
   GetBooksListByLanguage = () => {
     this.state.loading === false && this.setState({ loading: true });
-    FC_GetNewBooksByLimit(
+    FC_GetBestSellerBooks(
       6,
       (
         loading: boolean,
@@ -80,10 +81,10 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
         <Container>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
             <div>
-              <div className="text-3xl font-bold">New Upcoming Books</div>
+              <div className="text-3xl font-bold">Best seller Books</div>
               <div className="text-gray-500 text-sm">
-                List of recently added books you can read. Select your
-                preference
+                List of items that sold more often than anything else in a store
+                catalog
               </div>
             </div>
             <div>
@@ -143,14 +144,9 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                       </div>
                     ))}
                   </div>
-                  {/* <div className="font-bold">{book.price.map((price, p) => (
-                    <div></div>
-                  ))}</div> */}
-                  {/* <div className="hidden rounded group-hover:flex flex-row justify-between gap-2 group-hover:text-green-700 font-bold border-t mt-2 pt-2">
-                  <span>View details</span>
-                  <div></div>
-                </div> */}
-                  <div className="bg-green-600 h-3 w-3 rounded-full absolute top-0 right-0 -mt-1 -mr-1 animate-ping"></div>
+                  <div className="absolute top-1 right-1 flex items-center justify-center p-0 bg-green-600 rounded-full border-2 border-white shadow-md animate-pulse">
+                    <AiFillStar className=" text-white text-3xl animate__animated animate__rotateIn animate__slower shadow-lg" />
+                  </div>
                 </Link>
               ))}
             </div>
