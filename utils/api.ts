@@ -1,4 +1,4 @@
-export const API_URL = "https://uruziga.com/pbapi";
+export const API_URL = "https://universalbridge.rw/pbapi";
 // export const DISTRICTS_LOCATION = "http://localhost:3001/locations.json";
 // export const DISTRICTS_LOCATION = "https://vms.rw/locations.json";
 export const MAIN_PAGE_TITLE = "Perdua Publishers - Local publishing company";

@@ -41,7 +41,7 @@ export class BooksByLanguageContainer extends Component<
     this.setState({ loading: true });
     FC_GetBooksByLanguageLimit(
       language_id,
-      6,
+      5,
       (
         loading: boolean,
         res: {
@@ -111,15 +111,12 @@ export class BooksByLanguageContainer extends Component<
             </Link>
           </div>
         </div>
-        {/* <button className="transition delay-75 ease-in-out hover:bg-green-600 transform hover:-translate-y-1 hover:scale-110 bg-blue-600 text-white px-3 py-2 rounded-md mb-3">
-          Button A
-        </button> */}
-        <div className="grid grid-cols-12 gap-5">
+        <div className="grid grid-cols-10 gap-2 md:gap-16">
           {this.state.books.map((book, i) => (
             <Link
               href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
               key={i + 1}
-              className="col-span-6 md:col-span-3 lg:col-span-2 group cursor-pointer relative"
+              className="col-span-5 md:col-span-3 lg:col-span-2 group cursor-pointer relative"
             >
               <BookItem item={book} onClick={() => {}} hide_price={true} />
             </Link>

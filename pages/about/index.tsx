@@ -17,18 +17,21 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export const PerduaServices: {
   id: string;
+  short: string;
   title: string;
   icon: IconType;
   color: string;
 }[] = [
   {
     id: "1",
+    short: "Novels and story books",
     title: "We publish novels and story books of Rwandan authors",
     icon: MdPublic,
     color: "green",
   },
   {
     id: "2",
+    short: "Selling and distribution",
     title:
       "We sell books and distribute overstock to different communities that are in great need",
     icon: MdShoppingCart,
@@ -36,12 +39,14 @@ export const PerduaServices: {
   },
   {
     id: "3",
+    short: "Books publication",
     title: "We support authors to edit and publish their books",
     icon: MdSettingsSuggest,
     color: "green",
   },
   {
     id: "4",
+    short: "Development and training",
     title: "We develop modules/guide for NGOs and train their beneficiaries",
     icon: FaChalkboardTeacher,
     color: "green",

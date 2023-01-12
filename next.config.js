@@ -5,7 +5,7 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "uruziga.com",
+        hostname: "universalbridge.rw",
         port: "",
         pathname: "/pbapi/**",
       },

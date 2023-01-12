@@ -156,8 +156,8 @@ class BooksByAvailability extends Component<
                         </span>
                       </div>
                       <div className="flex flex-row items-center gap-1 bg-white p-0 mt-2 w-max rounded-full pr-3">
-                        <RiTimerFlashFill className="text-yellow-600 text-2xl" />
-                        <div className="font-bold  text-sm text-yellow-600">
+                        <RiTimerFlashFill className="text-green-600 text-2xl" />
+                        <div className="font-bold  text-sm text-green-600">
                           Coming soon
                         </div>
                       </div>

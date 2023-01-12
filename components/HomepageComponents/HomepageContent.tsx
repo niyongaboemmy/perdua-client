@@ -13,6 +13,7 @@ import AboutUs from "./AboutUs";
 import Books from "../../assets/books_old.jpg";
 import { SystemBasicInfoData } from "../../actions";
 import dynamic from "next/dynamic";
+import { PerduaServices } from "../../pages/about";
 
 interface HomepageContentProps {
   setShowOpenModal: (status: boolean) => void;
@@ -64,7 +65,7 @@ export class HomepageContent extends Component<
       <div>
         <div
           className="relative md:overflow-hidden"
-          style={{ height: "calc(100vh - 50px)" }}
+          style={{ height: "100vh" }}
         >
           <Image
             src={Books}
@@ -114,64 +115,42 @@ export class HomepageContent extends Component<
           {/* Services */}
           <Container className="md:absolute px-3 bottom-8">
             <div className="bottom-5 grid grid-cols-12 gap-5 mt-10 md:mt-0">
-              <div className="col-span-12 md:col-span-6 lg:col-span-3 h-full">
-                <div className="w-full bg-white bg-opacity-70 rounded-lg p-3 h-full px-4 flex flex-row items-center gap-3 hover:bg-opacity-100">
-                  <div>
-                    <TbTruckDelivery className="text-6xl text-primary-700" />
+              {PerduaServices.map((item, i) => {
+                const SelectedServiceIcon = item.icon;
+                return (
+                  <div
+                    key={i + 1}
+                    className="col-span-12 md:col-span-6 lg:col-span-3 h-full"
+                  >
+                    <div className="w-full bg-white bg-opacity-70 rounded-lg p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
+                      <div className="-mt-12">
+                        <div className="flex items-center justify-center h-16 w-16 bg-white rounded-full shadow-xl animate-pulse">
+                          <SelectedServiceIcon className="text-4xl text-green-500" />
+                        </div>
+                      </div>
+                      <div className="flex flex-col text-center -mt-1">
+                        <span className="text-lg font-bold">{item.short}</span>
+                        <span className="text-sm text-gray-600">
+                          {item.title}
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex flex-col">
-                    <span className="text-xl font-bold">Free Deliver</span>
-                    <span className="text-sm text-gray-600">
-                      For all member community
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-12 md:col-span-6 lg:col-span-3 h-full">
-                <div className="w-full bg-white bg-opacity-70 rounded-lg p-3 h-full px-4 flex flex-row items-center gap-3 hover:bg-opacity-100">
-                  <div>
-                    <RiSecurePaymentFill className="text-6xl text-primary-700" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xl font-bold">Secure Payments</span>
-                    <span className="text-sm text-gray-600">
-                      Supports various payment
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-12 md:col-span-6 lg:col-span-3 h-full">
-                <div className="w-full bg-white bg-opacity-70 rounded-lg p-3 h-full px-4 flex flex-row items-center gap-3 hover:bg-opacity-100">
-                  <div>
-                    <MdOutlineSupportAgent className="text-6xl text-primary-700" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xl font-bold">24/7 support</span>
-                    <span className="text-sm text-gray-600">
-                      Ready to serve you
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="col-span-12 md:col-span-6 lg:col-span-3 h-full">
-                <div className="w-full bg-white bg-opacity-70 rounded-lg p-3 h-full px-4 flex flex-row items-center gap-3 hover:bg-opacity-100">
-                  <div>
-                    <TbTruckReturn className="text-6xl text-primary-700" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-xl font-bold">90 Days Return</span>
-                    <span className="text-sm text-gray-600">
-                      90 Days Return
-                    </span>
-                  </div>
-                </div>
-              </div>
+                );
+              })}
             </div>
           </Container>
         </div>
         <div className="mt-52 md:mt-0 pt-64 md:pt-0">
           {/* Others services */}
-          <NewBooksContent />
+          {/* <NewBooksContent /> */}
+          {this.props.systemBasicInfo.basic_info !== null ? (
+            <BooksByAvailabilityContent
+              systemBasicInfo={this.props.systemBasicInfo.basic_info}
+            />
+          ) : (
+            <Loading className="bg-white" />
+          )}
           {this.props.systemBasicInfo.basic_info !== null ? (
             <BooksCategoriesContent
               book_languages={this.props.systemBasicInfo.basic_info.languages}
@@ -186,14 +165,7 @@ export class HomepageContent extends Component<
               <BooksByLanguageContainerContent language={item} key={i + 1} />
             ))}
           <AboutUs />
-          <ServicesSectionContent />
-          {this.props.systemBasicInfo.basic_info !== null ? (
-            <BooksByAvailabilityContent
-              systemBasicInfo={this.props.systemBasicInfo.basic_info}
-            />
-          ) : (
-            <Loading className="bg-white" />
-          )}
+          {/* <ServicesSectionContent /> */}
         </div>
       </div>
     );
