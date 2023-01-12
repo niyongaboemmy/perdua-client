@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import React, { Component } from "react";
 import { MdLibraryBooks, MdOutlineAdminPanelSettings } from "react-icons/md";
@@ -6,6 +7,10 @@ import { ProtectedPage } from "../../components/ProtectedPage/ProtectedPage";
 
 interface AuthorsListProps {}
 interface AuthorsListState {}
+
+const AuthorsListFormComponent = dynamic(
+  () => import("../../components/AuthorsList/AuthorsList")
+);
 
 class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
   render() {
@@ -33,7 +38,9 @@ class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
             </Link>
           </div>
           {/* Contents here */}
-          <div className="mt-3">{/* <AuthorsListForm /> */}</div>
+          <div className="mt-3">
+            <AuthorsListFormComponent />
+          </div>
         </div>
       </ProtectedPage>
     );
