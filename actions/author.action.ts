@@ -13,10 +13,20 @@ export interface RegisterAuthorData {
   bibliography: string;
 }
 
-export interface AuthorGetInterface {
+export interface UpdateAuthorData {
   author_id: string;
   author_name: string;
   social_media: AuthorSocialMedia;
+  author_pic: File | null;
+  phone: string;
+  email: string;
+  bibliography: string;
+}
+
+export interface AuthorGetInterface {
+  author_id: string;
+  author_name: string;
+  social_media: string;
   author_pic: string;
   phone: string;
   email: string;
@@ -53,7 +63,7 @@ export const FC_RegisterAuthor = async (
   }
 };
 
-// Get books list by language
+// Get authors
 export const FC_GetAuthorsList = async (
   callBack: (
     loading: boolean,
@@ -77,5 +87,39 @@ export const FC_GetAuthorsList = async (
   } catch (error: any) {
     console.log("err: ", { ...error });
     callBack(false, { type: "error", msg: errorToText(error), data: [] });
+  }
+};
+
+export const FC_UpdateAuthorDetails = async (
+  data: UpdateAuthorData,
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  const formData = new FormData();
+  formData.append("author_id", data.author_id);
+  formData.append("author_name", data.author_name);
+  formData.append("social_media", JSON.stringify(data.social_media));
+  formData.append(
+    "author_pic",
+    data.author_pic === null ? "" : data.author_pic
+  );
+  formData.append("phone", data.phone);
+  formData.append("email", data.email);
+  formData.append("bibliography", data.bibliography);
+  callback(true, null);
+  try {
+    setAxiosToken();
+    await axios.patch(`${API_URL}/authors/data`, formData);
+    callback(false, {
+      type: "success",
+      msg: "Author has updated successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
   }
 };

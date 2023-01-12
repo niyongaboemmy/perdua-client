@@ -8,7 +8,10 @@ import { ImageFolder } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import Loading from "../Loading/Loading";
 
-interface AuthorsListProps {}
+interface AuthorsListProps {
+  setSelectAuthor: (author: AuthorGetInterface) => void;
+  selectedAuthor: AuthorGetInterface | null;
+}
 interface AuthorsListState {
   loading: boolean;
   error: string;
@@ -76,6 +79,7 @@ export class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
               <tr
                 key={i + 1}
                 className="cursor-pointer hover:text-green-600 hover:bg-green-50"
+                onClick={() => this.props.setSelectAuthor(item)}
               >
                 <td className="border px-2 py-1 text-center w-10">{i + 1}</td>
                 <td className="border px-2 py-1 w-16">
