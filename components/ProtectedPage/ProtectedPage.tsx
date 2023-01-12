@@ -1,10 +1,15 @@
 import Link from "next/link";
 import React, { Component, ReactNode } from "react";
+import { IconType } from "react-icons";
 import { AiOutlineLogin } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
-import { FiChevronsRight } from "react-icons/fi";
-import { MdAdminPanelSettings } from "react-icons/md";
+import {
+  MdAddToPhotos,
+  MdAdminPanelSettings,
+  MdDashboard,
+  MdOutlineAdminPanelSettings,
+  MdOutlineLanguage,
+} from "react-icons/md";
 import { connect } from "react-redux";
 import {
   Auth,
@@ -16,31 +21,50 @@ import { StoreState } from "../../reducers";
 import Loading from "../Loading/Loading";
 import ActiveLink from "../NavBar/ActiveLink";
 import PageContainer from "../PageContainer/PageContainer";
+import { HiClipboardDocumentList } from "react-icons/hi2";
+import { IoPersonAddSharp } from "react-icons/io5";
 
 export const AdminNavigation: {
   id: string;
   title: string;
   path: string;
+  icon: IconType;
 }[] = [
   {
     id: "1",
     title: "Dashboard",
     path: "/admin_homepage",
+    icon: MdDashboard,
   },
   {
     id: "2",
     title: "Register a book",
     path: "/register_book",
+    icon: MdAddToPhotos,
   },
   {
     id: "3",
     title: "Books list",
     path: "/books_list",
+    icon: HiClipboardDocumentList,
   },
   {
     id: "3",
     title: "Books languages",
     path: "/book_languages",
+    icon: MdOutlineLanguage,
+  },
+  {
+    id: "3",
+    title: "Authors",
+    path: "/authors_list",
+    icon: MdOutlineAdminPanelSettings,
+  },
+  {
+    id: "3",
+    title: "Register Author",
+    path: "/register_author",
+    icon: IoPersonAddSharp,
   },
 ];
 
@@ -51,8 +75,8 @@ const NavigationComponent = (props: {
 }) => {
   return (
     <ActiveLink
-      activeClassName="bg-gray-100 font-semibold text-gray-700 animate__animated animate__bounceIn"
-      className={`bg-white text-gray-500 px-3 py-2 hover:bg-primary-800 hover:text-white rounded ${
+      activeClassName="bg-gray-100 font-semibold text-green-600 border border-green-500 animate__animated animate__bounceIn"
+      className={`bg-white px-3 py-2 hover:bg-primary-800 hover:text-white rounded-full ${
         props.className !== undefined ? props.className : ""
       }`}
       href={props.path}
@@ -187,26 +211,31 @@ class _ProtectedPage extends Component<ProtectedPageProps, ProtectedPageState> {
               <div className="bg-white h-screen rounded-md p-3">
                 <div className="bg-gray-100 rounded-md p-3 py-5 flex flex-col items-center justify-center">
                   <div className="">
-                    <FaUserCircle className="text-6xl text-gray-400" />
+                    <div className="flex items-center justify-center gap-2 rounded-full bg-white p-3">
+                      <MdAdminPanelSettings className="text-6xl text-green-700" />
+                    </div>
                   </div>
-                  <div className="text-center mt-1">
-                    {this.props.auth.user.user_names}
+                  <div className="text-center mt-1 font-bold">
+                    Administrator
                   </div>
                 </div>
                 <div className="mt-3">
-                  {AdminNavigation.map((item, i) => (
-                    <div className="w-full" key={i + 1}>
-                      <NavigationComponent
-                        path={item.path}
-                        className="w-full flex flex-row items-center gap-2"
-                      >
-                        <div>
-                          <FiChevronsRight className="text-xl" />
-                        </div>
-                        <span>{item.title}</span>
-                      </NavigationComponent>
-                    </div>
-                  ))}
+                  {AdminNavigation.map((item, i) => {
+                    const SelectedIcon = item.icon;
+                    return (
+                      <div className="w-full" key={i + 1}>
+                        <NavigationComponent
+                          path={item.path}
+                          className="w-full flex flex-row items-center gap-2"
+                        >
+                          <div>
+                            <SelectedIcon className="text-2xl" />
+                          </div>
+                          <span className="">{item.title}</span>
+                        </NavigationComponent>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
