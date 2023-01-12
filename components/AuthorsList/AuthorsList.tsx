@@ -83,8 +83,8 @@ export class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
                     <Image
                       src={`${API_URL}/${ImageFolder.author}/${item.author_pic}`}
                       alt=""
-                      height={100}
-                      width={100}
+                      height={60}
+                      width={60}
                       className="min-h-full min-w-full h-auto w-auto object-cover"
                     />
                   </div>
