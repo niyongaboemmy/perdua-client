@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { Component } from "react";
-import { AiFillStar, AiOutlineShoppingCart } from "react-icons/ai";
 import { BsArrowLeft, BsArrowRight, BsStarHalf } from "react-icons/bs";
+import { HiBellAlert, HiOutlineBellAlert } from "react-icons/hi2";
 import { IoPricetagsOutline } from "react-icons/io5";
 import { MdLanguage } from "react-icons/md";
 import { RiBook3Line, RiTimerFlashFill } from "react-icons/ri";
@@ -19,6 +19,7 @@ import {
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import Container from "../Container/Container";
+import Button from "../FormItems/Button";
 import { LoadingBooks } from "./NewBooks";
 
 interface BooksByAvailabilityProps {
@@ -108,58 +109,64 @@ class BooksByAvailability extends Component<
                 <Link
                   href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
                   key={i + 1}
-                  className="col-span-12 md:col-span-12 lg:col-span-6 group cursor-pointer relative bg-gray-10 rounded-xl bg-gray-100 hover:bg-green-50"
+                  className="col-span-12 md:col-span-12 lg:col-span-6 group cursor-pointer relative bg-gray-10 rounded-xl border border-white hover:border-gray-300"
                   title={book.title}
                 >
                   <div className="grid grid-cols-12 gap-2">
                     <div
                       className="col-span-12 md:col-span-4 w-full rounded-l-xl bg-gray-100 animate__animated animate__fadeIn"
-                      style={{ height: "170px", overflow: "hidden" }}
+                      style={{ height: "300px", overflow: "hidden" }}
                     >
                       <Image
                         src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
                         alt={book.title}
                         height={300}
                         width={300}
-                        className="rounded-l-xl rounded-r-xl md:rounded-r-none group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform group-hover:-translate-y-1 delay-75 group-hover:delay-150 duration-200 group-hover:scale-110"
+                        className="rounded-l-xl rounded-r-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform group-hover:-translate-y-1 delay-75 group-hover:delay-150 duration-200 group-hover:scale-110"
                       />
                     </div>
-                    <div className="col-span-12 md:col-span-8 p-2 md:p-3 text-sm">
-                      <div className="flex flex-row items-center gap-2">
-                        <div className="text-xl font-bold truncate group-hover:text-green-600">
-                          {book.title}
+                    <div className="col-span-12 md:col-span-8 p-2 md:p-3 text-sm flex flex-col justify-between">
+                      <div>
+                        <div className="flex flex-row items-center gap-2">
+                          <div className="text-xl font-bold group-hover:text-green-600 mt-2">
+                            {book.title}
+                          </div>
+                        </div>
+                        <div className="my-1 text-gray-500 mt-1 mb-3">
+                          <div className="truncate">
+                            {book.short_description}
+                          </div>
+                        </div>
+                        <div className="mt-0  truncate">
+                          Language:{" "}
+                          <span className="font-semibold">
+                            {
+                              GetBookLanguageById(
+                                book.language_id,
+                                this.props.systemBasicInfo
+                              )?.language_name
+                            }
+                          </span>
+                        </div>
+                        <div className="mt-0  truncate">
+                          Category:{" "}
+                          <span className="font-semibold">
+                            {
+                              GetBookCategoryById(
+                                book.category_id,
+                                this.props.systemBasicInfo
+                              )?.category_name
+                            }
+                          </span>
                         </div>
                       </div>
-                      <div className="my-1 text-gray-500 truncate">
-                        {book.short_description}
-                      </div>
-                      <div className="mt-0  truncate">
-                        Language:{" "}
-                        <span className="font-semibold">
-                          {
-                            GetBookLanguageById(
-                              book.language_id,
-                              this.props.systemBasicInfo
-                            )?.language_name
-                          }
-                        </span>
-                      </div>
-                      <div className="mt-0  truncate">
-                        Category:{" "}
-                        <span className="font-semibold">
-                          {
-                            GetBookCategoryById(
-                              book.category_id,
-                              this.props.systemBasicInfo
-                            )?.category_name
-                          }
-                        </span>
-                      </div>
-                      <div className="flex flex-row items-center gap-1 bg-white p-0 mt-2 w-max rounded-full pr-3">
-                        <RiTimerFlashFill className="text-green-600 text-2xl" />
-                        <div className="font-bold  text-sm text-green-600">
-                          Coming soon
+                      <div className="flex flex-row items-center gap-3 bg-white p-0 mt-2 mb-2 w-max rounded-full pr-3">
+                        <div>
+                          <div className="bg-green-600 flex items-center justify-center h-8 w-8 rounded-full animate__animated animate__fadeIn animate__infinite animate__slower">
+                            <HiOutlineBellAlert className="text-white text-2xl" />
+                          </div>
                         </div>
+                        <div className="font-bold  text-base">Coming soon</div>
                       </div>
                     </div>
                   </div>

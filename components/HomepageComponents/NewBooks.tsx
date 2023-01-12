@@ -11,6 +11,7 @@ import {
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import Container from "../Container/Container";
+import Loading from "../Loading/Loading";
 
 export const LoadingBooks = (props: { cols: number }) => {
   return (
@@ -53,7 +54,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
   GetBooksListByLanguage = () => {
     this.state.loading === false && this.setState({ loading: true });
     FC_GetBestSellerBooks(
-      6,
+      1,
       (
         loading: boolean,
         res: {
@@ -77,9 +78,9 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
   };
   render() {
     return (
-      <div className="py-20 bg-white mt-12 md:mt-0">
-        <Container>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
+      <div className="hidden md:block">
+        {/* <Container> */}
+        {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
             <div>
               <div className="text-3xl font-bold">Best seller Books</div>
               <div className="text-gray-500 text-sm">
@@ -100,33 +101,51 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                 </div>
               </Link>
             </div>
-          </div>
-          {/* <button className="transition delay-75 ease-in-out hover:bg-green-600 transform hover:-translate-y-1 hover:scale-110 bg-blue-600 text-white px-3 py-2 rounded-md mb-3">
+          </div> */}
+        {/* <button className="transition delay-75 ease-in-out hover:bg-green-600 transform hover:-translate-y-1 hover:scale-110 bg-blue-600 text-white px-3 py-2 rounded-md mb-3">
             Button A
           </button> */}
-          {this.state.loading === true || this.state.books === null ? (
-            <LoadingBooks cols={2} />
-          ) : (
-            <div className="grid grid-cols-12 gap-5">
-              {this.state.books.map((book, i) => (
+        {this.state.loading === true || this.state.books === null ? (
+          <Loading className="bg-white" />
+        ) : (
+          <div className="">
+            {this.state.books
+              .filter(
+                (itm) =>
+                  this.state.books !== null &&
+                  this.state.books.length > 0 &&
+                  itm.book_id === this.state.books[0].book_id
+              )
+              .map((book, i) => (
                 <Link
                   href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
                   key={i + 1}
-                  className="col-span-6 md:col-span-3 lg:col-span-2 group cursor-pointer relative"
+                  className="group cursor-pointer"
                 >
-                  <div
-                    className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn"
-                    style={{ height: "300px", overflow: "hidden" }}
-                  >
-                    <Image
-                      src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
-                      alt={book.title}
-                      height={300}
-                      width={300}
-                      className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
-                    />
-                  </div>
-                  <div className="mt-2 truncate group-hover:text-green-600">
+                  <div className="relative" style={{ width: "150px" }}>
+                    <div
+                      className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn"
+                      style={{
+                        height: "300px",
+                        width: "250px",
+                        overflow: "hidden",
+                      }}
+                    >
+                      <Image
+                        src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
+                        alt={book.title}
+                        height={300}
+                        width={300}
+                        className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
+                      />
+                    </div>
+                    <div className="bg-green-600 text-white px-3 pl-1 rounded-full mt-2 py-1 w-max flex flex-row items-center gap-2">
+                      <div>
+                        <AiFillStar className=" text-white text-2xl animate__animated animate__rotateIn animate__slower shadow-lg" />
+                      </div>
+                      <span>Best seller</span>
+                    </div>
+                    {/* <div className="mt-2 truncate group-hover:text-green-600">
                     {book.title}
                   </div>
                   <div className="flex flex-row items-center gap-0">
@@ -143,15 +162,16 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                         )}
                       </div>
                     ))}
-                  </div>
-                  <div className="absolute top-1 right-1 flex items-center justify-center p-0 bg-green-600 rounded-full border-2 border-white shadow-md animate-pulse">
-                    <AiFillStar className=" text-white text-3xl animate__animated animate__rotateIn animate__slower shadow-lg" />
+                  </div> */}
+                    {/* <div className="absolute top-1 right-1 flex items-center justify-center p-0 bg-green-600 rounded-full border-2 border-white shadow-md animate-pulse">
+                      <AiFillStar className=" text-white text-3xl animate__animated animate__rotateIn animate__slower shadow-lg" />
+                    </div> */}
                   </div>
                 </Link>
               ))}
-            </div>
-          )}
-        </Container>
+          </div>
+        )}
+        {/* </Container> */}
       </div>
     );
   }

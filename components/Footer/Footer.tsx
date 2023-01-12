@@ -36,6 +36,12 @@ export class Footer extends Component<FooterProps, FooterState> {
                   <Link href="/about" className="mb-2">
                     About Perdua
                   </Link>
+                  <Link href="/contact" className="mb-2">
+                    Contact Us
+                  </Link>
+                  <Link href="/authors" className="mb-2">
+                    Meet Our Authors
+                  </Link>
                   <Link href="/store" className="mb-2">
                     Our Store
                   </Link>
@@ -43,16 +49,20 @@ export class Footer extends Component<FooterProps, FooterState> {
               </div>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <div className="font-bold text-xl mb-3">Contact</div>
-              <div className="text-sm text-gray-200">
-                <div className="flex flex-col">
-                  <Link href="/contact" className="mb-2">
-                    Contact Us
-                  </Link>
-                  <Link href="/authors" className="mb-2">
-                    Meet Our Authors
-                  </Link>
-                </div>
+              {/* <div className="font-bold text-xl mb-3">Perdua twitter</div> */}
+              <div className="bg-gray-700 rounded-md overflow-hidden">
+                <embed
+                  className="twitter-timeline w-full h-72 bg-gray-700"
+                  src="https://twitter.com/PerduaP?ref_src=twsrc%5Etfw"
+                  title="Tweets by PerduaP"
+                  height={100}
+                  width={100}
+                />
+
+                <script
+                  async
+                  src="https://platform.twitter.com/widgets.js"
+                ></script>
               </div>
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
@@ -72,7 +82,11 @@ export class Footer extends Component<FooterProps, FooterState> {
                     <ImFacebook className="text-2xl" />
                   </div>
                 </Link>
-                <Link href={""} target="_blank" className="">
+                <Link
+                  href={"https://www.instagram.com/perduap/"}
+                  target="_blank"
+                  className=""
+                >
                   <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-600 hover:bg-yellow-600 hover:text-white rounded-full">
                     <RiInstagramFill className="text-2xl" />
                   </div>

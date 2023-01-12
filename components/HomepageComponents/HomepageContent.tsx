@@ -120,9 +120,9 @@ export class HomepageContent extends Component<
                 return (
                   <div
                     key={i + 1}
-                    className="col-span-12 md:col-span-6 lg:col-span-3 h-full"
+                    className="col-span-12 md:col-span-6 lg:col-span-3 h-full pt-10"
                   >
-                    <div className="w-full bg-white bg-opacity-70 rounded-lg p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
+                    <div className="w-full bg-white bg-opacity-70 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
                       <div className="-mt-12">
                         <div className="flex items-center justify-center h-16 w-16 bg-white rounded-full shadow-xl animate-pulse">
                           <SelectedServiceIcon className="text-4xl text-green-500" />
@@ -141,6 +141,7 @@ export class HomepageContent extends Component<
             </div>
           </Container>
         </div>
+        <div className="block md:hidden pt-64"></div>
         <div className="mt-52 md:mt-0 pt-64 md:pt-0">
           {/* Others services */}
           {/* <NewBooksContent /> */}
