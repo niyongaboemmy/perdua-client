@@ -1,19 +1,26 @@
 import Link from "next/link";
 import React, { Component } from "react";
-import { AiFillInstagram, AiFillTwitterCircle } from "react-icons/ai";
-import { BsFacebook, BsTwitter } from "react-icons/bs";
-import { FaInstagramSquare } from "react-icons/fa";
-import { ImFacebook } from "react-icons/im";
+import { BsTwitter } from "react-icons/bs";
 import { IoLogoYoutube } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";
 import Container from "../Container/Container";
-import Script from "next/script";
-import TweetEmbed from "react-tweet-embed";
+import { TwitterTimelineEmbed } from "react-twitter-embed";
+import { ImFacebook } from "react-icons/im";
+import Loading from "../Loading/Loading";
 
 interface FooterProps {}
-interface FooterState {}
+interface FooterState {
+  loading: boolean;
+}
 
 export class Footer extends Component<FooterProps, FooterState> {
+  constructor(props: FooterProps) {
+    super(props);
+
+    this.state = {
+      loading: true,
+    };
+  }
   render() {
     return (
       <footer className="bg-gray-800 pt-20 text-white">
@@ -28,7 +35,7 @@ export class Footer extends Component<FooterProps, FooterState> {
                 </div>
               </div>
             </div>
-            <div className="col-span-12 md:col-span-6 lg:col-span-3">
+            <div className="col-span-12 md:col-span-6 lg:col-span-2">
               <div className="font-bold text-xl mb-3">Useful links</div>
               <div className="text-sm text-gray-200">
                 <div className="flex flex-col">
@@ -65,17 +72,32 @@ export class Footer extends Component<FooterProps, FooterState> {
                 </div>
               </div>
             </div>
-            <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              {/* <div className="font-bold text-xl mb-3">Perdua twitter</div> */}
+            <div className="col-span-12 md:col-span-6 lg:col-span-4">
+              <div className="font-bold text-xl mb-3">Perdua twitter</div>
               <div className="bg-gray-700 rounded-xl overflow-y-auto p-0 h-72">
-                <div className="-mt-2">
-                  <TweetEmbed
-                    tweetId="1594616238688567296"
-                    onTweetLoadError={(err: any) => {
-                      console.log("Twitter Err: ", err);
+                <div className="h-full">
+                  {this.state.loading === true && (
+                    <div className="w-full h-full flex items-center justify-center">
+                      <Loading
+                        title="Loading tweets..."
+                        className="text-green-500"
+                      />
+                    </div>
+                  )}
+                  <TwitterTimelineEmbed
+                    sourceType="profile"
+                    screenName="PerduaP"
+                    options={{
+                      tweetLimit: "auto",
+                      width: "100%",
+                      height: "auto",
                     }}
-                    options={{ theme: "dark" }}
-                  />
+                    theme="dark"
+                    noHeader={true}
+                    noBorders={true}
+                    noFooter={true}
+                    onLoad={() => this.setState({ loading: false })}
+                  ></TwitterTimelineEmbed>
                 </div>
               </div>
             </div>
