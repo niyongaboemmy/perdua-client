@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import Image from "next/image";
 import Link from "next/link";
 import React, { Component } from "react";
@@ -18,9 +19,12 @@ import {
   ImageFolder,
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
+import { BookItem } from "../BookItem/BookItem";
 import Container from "../Container/Container";
 import Button from "../FormItems/Button";
 import { LoadingBooks } from "./NewBooks";
+
+const NewBooksContent = dynamic(() => import("./NewBooks"));
 
 interface BooksByAvailabilityProps {
   systemBasicInfo: SystemBasicInfo;
@@ -80,98 +84,43 @@ class BooksByAvailability extends Component<
     return (
       <div className="py-20 bg-white mt-12 md:mt-0">
         <Container>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
-            <div>
-              <div className="text-3xl font-bold">Coming soon Books</div>
-              <div className="text-gray-500 text-sm">
-                These books are not available right now, but soon
-              </div>
-            </div>
-            <div>
-              <Link
-                href={"/store"}
-                className="flex flex-row items-center justify-center gap-2 bg-gray-50 hover:bg-green-100 hover:text-green-700 p-2 pl-4 rounded-md text-base font-semibold cursor-pointer w-max"
-              >
-                <span>Visit store</span>
-                <div>
-                  <div className="bg-green-600 text-white flex items-center justify-center h-8 w-8 rounded-full animate__animated animate__zoomIn">
-                    <BsArrowRight className="text-xl" />
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div>
           {this.state.loading === true || this.state.books === null ? (
             <LoadingBooks cols={2} />
           ) : (
             <div className="grid grid-cols-12 gap-5">
-              {this.state.books.map((book, i) => (
-                <Link
-                  href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
-                  key={i + 1}
-                  className="col-span-12 md:col-span-12 lg:col-span-6 group cursor-pointer relative bg-gray-10 rounded-xl border border-white hover:border-gray-300"
-                  title={book.title}
-                >
-                  <div className="grid grid-cols-12 gap-2">
-                    <div
-                      className="col-span-12 md:col-span-4 w-full rounded-l-xl bg-gray-100 animate__animated animate__fadeIn"
-                      style={{ height: "300px", overflow: "hidden" }}
-                    >
-                      <Image
-                        src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
-                        alt={book.title}
-                        height={300}
-                        width={300}
-                        className="rounded-l-xl rounded-r-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform group-hover:-translate-y-1 delay-75 group-hover:delay-150 duration-200 group-hover:scale-110"
-                      />
-                    </div>
-                    <div className="col-span-12 md:col-span-8 p-2 md:p-3 text-sm flex flex-col justify-between">
-                      <div>
-                        <div className="flex flex-row items-center gap-2">
-                          <div className="text-xl font-bold group-hover:text-green-600 mt-2">
-                            {book.title}
-                          </div>
-                        </div>
-                        <div className="my-1 text-gray-500 mt-1 mb-3">
-                          <div className="truncate">
-                            {book.short_description}
-                          </div>
-                        </div>
-                        <div className="mt-0  truncate">
-                          Language:{" "}
-                          <span className="font-semibold">
-                            {
-                              GetBookLanguageById(
-                                book.language_id,
-                                this.props.systemBasicInfo
-                              )?.language_name
-                            }
-                          </span>
-                        </div>
-                        <div className="mt-0  truncate">
-                          Category:{" "}
-                          <span className="font-semibold">
-                            {
-                              GetBookCategoryById(
-                                book.category_id,
-                                this.props.systemBasicInfo
-                              )?.category_name
-                            }
-                          </span>
-                        </div>
-                      </div>
-                      <div className="flex flex-row items-center gap-3 bg-white p-0 mt-2 mb-2 w-max rounded-full pr-3">
-                        <div>
-                          <div className="bg-green-600 flex items-center justify-center h-8 w-8 rounded-full animate__animated animate__fadeIn animate__infinite animate__slower">
-                            <HiOutlineBellAlert className="text-white text-2xl" />
-                          </div>
-                        </div>
-                        <div className="font-bold  text-base">Coming soon</div>
-                      </div>
+              {this.state.loading === false && (
+                <div className="col-span-12 lg:col-span-6">
+                  <NewBooksContent />
+                </div>
+              )}
+              <div className="col-span-12 lg:col-span-6">
+                <div className="col-span-11">
+                  <div className="mb-6">
+                    <div className="text-3xl font-bold">Coming soon Books</div>
+                    <div className="text-gray-500 text-sm">
+                      These books are not available right now, but soon
                     </div>
                   </div>
-                </Link>
-              ))}
+                </div>
+                <div className="grid grid-cols-12 gap-2 md:gap-16 lg:gap-14">
+                  {this.state.books.map((book, i) => (
+                    <>
+                      <Link
+                        href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
+                        key={i + 1}
+                        className="col-span-6 md:col-span-4 lg:col-span-4 group cursor-pointer relative bg-gray-10 rounded-xl border border-white hover:border-gray-300"
+                        title={book.title}
+                      >
+                        <BookItem
+                          item={book}
+                          onClick={() => {}}
+                          hide_price={true}
+                        />
+                      </Link>
+                    </>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </Container>

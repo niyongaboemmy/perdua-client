@@ -3,6 +3,7 @@ import Link from "next/link";
 import React, { Component } from "react";
 import { AiFillStar } from "react-icons/ai";
 import { BsArrowRight, BsStarHalf } from "react-icons/bs";
+import { IoReaderOutline } from "react-icons/io5";
 import {
   FC_GetBestSellerBooks,
   FC_GetNewBooksByLimit,
@@ -10,6 +11,7 @@ import {
   ImageFolder,
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
+import { commaFy } from "../../utils/functions";
 import Container from "../Container/Container";
 import Loading from "../Loading/Loading";
 
@@ -78,33 +80,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
   };
   render() {
     return (
-      <div className="hidden md:block">
-        {/* <Container> */}
-        {/* <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-10">
-            <div>
-              <div className="text-3xl font-bold">Best seller Books</div>
-              <div className="text-gray-500 text-sm">
-                List of items that sold more often than anything else in a store
-                catalog
-              </div>
-            </div>
-            <div>
-              <Link
-                href={"/store"}
-                className="flex flex-row items-center justify-center gap-2 bg-gray-50 hover:bg-green-100 hover:text-green-700 p-2 pl-4 rounded-md text-base font-semibold cursor-pointer w-max"
-              >
-                <span>View all books</span>
-                <div>
-                  <div className="bg-green-600 text-white flex items-center justify-center h-8 w-8 rounded-full animate__animated animate__zoomIn">
-                    <BsArrowRight className="text-xl" />
-                  </div>
-                </div>
-              </Link>
-            </div>
-          </div> */}
-        {/* <button className="transition delay-75 ease-in-out hover:bg-green-600 transform hover:-translate-y-1 hover:scale-110 bg-blue-600 text-white px-3 py-2 rounded-md mb-3">
-            Button A
-          </button> */}
+      <div className="">
         {this.state.loading === true || this.state.books === null ? (
           <Loading className="bg-white" />
         ) : (
@@ -117,57 +93,84 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                   itm.book_id === this.state.books[0].book_id
               )
               .map((book, i) => (
-                <Link
-                  href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
-                  key={i + 1}
-                  className="group cursor-pointer"
-                >
-                  <div className="relative" style={{ width: "150px" }}>
+                <div key={i + 1} className="group">
+                  <div className="grid grid-cols-12 gap-6 mb-12 md:mb-12 lg:mb-0">
+                    <div className="col-span-12">
+                      <div className="">
+                        <div className="flex flex-row items-center gap-2">
+                          <div className="bg-green-600 text-white p-1 rounded-full w-max flex flex-row items-center">
+                            <div>
+                              <AiFillStar className=" text-white text-2xl animate__animated animate__rotateIn animate__slower shadow-lg" />
+                            </div>
+                          </div>
+                          <div>
+                            <div className="text-3xl font-bold text-">
+                              Best seller Book
+                            </div>
+                            <div className="text-sm text-gray-600">
+                              The top book which frequently sold in the stock
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <div
-                      className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn"
-                      style={{
-                        height: "300px",
-                        width: "250px",
-                        overflow: "hidden",
-                      }}
+                      className="col-span-12 md:col-span-4 relative"
+                      // style={{ width: "150px" }}
                     >
-                      <Image
-                        src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
-                        alt={book.title}
-                        height={300}
-                        width={300}
-                        className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
-                      />
-                    </div>
-                    <div className="bg-green-600 text-white px-3 pl-1 rounded-full mt-2 py-1 w-max flex flex-row items-center gap-2">
-                      <div>
-                        <AiFillStar className=" text-white text-2xl animate__animated animate__rotateIn animate__slower shadow-lg" />
+                      <div className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn">
+                        <Image
+                          src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
+                          alt={book.title}
+                          height={300}
+                          width={300}
+                          className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
+                        />
                       </div>
-                      <span>Best seller</span>
                     </div>
-                    {/* <div className="mt-2 truncate group-hover:text-green-600">
-                    {book.title}
-                  </div>
-                  <div className="flex flex-row items-center gap-0">
-                    {[1, 2, 3, 4, 5].map((rating, r) => (
-                      <div key={r + 1}>
-                        {book.rating !== 0 && book.rating !== 5 ? (
-                          <AiFillStar
-                            className={`text-lg text-${
-                              rating <= book.rating ? "yellow-400" : "gray-300"
-                            }`}
-                          />
-                        ) : (
-                          <BsStarHalf className={`text-lg text-yellow-400`} />
-                        )}
+                    <div className="col-span-12 md:col-span-8">
+                      <div className="text-xl font-bold text-black">
+                        {book.title}
                       </div>
-                    ))}
-                  </div> */}
-                    {/* <div className="absolute top-1 right-1 flex items-center justify-center p-0 bg-green-600 rounded-full border-2 border-white shadow-md animate-pulse">
-                      <AiFillStar className=" text-white text-3xl animate__animated animate__rotateIn animate__slower shadow-lg" />
-                    </div> */}
+                      <div className="flex flex-col mt-3">
+                        <div className="text-sm text-gray-500 truncate">
+                          Description
+                        </div>
+                        <div className="text-sm font-semibold truncate">
+                          {book.short_description}
+                        </div>
+                      </div>
+                      <div className="flex flex-col mt-3">
+                        <span className="text-sm text-gray-500">
+                          Publication year
+                        </span>
+                        <div className="text-sm font-semibold">
+                          {book.publication_date}
+                        </div>
+                      </div>
+                      <div className="flex flex-col mt-3">
+                        <span className="text-sm text-gray-500">
+                          Page numbers
+                        </span>
+                        <div className="text-sm font-semibold">
+                          {commaFy(book.num_pages)}
+                        </div>
+                      </div>
+                      <div className="flex flex-col mt-6">
+                        <Link
+                          href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
+                        >
+                          <div className="bg-green-600 text-white flex flex-row items-center justify-center gap-2 w-max p-2 pr-3 rounded-md">
+                            <div>
+                              <IoReaderOutline className="text-2xl" />
+                            </div>
+                            <span>More details</span>
+                          </div>
+                        </Link>
+                      </div>
+                    </div>
                   </div>
-                </Link>
+                </div>
               ))}
           </div>
         )}
