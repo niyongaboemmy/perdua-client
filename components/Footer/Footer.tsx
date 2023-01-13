@@ -7,6 +7,8 @@ import { ImFacebook } from "react-icons/im";
 import { IoLogoYoutube } from "react-icons/io5";
 import { RiInstagramFill } from "react-icons/ri";
 import Container from "../Container/Container";
+import Script from "next/script";
+import TweetEmbed from "react-tweet-embed";
 
 interface FooterProps {}
 interface FooterState {}
@@ -30,19 +32,34 @@ export class Footer extends Component<FooterProps, FooterState> {
               <div className="font-bold text-xl mb-3">Useful links</div>
               <div className="text-sm text-gray-200">
                 <div className="flex flex-col">
-                  <Link href="/" className="mb-2">
+                  <Link
+                    href="/"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
                     Homepage
                   </Link>
-                  <Link href="/about" className="mb-2">
+                  <Link
+                    href="/about"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
                     About Perdua
                   </Link>
-                  <Link href="/contact" className="mb-2">
+                  <Link
+                    href="/contact"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
                     Contact Us
                   </Link>
-                  <Link href="/authors" className="mb-2">
+                  <Link
+                    href="/authors"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
                     Meet Our Authors
                   </Link>
-                  <Link href="/store" className="mb-2">
+                  <Link
+                    href="/store"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
                     Our Store
                   </Link>
                 </div>
@@ -50,21 +67,19 @@ export class Footer extends Component<FooterProps, FooterState> {
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
               {/* <div className="font-bold text-xl mb-3">Perdua twitter</div> */}
-              <div className="bg-gray-700 rounded-md overflow-hidden">
-                <embed
-                  className="twitter-timeline w-full h-72 bg-gray-700"
-                  src="https://twitter.com/PerduaP?ref_src=twsrc%5Etfw"
-                  title="Tweets by PerduaP"
-                  height={100}
-                  width={100}
-                />
-
-                <script
-                  async
-                  src="https://platform.twitter.com/widgets.js"
-                ></script>
+              <div className="bg-gray-700 rounded-xl overflow-y-auto p-0 h-72">
+                <div className="-mt-2">
+                  <TweetEmbed
+                    tweetId="1594616238688567296"
+                    onTweetLoadError={(err: any) => {
+                      console.log("Twitter Err: ", err);
+                    }}
+                    options={{ theme: "dark" }}
+                  />
+                </div>
               </div>
             </div>
+
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
               <div className="font-bold text-xl mb-3">Stay Connected</div>
               <div className="text-sm text-gray-200">
