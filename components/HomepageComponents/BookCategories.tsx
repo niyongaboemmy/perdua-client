@@ -33,14 +33,14 @@ class BookCategories extends Component<
                 >
                   <input
                     type="text"
-                    className="bg-white py-3 px-4 pl-12 rounded-lg w-full border"
+                    className="bg-white py-3 px-4 pl-12 rounded-lg w-full border-2 border-green-800"
                     placeholder="Search book"
                   />
                   <div
                     className="absolute top-3 left-3"
                     style={{ paddingTop: "2px" }}
                   >
-                    <RiSearchLine className="text-2xl" />
+                    <RiSearchLine className="text-2xl text-green-800" />
                   </div>
                 </div>
               </div>

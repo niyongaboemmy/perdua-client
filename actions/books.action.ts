@@ -319,6 +319,7 @@ export const FC_GetNewBooksByLanguageAndCategoryAndLimit = async (
 // Get upcoming books with language, category, and limit
 export const FC_GetBooksByKeyword = async (
   search_data: string,
+  key: "title" | "price" | "desc",
   callBack: (
     loading: boolean,
     res: {
@@ -332,7 +333,7 @@ export const FC_GetBooksByKeyword = async (
   setAxiosToken();
   try {
     const res = await axios.get<GetBookInterface[]>(
-      `${API_URL}/books/search/title/${search_data}`
+      `${API_URL}/books/search/${key}/${search_data}`
     );
     console.log({ books_by_limit: res.data });
     callBack(false, {
