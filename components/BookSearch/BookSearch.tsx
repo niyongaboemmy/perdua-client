@@ -111,7 +111,7 @@ export class BookSearch extends Component<BookSearchProps, BookSearchState> {
               </div>
               <form
                 onSubmit={this.GetBooksListByKeyword}
-                className="flex flex-row items-center gap-2 w-full"
+                className="flex flex-col md:flex-row md:items-center gap-2 w-full"
               >
                 <div>
                   <select
