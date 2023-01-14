@@ -8,7 +8,7 @@ import {
 } from "react-icons/bs";
 import { commaFy } from "../../utils/functions";
 import Container from "../Container/Container";
-import ADS_IMAGE from "../../assets/catalogue.jpeg";
+import ADS_IMAGE from "../../assets/catalogue_photo.jpeg";
 import {
   AiFillStar,
   AiOutlineRead,
@@ -339,24 +339,30 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       </div>
                     </div>
                   </div>
-                  <div className="col-span-12">
-                    <div
-                      onClick={() => this.props.openContactUs(true)}
-                      className="flex flex-row items-center justify-between gap-2 bg-yellow-50 w-full p-3 pr-4 text-yellow-700 rounded-lg text-lg cursor-pointer hover:bg-yellow-100 font-normal"
-                    >
-                      <div className="flex flex-row items-center gap-3">
-                        <div>
-                          <div className="h-10 w-10 rounded-full flex items-center justify-center bg-yellow-600 text-white">
-                            <IoCallOutline className="text-2xl" />
+                  {this.state.book_details.quantity === 0 ||
+                    (this.state.book_details.availability ===
+                      BookAvailability.OUT_STOCK && (
+                      <div className="col-span-12">
+                        <div
+                          onClick={() => this.props.openContactUs(true)}
+                          className="flex flex-row items-center justify-between gap-2 bg-yellow-50 w-full p-3 pr-4 text-yellow-700 rounded-lg text-lg cursor-pointer hover:bg-yellow-100 font-normal"
+                        >
+                          <div className="flex flex-row items-center gap-3">
+                            <div>
+                              <div className="h-10 w-10 rounded-full flex items-center justify-center bg-yellow-600 text-white">
+                                <IoCallOutline className="text-2xl" />
+                              </div>
+                            </div>
+                            <div className="">
+                              Contact support for pre-order
+                            </div>
+                          </div>
+                          <div>
+                            <BsArrowRight className="text-3xl" />
                           </div>
                         </div>
-                        <div className="">Contact support for pre-order</div>
                       </div>
-                      <div>
-                        <BsArrowRight className="text-3xl" />
-                      </div>
-                    </div>
-                  </div>
+                    ))}
                   <div className="col-span-12">
                     {this.state.book_details.book_theme.length > 0 && (
                       <div className="my-2 text-gray-500 -mt-2 mb-2">
@@ -427,10 +433,12 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
               </div>
             )}
           </div>
-          <div className="p-4 mt-4 rounded-lg bg-white">
-            <div className="text-lg font-bold">Book short description</div>
-            <div>{this.state.book_details?.short_description}</div>
-          </div>
+          {this.state.book_details !== null && (
+            <div className="p-4 mt-4 rounded-lg bg-white">
+              <div className="text-lg font-bold">Book short description</div>
+              <div>{this.state.book_details.short_description}</div>
+            </div>
+          )}
           <div>
             {this.props.type !== "preview" &&
               this.state.book_details !== null && (
@@ -465,7 +473,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                       </div>
                       <div className="flex flex-row items-center gap-2 mt-3">
                         <div
-                          className="bg-gray-100 rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
+                          className="bg-green-600 text-white rounded-md px-3 py-2 w-max font-normal cursor-pointer hover:bg-green-700 hover:text-white border border-gray-100 hover:border-green-700"
                           onClick={() => this.props.openContactUs(true)}
                         >
                           Contact Us
@@ -566,11 +574,16 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                 <div className="bg-white rounded-md p-2 h-full">
                   <div>
                     {this.state.loading === false && (
-                      <Image
-                        src={ADS_IMAGE}
-                        alt=""
-                        className="w-full rounded-md"
-                      />
+                      <Link
+                        href={"/catalogue"}
+                        title="Perdua publishers catalogue"
+                      >
+                        <Image
+                          src={ADS_IMAGE}
+                          alt=""
+                          className="w-full rounded-md"
+                        />
+                      </Link>
                     )}
                   </div>
                 </div>

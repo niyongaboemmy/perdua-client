@@ -80,7 +80,7 @@ export class HomepageContent extends Component<
               <div className="text-4xl md:text-6xl font-extrabold mb-4 pr-10 md:px-0 animate__animated animate__zoomIn">
                 Perdua Publishers
               </div>
-              <div className="text-base md:text-xl animate__animated animate__fadeIn w-3/4 md:w-1/3">
+              <div className="text-base md:text-xl animate__animated animate__fadeIn w-3/4 md:w-1/2 pr-0 md:pr-32">
                 Produce high-quality age appropriate story books in terms of
                 content and design.
               </div>

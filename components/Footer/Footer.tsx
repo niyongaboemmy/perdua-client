@@ -7,7 +7,7 @@ import Container from "../Container/Container";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { ImFacebook } from "react-icons/im";
 import Loading from "../Loading/Loading";
-import CataloguePhoto from "../../assets/Catalogue.jpeg";
+import CataloguePhoto from "../../assets/catalogue_photo.jpeg";
 import Image from "next/image";
 
 interface FooterProps {}
