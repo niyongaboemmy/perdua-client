@@ -115,6 +115,12 @@ export enum BookAvailability {
   COMING_SOON = "COMING_SOON",
 }
 
+export interface BookConsultancyInterface {
+  book_id: string;
+  title: string;
+  book_cover: string;
+}
+
 export const FC_RegisterBook = async (
   data: RegisterBookData,
   callback: (
@@ -726,5 +732,63 @@ export const FC_GetBestSellerBooks = async (
   } catch (error: any) {
     console.log("err: ", { ...error });
     callBack(false, { type: "error", msg: errorToText(error), data: [] });
+  }
+};
+
+// Get books by language and limit
+export const FC_GetBooksConsultancies = async (
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+      data: BookConsultancyInterface[];
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  setAxiosToken();
+  try {
+    const res = await axios.get<BookConsultancyInterface[]>(
+      `${API_URL}/books/other`
+    );
+    console.log({ books_by_limit: res.data });
+    callBack(false, {
+      type: "success",
+      msg: "Data loaded successfully!",
+      data: res.data,
+    });
+  } catch (error: any) {
+    console.log("err: ", { ...error });
+    callBack(false, { type: "error", msg: errorToText(error), data: [] });
+  }
+};
+
+export const FC_AddBookConsultancy = async (
+  data: {
+    title: string;
+    book_cover: File;
+  },
+  callback: (
+    loading: boolean,
+    res: { type: "success" | "error"; msg: string } | null
+  ) => void
+) => {
+  callback(true, null);
+  try {
+    setAxiosToken();
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("book_cover", data.book_cover);
+    await axios.post(`${API_URL}/books/register/other`, formData);
+    callback(false, {
+      type: "success",
+      msg: "Book consultancy registered successfully!",
+    });
+  } catch (error) {
+    callback(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
   }
 };

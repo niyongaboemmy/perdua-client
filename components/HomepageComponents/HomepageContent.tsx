@@ -4,9 +4,6 @@ import React, { Component } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
 import { IoMdCall } from "react-icons/io";
-import { MdOutlineSupportAgent } from "react-icons/md";
-import { RiSecurePaymentFill } from "react-icons/ri";
-import { TbTruckDelivery, TbTruckReturn } from "react-icons/tb";
 import Container from "../Container/Container";
 import Loading from "../Loading/Loading";
 import AboutUs from "./AboutUs";
@@ -30,6 +27,9 @@ interface HomepageContentState {}
 const NewBooksContent = dynamic(() => import("./NewBooks"));
 const BooksCategoriesContent = dynamic(() => import("./BookCategories"));
 const ServicesSectionContent = dynamic(() => import("./ServicesSection"));
+const BooksConsultanciesContent = dynamic(
+  () => import("../BookConsultancies/BookConsultancies")
+);
 const BooksByAvailabilityContent = dynamic(
   () => import("./BooksByAvailability")
 );
@@ -166,7 +166,7 @@ export class HomepageContent extends Component<
               <BooksByLanguageContainerContent language={item} key={i + 1} />
             ))}
           <AboutUs />
-          {/* <ServicesSectionContent /> */}
+          <BooksConsultanciesContent />
         </div>
       </div>
     );

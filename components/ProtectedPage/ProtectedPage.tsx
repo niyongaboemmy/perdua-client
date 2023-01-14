@@ -3,6 +3,7 @@ import React, { Component, ReactNode } from "react";
 import { IconType } from "react-icons";
 import { AiOutlineLogin } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
+import { SiConsul } from "react-icons/si";
 import {
   MdAddToPhotos,
   MdAdminPanelSettings,
@@ -65,6 +66,12 @@ export const AdminNavigation: {
     title: "Register Author",
     path: "/register_author",
     icon: IoPersonAddSharp,
+  },
+  {
+    id: "3",
+    title: "Consultancies",
+    path: "/booksConsultanciesManagement",
+    icon: SiConsul,
   },
 ];
 

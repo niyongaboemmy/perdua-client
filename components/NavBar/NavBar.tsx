@@ -159,10 +159,10 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                     Home
                   </NavigationComponent>
                   <NavigationComponent
-                    path="/about"
+                    path="/catalogue"
                     className="hidden md:block"
                   >
-                    About Us
+                    Catalogue
                   </NavigationComponent>
                   <div className="ml-2">
                     <div
