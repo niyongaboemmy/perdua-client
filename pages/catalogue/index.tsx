@@ -1,7 +1,10 @@
+import axios from "axios";
+import dynamic from "next/dynamic";
 import React, { Component } from "react";
 import Loading from "../../components/Loading/Loading";
 import { PageDetails } from "../../components/PageDetails/PageDetails";
 import PdfViewer from "../../components/PdfViewer/PdfViewer";
+import { API_URL } from "../../utils/api";
 
 interface AppProps {}
 interface AppState {
@@ -13,7 +16,7 @@ class index extends Component<AppProps, AppState> {
     super(props);
 
     this.state = {
-      loading: false,
+      loading: true,
     };
   }
   render() {
@@ -22,22 +25,25 @@ class index extends Component<AppProps, AppState> {
         title="Catalogue of Perdua publishers"
         description="Catalogue of Perdua publishers"
       >
-        {this.state.loading === false ? (
-          <div className="h-screen">
-            {/* <PdfViewer
-              class_name="w-full h-screen rounded-lg"
-              file_url={"/PerduaPublishersCatalogue.pdf"}
-              setLoadingFile={(state: boolean) => {
-                this.setState({ loading: state });
-              }}
-              frame_title={"Catalogue of Perdua publishers"}
-            /> */}
-          </div>
-        ) : (
-          <div>
+        {this.state.loading === true && (
+          <div className="animate__animated animate__fadeIn">
             <Loading title="Loading catalogue, please wait..." />
           </div>
         )}
+        <div className={`${this.state.loading === true ? "" : "h-screen"}`}>
+          <PdfViewer
+            class_name={`w-full rounded-lg  ${
+              this.state.loading === true
+                ? "bg-white"
+                : "h-screen bg-gray-600 animate__animated animate__fadeIn"
+            }`}
+            file_url={`${API_URL}/catalogue/catalogue.pdf`}
+            setLoadingFile={(state: boolean) => {
+              this.setState({ loading: state });
+            }}
+            frame_title={"Catalogue of Perdua publishers"}
+          />
+        </div>
       </PageDetails>
     );
   }

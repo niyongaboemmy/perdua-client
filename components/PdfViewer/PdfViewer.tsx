@@ -35,30 +35,30 @@ const PdfViewer: React.FC<PdfViewerProps> = (props) => {
       {error ? (
         <Alert title={error.msg} type="danger" onClose={() => {}} />
       ) : (
-        <object
-          data={props.file_url}
-          // data={
-          //   "https://tmis.reb.rw/api/public/documents/1660952180_21100318066_disabilitydocs.pdf"
-          // }
-          type="application/pdf"
-          className={props.class_name}
-          onLoad={() => props.setLoadingFile(false)}
-        >
-          <iframe
-            // src={props.file_url}
-            // src={
-            //   "https://tmis.reb.rw/api/public/documents/1660952180_21100318066_disabilitydocs.pdf"
-            // }
-            src={`https://docs.google.com/viewer?url=${props.file_url}&embedded=true`}
+        <>
+          <object
+            data={props.file_url}
+            type="application/pdf"
             className={props.class_name}
-            title={props.frame_title}
             onLoad={() => props.setLoadingFile(false)}
           >
-            <p className="text-2xl opacity-50">
-              This browser does not support PDF!
-            </p>
-          </iframe>
-        </object>
+            <iframe
+              // src={props.file_url}
+              // src={
+              //   "https://tmis.reb.rw/api/public/documents/1660952180_21100318066_disabilitydocs.pdf"
+              // }
+              src={`https://docs.google.com/viewer?url=${props.file_url}&embedded=true`}
+              className={props.class_name}
+              title={props.frame_title}
+              onLoad={() => props.setLoadingFile(false)}
+              loading={"eager"}
+            >
+              {/* <div className="text-2xl opacity-50">
+            This browser does not support PDF!
+          </div> */}
+            </iframe>
+          </object>
+        </>
       )}
     </div>
   );
