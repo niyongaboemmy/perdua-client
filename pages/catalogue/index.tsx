@@ -24,14 +24,14 @@ class index extends Component<AppProps, AppState> {
       >
         {this.state.loading === false ? (
           <div className="h-screen">
-            <PdfViewer
+            {/* <PdfViewer
               class_name="w-full h-screen rounded-lg"
               file_url={"/PerduaPublishersCatalogue.pdf"}
               setLoadingFile={(state: boolean) => {
                 this.setState({ loading: state });
               }}
               frame_title={"Catalogue of Perdua publishers"}
-            />
+            /> */}
           </div>
         ) : (
           <div>

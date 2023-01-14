@@ -28,7 +28,7 @@ import {
 import { API_URL } from "../../utils/api";
 import { MdLanguage } from "react-icons/md";
 import { RiBook3Line } from "react-icons/ri";
-import { IoPricetagsOutline } from "react-icons/io5";
+import { IoCallOutline, IoPricetagsOutline } from "react-icons/io5";
 import { LoadingBooks } from "../HomepageComponents/NewBooks";
 import { HiDatabase } from "react-icons/hi";
 
@@ -336,6 +336,24 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                             BookAvailability.OUT_STOCK
                           ? "Out of stock"
                           : "Coming Soon"}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="col-span-12">
+                    <div
+                      onClick={() => this.props.openContactUs(true)}
+                      className="flex flex-row items-center justify-between gap-2 bg-yellow-50 w-full p-3 pr-4 text-yellow-700 rounded-lg text-lg cursor-pointer hover:bg-yellow-100 font-normal"
+                    >
+                      <div className="flex flex-row items-center gap-3">
+                        <div>
+                          <div className="h-10 w-10 rounded-full flex items-center justify-center bg-yellow-600 text-white">
+                            <IoCallOutline className="text-2xl" />
+                          </div>
+                        </div>
+                        <div className="">Contact support for pre-order</div>
+                      </div>
+                      <div>
+                        <BsArrowRight className="text-3xl" />
                       </div>
                     </div>
                   </div>
