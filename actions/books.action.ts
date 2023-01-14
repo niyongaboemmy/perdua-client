@@ -319,7 +319,7 @@ export const FC_GetNewBooksByLanguageAndCategoryAndLimit = async (
 // Get upcoming books with language, category, and limit
 export const FC_GetBooksByKeyword = async (
   search_data: string,
-  key: "title" | "price" | "desc",
+  key: "title" | "price" | "theme" | "category",
   callBack: (
     loading: boolean,
     res: {

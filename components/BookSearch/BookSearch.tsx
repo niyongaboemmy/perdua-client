@@ -49,7 +49,7 @@ export class BookSearch extends Component<BookSearchProps, BookSearchState> {
       this.setState({ loading_search_result: true });
     FC_GetBooksByKeyword(
       this.state.search_data,
-      this.state.selected_key as "title" | "price" | "desc",
+      this.state.selected_key as "title" | "price" | "theme" | "category",
       (
         loading: boolean,
         res: {
@@ -98,7 +98,7 @@ export class BookSearch extends Component<BookSearchProps, BookSearchState> {
             }}
           >
             <div>
-              <div className="flex flex-row items-center gap-2">
+              <div className="flex flex-row items-center gap-2 mb-3">
                 <div>
                   <div
                     onClick={() => this.props.setShowOpenModal(false)}
@@ -119,17 +119,18 @@ export class BookSearch extends Component<BookSearchProps, BookSearchState> {
                     onChange={(e) =>
                       this.setState({ selected_key: e.target.value })
                     }
-                    className="px-3 py-2 h-11 rounded-lg border-2 border-green-700 font-bold text-green-700"
+                    className="px-3 py-2 h-11 rounded border-2 font-bold text-green-700 border-green-50 bg-green-50 border-focus-green"
                   >
                     <option value={"title"}>By title</option>
-                    <option value={"desc"}>By description</option>
                     <option value={"price"}>By price</option>
+                    <option value={"theme"}>By theme</option>
+                    <option value={"category"}>By category</option>
                   </select>
                 </div>
                 <div className="relative w-full my-3">
                   <input
                     type="text"
-                    className="bg-white py-2 px-4 pl-12 rounded-lg w-full border border-gray-400"
+                    className="bg-white py-2 px-4 pl-12 rounded w-full border-2 border-gray-400 focus:border-red-700 border-focus"
                     placeholder="Search book"
                     autoFocus={true}
                     value={this.state.search_data}

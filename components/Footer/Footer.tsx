@@ -7,6 +7,8 @@ import Container from "../Container/Container";
 import { TwitterTimelineEmbed } from "react-twitter-embed";
 import { ImFacebook } from "react-icons/im";
 import Loading from "../Loading/Loading";
+import CataloguePhoto from "../../assets/Catalogue.jpeg";
+import Image from "next/image";
 
 interface FooterProps {}
 interface FooterState {
@@ -27,11 +29,22 @@ export class Footer extends Component<FooterProps, FooterState> {
         <Container>
           <div className="grid grid-cols-12 gap-8">
             <div className="col-span-12 md:col-span-6 lg:col-span-3">
-              <div className="font-bold text-2xl mb-3">About Us</div>
+              <div className="font-bold text-2xl mb-3">Our catalogue</div>
               <div className="text-sm text-gray-300 pr-0 md:pr-3">
                 <div>
                   We publish and avail quality books which offer holistic and
                   innovative educational ends and promote the culture of reading
+                </div>
+                <div className="mt-3 rounded-lg overflow-hidden h-64 w-48 bg-gray-700">
+                  <Link href={"/catalogue"} title="Perdua publishers catalogue">
+                    <Image
+                      src={CataloguePhoto}
+                      alt=""
+                      height={100}
+                      width={100}
+                      className="min-h-full min-w-full h-auto w-auto object-cover"
+                    />
+                  </Link>
                 </div>
               </div>
             </div>
@@ -50,6 +63,12 @@ export class Footer extends Component<FooterProps, FooterState> {
                     className="mb-2 hover:underline hover:text-green-400 w-max"
                   >
                     About Perdua
+                  </Link>
+                  <Link
+                    href="/catalogue"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
+                    Our catalogue
                   </Link>
                   <Link
                     href="/contact"
@@ -74,7 +93,10 @@ export class Footer extends Component<FooterProps, FooterState> {
             </div>
             <div className="col-span-12 md:col-span-6 lg:col-span-4">
               <div className="font-bold text-xl mb-3">Perdua twitter</div>
-              <div className="bg-gray-700 rounded-xl overflow-y-auto p-0 h-72">
+              <div
+                className="bg-gray-700 rounded-xl overflow-y-auto p-0"
+                style={{ height: "350px" }}
+              >
                 <div className="h-full">
                   {this.state.loading === true && (
                     <div className="w-full h-full flex items-center justify-center">

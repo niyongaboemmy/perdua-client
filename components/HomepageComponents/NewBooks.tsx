@@ -114,6 +114,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                         </div>
                       </div>
                     </div>
+                    {/* transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110 */}
                     <div
                       className="col-span-12 md:col-span-4 relative"
                       // style={{ width: "150px" }}
@@ -124,7 +125,7 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                           alt={book.title}
                           height={300}
                           width={300}
-                          className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto transform hover:-translate-y-1 delay-75 hover:delay-150 duration-200 hover:scale-110"
+                          className="rounded-xl group-hover:shadow object-cover min-w-full min-h-full h-auto w-auto"
                         />
                       </div>
                     </div>

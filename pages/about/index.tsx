@@ -133,15 +133,6 @@ export class index extends Component {
               <div className="mb-2">
                 We publish and avail quality books which offer holistic and
                 innovative educational ends and promote the culture of reading.
-                (see how Imagine we presented theirs:{" "}
-                <Link
-                  href={"https://imaginewe.rw/#work"}
-                  target="_blank"
-                  className="text-gray-400 underline hover:text-green-600"
-                >
-                  https://imaginewe.rw/#work
-                </Link>
-                )
               </div>
               <div className="p-2 md:p-6 flex flex-col gap-3">
                 {PerduaServices.map((item, i) => {
