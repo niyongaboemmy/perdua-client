@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { Component } from "react";
+import { AiOutlineFileImage } from "react-icons/ai";
 import {
   AuthorGetInterface,
   FC_UpdateAuthorDetails,
@@ -519,8 +520,11 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
                     style={{ minHeight: "300px" }}
                   >
                     {this.props.selectedAuthor.author_pic === null ? (
-                      <div className="flex items-center text-lg justify-center text-center w-full h-72 bg-gray-100 py-12 rounded-lg">
-                        No author picture found
+                      <div className="flex flex-col items-center text-lg justify-center text-center w-full h-72 bg-gray-100 py-12 rounded-lg">
+                        <div>
+                          <AiOutlineFileImage className="text-8xl text-gray-300" />
+                        </div>
+                        <div className="mt-3">No picture available</div>
                       </div>
                     ) : (
                       <Image

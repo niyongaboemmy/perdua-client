@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React, { Component } from "react";
+import { BsImage } from "react-icons/bs";
 import {
   AuthorGetInterface,
   FC_GetAuthorsList,
@@ -78,19 +79,25 @@ export class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
             {this.state.authors.map((item, i) => (
               <tr
                 key={i + 1}
-                className="cursor-pointer hover:text-green-600 hover:bg-green-50"
+                className="cursor-pointer hover:text-green-600 hover:bg-green-50 group"
                 onClick={() => this.props.setSelectAuthor(item)}
               >
                 <td className="border px-2 py-1 text-center w-10">{i + 1}</td>
                 <td className="border px-2 py-1 w-16">
-                  <div className="h-16 w-16 rounded-md bg-gray-100 overflow-hidden">
-                    <Image
-                      src={`${API_URL}/${ImageFolder.author}/${item.author_pic}`}
-                      alt=""
-                      height={60}
-                      width={60}
-                      className="min-h-full min-w-full h-auto w-auto object-cover"
-                    />
+                  <div className="h-16 w-16 rounded-md bg-gray-100 group-hover:bg-yellow-50 overflow-hidden">
+                    {item.author_pic === null ? (
+                      <div className="flex items-center justify-center w-full h-full text-gray-300 group-hover:text-yellow-700 text-3xl">
+                        <BsImage />
+                      </div>
+                    ) : (
+                      <Image
+                        src={`${API_URL}/${ImageFolder.author}/${item.author_pic}`}
+                        alt=""
+                        height={60}
+                        width={60}
+                        className="min-h-full min-w-full h-auto w-auto object-cover"
+                      />
+                    )}
                   </div>
                 </td>
                 <td className="border px-2 py-1">{item.author_name}</td>
