@@ -11,7 +11,6 @@ import Modal, {
   Themes,
 } from "../../components/Modal/Modal";
 import { ProtectedPage } from "../../components/ProtectedPage/ProtectedPage";
-import UpdateAuthor from "../../components/UpdateAuthor/UpdateAuthor";
 // import { AuthorsListForm } from "../../components/AuthorsList/AuthorsListForm";
 
 interface AuthorsListProps {
@@ -24,6 +23,9 @@ interface AuthorsListState {
 
 const AuthorsListFormComponent = dynamic(
   () => import("../../components/AuthorsList/AuthorsList")
+);
+const UpdateAuthorComponent = dynamic(
+  () => import("../../components/UpdateAuthor/UpdateAuthor")
 );
 
 class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
@@ -103,7 +105,7 @@ class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
               </div>
             }
           >
-            <UpdateAuthor
+            <UpdateAuthorComponent
               selectedAuthor={this.state.selectedAuthor}
               onClose={() => this.setState({ selectedAuthor: null })}
               onUpdated={(selectedAuthorId: string) => {
