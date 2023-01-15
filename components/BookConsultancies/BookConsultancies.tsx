@@ -143,6 +143,9 @@ class BookConsultancies extends Component<
             <div
               key={i + 1}
               className="col-span-6 md:col-span-4 lg:col-span-3 rounded-lg overflow-hidden bg-white shadow-lg"
+              data-aos="flip-left"
+              data-aos-easing="ease-out-cubic"
+              data-aos-duration="1000"
             >
               <div className="w-full h-auto overflow-hidden rounded-t-lg bg-gray-100">
                 <Image

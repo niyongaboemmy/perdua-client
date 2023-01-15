@@ -89,6 +89,8 @@ export class HomepageContent extends Component<
                 <Link
                   href={"/store"}
                   className="relative flex flex-row items-center justify-center gap-2 w-max text-lg bg-primary-800 hover:bg-green-700 text-white px-5 py-3 rounded-md hover:shadow-2xl cursor-pointer animate__animated animate__zoomIn"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
                 >
                   <div>
                     <AiOutlineShoppingCart className="text-2xl" />
@@ -102,6 +104,8 @@ export class HomepageContent extends Component<
                 <Link
                   href={"/contact"}
                   className="flex flex-row items-center justify-center gap-2 w-max text-lg text-green-700 bg-white hover:bg-green-700 hover:text-white px-5 py-3 rounded-md hover:shadow-2xl cursor-pointer animate__animated animate__zoomIn"
+                  data-aos="fade-up"
+                  data-aos-duration="1000"
                 >
                   <div>
                     <IoMdCall className="text-2xl" />
@@ -121,6 +125,8 @@ export class HomepageContent extends Component<
                   <div
                     key={i + 1}
                     className="col-span-12 md:col-span-6 lg:col-span-3 h-full pt-10"
+                    data-aos="fade-up"
+                    data-aos-duration="1000"
                   >
                     <div className="w-full bg-white bg-opacity-70 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
                       <div className="-mt-12">

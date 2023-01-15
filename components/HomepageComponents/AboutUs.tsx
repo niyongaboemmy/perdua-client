@@ -13,7 +13,11 @@ interface AboutUsState {}
 export class AboutUs extends Component<AboutUsProps, AboutUsState> {
   render() {
     return (
-      <div className="bg-white py-10">
+      <div
+        className="bg-white py-10"
+        data-aos="fade-up"
+        data-aos-anchor-placement="top-center"
+      >
         <Container>
           <div className="pb-10">
             <div className="grid grid-cols-12 gap-0 md:gap-10">

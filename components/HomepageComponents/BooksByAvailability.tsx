@@ -110,6 +110,7 @@ class BooksByAvailability extends Component<
                         key={i + 1}
                         className="col-span-6 md:col-span-4 lg:col-span-4 group cursor-pointer relative bg-gray-10 rounded-xl border border-white hover:border-gray-300"
                         title={book.title}
+                        data-aos="zoom-in-up"
                       >
                         <BookItem
                           item={book}

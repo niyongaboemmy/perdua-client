@@ -2,17 +2,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { Component } from "react";
 import { AiFillStar } from "react-icons/ai";
-import { BsArrowRight, BsStarHalf } from "react-icons/bs";
 import { IoReaderOutline } from "react-icons/io5";
 import {
   FC_GetBestSellerBooks,
-  FC_GetNewBooksByLimit,
   GetBookInterface,
   ImageFolder,
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import { commaFy } from "../../utils/functions";
-import Container from "../Container/Container";
 import Loading from "../Loading/Loading";
 
 export const LoadingBooks = (props: { cols: number }) => {
@@ -119,7 +116,12 @@ class NewBooks extends Component<NewBooksProps, NewBooksState> {
                       className="col-span-12 md:col-span-4 relative"
                       // style={{ width: "150px" }}
                     >
-                      <div className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn">
+                      <div
+                        className="w-full rounded-xl object-cover bg-gray-100 animate__animated animate__fadeIn"
+                        data-aos="flip-left"
+                        data-aos-easing="ease-out-cubic"
+                        data-aos-duration="2000"
+                      >
                         <Image
                           src={`${API_URL}/${ImageFolder.cover}/${book.book_cover}`}
                           alt={book.title}

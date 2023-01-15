@@ -171,6 +171,9 @@ const MyComponent = (props: AppProps): JSX.Element => {
                   <div
                     key={i + 1}
                     className="col-span-12 md:col-span-6 lg:col-span-3 animate__animated animate__fadeIn"
+                    data-aos="flip-left"
+                    data-aos-easing="ease-out-cubic"
+                    data-aos-duration="1000"
                   >
                     <div className="flex flex-col items-center justify-center w-full h-full rounded-xl bg-white group border hover:shadow-md hover:border-white">
                       <div

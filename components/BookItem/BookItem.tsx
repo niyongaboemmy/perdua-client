@@ -21,6 +21,8 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
         }`}
         className={`cursor-pointer bg-white rounded-lg group border border-white hover:border-green-600 animate__animated animate__fadeIn h-full`}
         onClick={this.props.onClick}
+        data-aos="zoom-in-up"
+        data-aos-duration="700"
       >
         <div
           className="mb-2 overflow-hidden bg-gray-100 rounded-md group-hover:rounded-b-none object-cover"
