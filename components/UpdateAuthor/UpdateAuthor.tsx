@@ -515,16 +515,22 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
               <div className="">
                 {this.state.author_pic === null ? (
                   <div
-                    className="animate__animated animate__zoomIn rounded-lg overflow-hidden"
+                    className="animate__animated animate__zoomIn rounded-lg overflow-hidden bg-gray-100"
                     style={{ minHeight: "300px" }}
                   >
-                    <Image
-                      alt=""
-                      src={`${API_URL}/${ImageFolder.author}/${this.props.selectedAuthor.author_pic}`}
-                      height={300}
-                      width={300}
-                      className="min-h-full min-w-full h-auto w-auto object-cover"
-                    />
+                    {this.props.selectedAuthor.author_pic === null ? (
+                      <div className="flex items-center text-lg justify-center text-center w-full h-72 bg-gray-100 py-12 rounded-lg">
+                        No author picture found
+                      </div>
+                    ) : (
+                      <Image
+                        alt=""
+                        src={`${API_URL}/${ImageFolder.author}/${this.props.selectedAuthor.author_pic}`}
+                        height={300}
+                        width={300}
+                        className="min-h-full min-w-full h-auto w-auto object-cover"
+                      />
+                    )}
                   </div>
                 ) : (
                   <div
