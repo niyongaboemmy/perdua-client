@@ -4,6 +4,7 @@ import { ActionTypes } from "./types";
 import { API_URL } from "../utils/api";
 import { errorToText } from "../utils/functions";
 import { setAxiosToken } from "../utils/AxiosToken";
+import { AuthorSocialMedia } from "../components/RegisterAuthor/RegisterAuthor";
 
 export interface BookCategory {
   category_id: string;
@@ -27,6 +28,8 @@ export interface BookAuthor {
   author_pic: string;
   phone: string;
   email: string;
+  bibliography: string | null;
+  social_media: string; //AuthorSocialMedia;
 }
 
 export interface BookLevel {

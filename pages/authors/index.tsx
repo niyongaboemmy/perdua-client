@@ -2,7 +2,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { Fragment, useEffect, useState } from "react";
+import { BsGoogle, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
+import { ImFacebook } from "react-icons/im";
+import { IoEarthSharp, IoLogoYoutube } from "react-icons/io5";
+import { RiInstagramFill } from "react-icons/ri";
 import { connect } from "react-redux";
 import {
   BookAuthor,
@@ -24,6 +28,7 @@ import Modal, {
   Themes,
 } from "../../components/Modal/Modal";
 import { PageDetails } from "../../components/PageDetails/PageDetails";
+import { AuthorSocialMedia } from "../../components/RegisterAuthor/RegisterAuthor";
 import { StoreState } from "../../reducers";
 import { API_URL } from "../../utils/api";
 import { search } from "../../utils/functions";
@@ -73,6 +78,10 @@ const MyComponent = (props: AppProps): JSX.Element => {
         }
       }
     );
+  };
+
+  const GetBookSocialMedia = (socialMedia: string): AuthorSocialMedia => {
+    return JSON.parse(socialMedia) as AuthorSocialMedia;
   };
 
   useEffect(() => {
@@ -163,6 +172,119 @@ const MyComponent = (props: AppProps): JSX.Element => {
                             Email:{" "}
                           </span>
                           <span className="">{item.email}</span>
+                        </div>
+                        <div className="flex flex-row items-center gap-2 mt-5">
+                          {GetBookSocialMedia(item.social_media).facebook !==
+                            undefined &&
+                            GetBookSocialMedia(item.social_media).facebook !==
+                              null &&
+                            GetBookSocialMedia(item.social_media).facebook !==
+                              "" && (
+                              <Link
+                                href={
+                                  GetBookSocialMedia(item.social_media).facebook
+                                }
+                                target="_blank"
+                                className=""
+                              >
+                                <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
+                                  <ImFacebook className="text-2xl" />
+                                </div>
+                              </Link>
+                            )}
+                          {GetBookSocialMedia(item.social_media).instagram !==
+                            undefined &&
+                            GetBookSocialMedia(item.social_media).instagram !==
+                              null &&
+                            GetBookSocialMedia(item.social_media).instagram !==
+                              "" && (
+                              <Link
+                                href={
+                                  GetBookSocialMedia(item.social_media)
+                                    .instagram
+                                }
+                                target="_blank"
+                                className=""
+                              >
+                                <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-600 hover:bg-yellow-600 hover:text-white rounded-full">
+                                  <RiInstagramFill className="text-2xl" />
+                                </div>
+                              </Link>
+                            )}
+                          {GetBookSocialMedia(item.social_media).twitter !==
+                            undefined &&
+                            GetBookSocialMedia(item.social_media).twitter !==
+                              null &&
+                            GetBookSocialMedia(item.social_media).twitter !==
+                              "" && (
+                              <Link
+                                href={
+                                  GetBookSocialMedia(item.social_media).twitter
+                                }
+                                target="_blank"
+                                className=""
+                              >
+                                <div className="h-10 w-10 flex items-center justify-center bg-white text-red-600 hover:bg-red-600 hover:text-white rounded-full">
+                                  <BsTwitter className="text-2xl" />
+                                </div>
+                              </Link>
+                            )}
+                          {GetBookSocialMedia(item.social_media).linkedin !==
+                            undefined &&
+                            GetBookSocialMedia(item.social_media).linkedin !==
+                              null &&
+                            GetBookSocialMedia(item.social_media).linkedin !==
+                              "" && (
+                              <Link
+                                href={
+                                  GetBookSocialMedia(item.social_media).linkedin
+                                }
+                                target="_blank"
+                                className=""
+                              >
+                                <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
+                                  <BsLinkedin className="text-2xl" />
+                                </div>
+                              </Link>
+                            )}
+                          {GetBookSocialMedia(item.social_media).googleSite !==
+                            undefined &&
+                            GetBookSocialMedia(item.social_media).googleSite !==
+                              null &&
+                            GetBookSocialMedia(item.social_media).googleSite !==
+                              "" && (
+                              <Link
+                                href={
+                                  GetBookSocialMedia(item.social_media)
+                                    .googleSite
+                                }
+                                target="_blank"
+                                className=""
+                              >
+                                <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-500 hover:bg-yellow-500 hover:text-white rounded-full">
+                                  <BsGoogle className="text-2xl" />
+                                </div>
+                              </Link>
+                            )}
+                          {GetBookSocialMedia(item.social_media)
+                            .researchGate !== undefined &&
+                            GetBookSocialMedia(item.social_media)
+                              .researchGate !== null &&
+                            GetBookSocialMedia(item.social_media)
+                              .researchGate !== "" && (
+                              <Link
+                                href={
+                                  GetBookSocialMedia(item.social_media)
+                                    .researchGate
+                                }
+                                target="_blank"
+                                className=""
+                              >
+                                <div className="h-10 w-10 flex items-center justify-center bg-white text-green-500 hover:bg-green-500 hover:text-white rounded-full">
+                                  <IoEarthSharp className="text-2xl" />
+                                </div>
+                              </Link>
+                            )}
                         </div>
                       </div>
                     </div>
