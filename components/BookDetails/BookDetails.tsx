@@ -189,14 +189,11 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                     className={`${
                       this.state.loading_main_image === true
                         ? "h-0"
-                        : "w-full h-auto"
+                        : "w-full h-auto animate__animated animate__fadeIn animate__slow"
                     } rounded-md`}
-                    onLoadStart={(
-                      event: React.SyntheticEvent<HTMLImageElement, Event>
-                    ) => {
-                      this.setState({ loading_main_image: true });
-                    }}
                     onLoadingComplete={(img: HTMLImageElement) => {
+                      img.className =
+                        "w-full h-auto animate__animated animate__fadeIn animate__slow";
                       this.setState({ loading_main_image: false });
                     }}
                     priority={true}
@@ -217,7 +214,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                 </div>
               </div>
             ) : (
-              <div className="col-span-12 md:col-span-7 lg:col-span-8 p-3 md:p-6 bg-white">
+              <div className="col-span-12 md:col-span-7 lg:col-span-8 p-3 md:p-6 bg-white animate__animated animate__fadeIn">
                 <div className="flex flex-row items-center gap-2">
                   {this.props.type !== "preview" && (
                     <div>
