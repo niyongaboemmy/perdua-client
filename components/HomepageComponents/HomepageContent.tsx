@@ -76,15 +76,15 @@ export class HomepageContent extends Component<
             width={2000}
           />
           <div className="absolute top-40 md:top-60 lg:top-0 bottom-0 right-0 left-0 flex flex-col lg:justify-center">
-            <Container className="flex flex-col">
+            <Container className="flex flex-col px-6 lg:px-0">
               <div className="text-4xl md:text-6xl font-extrabold mb-4 pr-10 md:px-0 animate__animated animate__zoomIn">
                 Perdua Publishers
               </div>
-              <div className="text-base md:text-xl animate__animated animate__fadeIn w-3/4 md:w-1/2 pr-0 md:pr-32">
+              <div className="text-base md:text-xl animate__animated animate__fadeIn w-full md:w-3/4 lg:w-1/2 pr-0 md:pr-32">
                 Produce high-quality age appropriate story books in terms of
                 content and design.
               </div>
-              <div className="my-32 md:my-52 lg:my-0"></div>
+              <div className="my-32 md:my-32 lg:my-0"></div>
               <div className="flex flex-col md:flex-row md:items-center gap-4 mt-16">
                 <Link
                   href={"/store"}
