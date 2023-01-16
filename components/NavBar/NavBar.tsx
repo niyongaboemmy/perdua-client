@@ -20,9 +20,9 @@ import { connect } from "react-redux";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import { RiSearchLine } from "react-icons/ri";
-import { HiOutlineArrowLeft } from "react-icons/hi";
+import { HiMenu, HiOutlineArrowLeft } from "react-icons/hi";
 import { BiDetail } from "react-icons/bi";
-import { FiPhoneCall } from "react-icons/fi";
+import { FiMenu, FiPhoneCall } from "react-icons/fi";
 import { BsCheckCircle, BsFileEarmarkPdf } from "react-icons/bs";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import Loading from "../Loading/Loading";
@@ -144,9 +144,11 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                   />
                 </Link>
                 <Link href={"/"}>
-                  <div className="text-xl font-bold flex flex-row items-center gap-1 ml-2">
-                    <div className="text-green-600 hidden md:block">Perdua</div>
-                    <div className="text-lg text-gray-800 hidden md:block">
+                  <div className="text-xl font-bold flex flex-col md:flex-row md:items-center md:gap-1 ml-2">
+                    <div className="text-green-600 text-lg md:text-xl">
+                      Perdua
+                    </div>
+                    <div className="text-gray-800 text-sm md:text-lg font-normal -mt-1">
                       Publishers
                     </div>
                   </div>
@@ -173,10 +175,13 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                     </div>
                   </div>
                   <div
-                    className="bg-green-600 text-white hover:bg-green-700 py-2 rounded-md px-4 ml-0 md:ml-6 cursor-pointer flex flex-row items-center gap-2"
+                    className="bg-green-600 text-white hover:bg-green-700 py-2 rounded-md px-3 pl-2 ml-0 md:ml-6 cursor-pointer flex flex-row items-center gap-2"
                     onClick={() => this.CheckBasicData()}
                   >
-                    <span>Menus</span>
+                    <div>
+                      <HiMenu className="text-2xl" />
+                    </div>
+                    <span>Menu</span>
                   </div>
                 </div>
               ) : (
