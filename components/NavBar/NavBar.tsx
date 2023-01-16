@@ -144,11 +144,11 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                   />
                 </Link>
                 <Link href={"/"}>
-                  <div className="text-xl font-bold flex flex-col md:flex-row md:items-center md:gap-1 ml-2">
+                  <div className="text-xl font-bold flex flex-col md:flex-row md:items-center md:gap-2 ml-2">
                     <div className="text-green-600 text-lg md:text-xl">
                       Perdua
                     </div>
-                    <div className="text-gray-800 text-sm md:text-lg font-normal -mt-1">
+                    <div className="text-gray-800 text-sm md:text-lg -mt-1 md:mt-0 font-normal">
                       Publishers
                     </div>
                   </div>
@@ -217,7 +217,7 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                     <HiOutlineArrowLeft className="text-2xl" />
                   </div>
                 </div>
-                <div className="text-xl font-semibold text-gray-700">
+                <div className="text-lg font-semibold text-gray-700">
                   Explore menus
                 </div>
               </div>
@@ -236,7 +236,7 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                         <div>
                           <IconMenu className="text-2xl text-gray-300 group-hover:text-green-600" />
                         </div>
-                        <div>{menu.title}</div>
+                        <div className="text-sm">{menu.title}</div>
                       </div>
                     </ActiveLink>
                   );
@@ -249,7 +249,7 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                   <div>
                     <AiOutlineRead className="text-3xl text-gray-400" />
                   </div>
-                  <div className="text-xl font-semibold text-gray-700">
+                  <div className="text-lg font-semibold text-gray-700">
                     Books categories
                   </div>
                 </div>
@@ -268,7 +268,7 @@ export class _NavBar extends Component<NavBarProps, NavBarState> {
                           onClick={() => this.setState({ sideNav: false })}
                           target="_blank"
                         >
-                          <div className="flex flex-row items-center gap-2 mb-1 rounded-md p-2 pr-3 w-full hover:bg-green-700 hover:text-white group animate__animated animate__fadeIn">
+                          <div className="flex flex-row items-center gap-2 mb-1 text-sm rounded-md p-2 pr-3 w-full hover:bg-green-700 hover:text-white group animate__animated animate__fadeIn">
                             <div>
                               <BsCheckCircle className="text-2xl text-green-600 group-hover:text-white" />
                             </div>
