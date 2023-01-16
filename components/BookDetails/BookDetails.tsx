@@ -4,6 +4,7 @@ import {
   BsArrowLeft,
   BsArrowRight,
   BsCheckCircle,
+  BsImage,
   BsStarHalf,
 } from "react-icons/bs";
 import { commaFy } from "../../utils/functions";
@@ -27,10 +28,12 @@ import {
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import { MdLanguage } from "react-icons/md";
-import { RiBook3Line } from "react-icons/ri";
+import { RiBook3Line, RiLoader2Line } from "react-icons/ri";
 import { IoCallOutline, IoPricetagsOutline } from "react-icons/io5";
 import { LoadingBooks } from "../HomepageComponents/NewBooks";
-import { HiDatabase } from "react-icons/hi";
+import { HiDatabase, HiOutlinePhotograph } from "react-icons/hi";
+import { BiImageAlt, BiLoaderCircle } from "react-icons/bi";
+import { FaUserCircle } from "react-icons/fa";
 
 const LoadingBillItem = () => {
   return (
@@ -60,6 +63,8 @@ interface BookDetailsState {
   book_details: GetBookDetailsInterface | null;
   loading_related: boolean;
   related_books: GetBookInterface[] | null;
+  loading_main_image: boolean;
+  loading_author_image: boolean;
 }
 
 export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
@@ -73,6 +78,8 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
       book_details: null,
       loading_related: false,
       related_books: null,
+      loading_main_image: true,
+      loading_author_image: true,
     };
   }
   GetBookDetailsById = (book_id: string) => {
@@ -145,13 +152,6 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
     this.GetBookDetailsById(this.props.book_id);
   };
   render() {
-    // if (this.state.book_details === null || this.state.loading === true) {
-    //   return (
-    //     <div className="pt-24">
-    //       <Loading className="bg-white" />
-    //     </div>
-    //   );
-    // }
     return (
       <Container lgPadding={this.props.type === "preview" ? "0" : undefined}>
         <div className="mb-8">
@@ -165,12 +165,41 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                 ></div>
               ) : (
                 <div className="bg-gray-100 rounded-xl">
+                  {this.state.loading_main_image === true ? (
+                    <div
+                      className="bg-gray-100 rounded-xl animate__animated animate__fadeIn animate__fast h-full w-full flex flex-col items-center justify-center"
+                      style={{ height: "360px" }}
+                    >
+                      <BsImage className="text-8xl mb-3 text-gray-300" />
+                      <div className="flex flex-row items-center gap-2 text-gray-400">
+                        <BiLoaderCircle className="text-2xl animate-spin" />
+                        <span className="text-gray-600 animate__animated animate__fadeIn animate__slower animate__infinite">
+                          Loading image...
+                        </span>
+                      </div>
+                    </div>
+                  ) : (
+                    ""
+                  )}
                   <Image
                     src={`${API_URL}/${ImageFolder.cover}/${this.state.book_details.book_cover}`}
                     alt={this.state.book_details.title}
                     height={2000}
                     width={1500}
-                    className="w-full h-auto rounded-md"
+                    className={`${
+                      this.state.loading_main_image === true
+                        ? "h-0"
+                        : "w-full h-auto"
+                    } rounded-md`}
+                    onLoadStart={(
+                      event: React.SyntheticEvent<HTMLImageElement, Event>
+                    ) => {
+                      this.setState({ loading_main_image: true });
+                    }}
+                    onLoadingComplete={(img: HTMLImageElement) => {
+                      this.setState({ loading_main_image: false });
+                    }}
+                    priority={true}
                   />
                 </div>
               )}
@@ -182,7 +211,7 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                 <div className="bg-gray-100 rounded-xl h-3 w-1/2  animate__animated animate__fadeIn animate__infinite mt-3"></div>
                 <div className="grid grid-cols-12 items-center gap-5 w-full pt-5 mt-8">
                   {/*  */}
-                  {[1, 2, 3, 4, 5, 6].map((load, l) => (
+                  {[1, 2, 3, 4, 5, 6].map((l) => (
                     <LoadingBillItem key={l + 1} />
                   ))}
                 </div>
@@ -397,17 +426,52 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                             >
                               <div className="flex items-center gap-4 hover:bg-green-50 cursor-pointer p-2 rounded-xl mt-2 group">
                                 <div>
-                                  <div className="h-20 w-20 rounded-full overflow-hidden bg-gray-100">
-                                    <Image
-                                      src={`${API_URL}/${ImageFolder.author}/${author.author_pic}`}
-                                      alt=""
-                                      height={60}
-                                      width={60}
-                                      className={
-                                        "w-auto h-auto min-h-full min-w-full object-cover"
-                                      }
-                                    />
+                                  <div
+                                    className={`${
+                                      this.state.loading_author_image ===
+                                        true && author.author_pic !== null
+                                        ? "h-0 w-0"
+                                        : "h-20 w-20"
+                                    } rounded-full overflow-hidden bg-gray-100 group-hover:bg-white`}
+                                  >
+                                    {author.author_pic === null ? (
+                                      <div className="flex items-center justify-center h-full w-full">
+                                        <BsImage className="text-3xl text-gray-300 group-hover:text-green-700" />
+                                      </div>
+                                    ) : (
+                                      <Image
+                                        src={`${API_URL}/${ImageFolder.author}/${author.author_pic}`}
+                                        alt=""
+                                        height={60}
+                                        width={60}
+                                        className={`w-auto h-auto min-h-full min-w-full object-cover`}
+                                        priority={true}
+                                        onLoadStart={(
+                                          event: React.SyntheticEvent<
+                                            HTMLImageElement,
+                                            Event
+                                          >
+                                        ) => {
+                                          this.setState({
+                                            loading_author_image: true,
+                                          });
+                                        }}
+                                        onLoadingComplete={(
+                                          img: HTMLImageElement
+                                        ) => {
+                                          this.setState({
+                                            loading_author_image: false,
+                                          });
+                                        }}
+                                      />
+                                    )}
                                   </div>
+                                  {this.state.loading_author_image === true &&
+                                    author.author_pic !== null && (
+                                      <div className="flex items-center justify-center h-20 w-20 rounded-full bg-gray-100">
+                                        <HiOutlinePhotograph className="text-5xl text-gray-300 group-hover:text-green-700 animate__animated animate__fadeIn animate__infinite" />
+                                      </div>
+                                    )}
                                 </div>
                                 <div>
                                   <div className="font-bold text-lg group-hover:text-green-600">
@@ -552,6 +616,8 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                                       related_books: null,
                                       loading: true,
                                       loading_related: true,
+                                      loading_main_image: true,
+                                      loading_author_image: true,
                                     });
                                     this.GetBookDetailsById(item.book_id);
                                     this.props.pushPath(
@@ -579,7 +645,12 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                         <Image
                           src={ADS_IMAGE}
                           alt=""
-                          className="w-full rounded-md"
+                          height={1000}
+                          width={400}
+                          className="w-full max-h-96 rounded-md bg-gray-100 animate__animated animate__fadeIn animate__infinite"
+                          onLoadingComplete={(img: HTMLImageElement) => {
+                            img.className = "w-full rounded-md";
+                          }}
                         />
                       </Link>
                     )}
