@@ -1,8 +1,11 @@
 import { Inter } from "@next/font/google";
 import Head from "next/head";
+import { NextRouter, useRouter } from "next/router";
 import React, { Component, ReactNode } from "react";
+import { ImageFolder } from "../../actions/books.action";
 import DEFAULT_ICON from "../../assets/icon.ico";
 import {
+  API_URL,
   MAIN_PAGE_DESCRIPTION,
   // MAIN_PAGE_LOGO_ICON_PATH,
   MAIN_PAGE_TITLE,
@@ -18,13 +21,23 @@ interface PageContainerProps {
   children: ReactNode;
   className?: string;
 }
+interface PageContainerPageProps {
+  page_title?: string;
+  page_description?: string;
+  logo?: string;
+  bookLogo?: string;
+  children: ReactNode;
+  className?: string;
+  router: NextRouter;
+}
 interface PageContainerState {}
 
-export class PageContainer extends Component<
-  PageContainerProps,
+export class PageContainerPage extends Component<
+  PageContainerPageProps,
   PageContainerState
 > {
   render() {
+    const { book, product_title, product_image } = this.props.router.query;
     return (
       <>
         <Head>
@@ -36,8 +49,10 @@ export class PageContainer extends Component<
           <meta
             property="og:image"
             content={
-              this.props.bookLogo !== undefined
-                ? `${this.props.bookLogo}`
+              this.props.bookLogo !== undefined &&
+              product_image !== undefined &&
+              product_image !== null
+                ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
                 : this.props.logo === undefined
                 ? DEFAULT_ICON.src
                 : this.props.logo
@@ -86,5 +101,21 @@ export class PageContainer extends Component<
     );
   }
 }
+
+const PageContainer = (props: PageContainerProps) => {
+  const router = useRouter();
+  return (
+    <PageContainerPage
+      bookLogo={props.bookLogo}
+      className={props.className}
+      logo={props.logo}
+      page_title={props.page_title}
+      page_description={props.page_description}
+      router={router}
+    >
+      {props.children}
+    </PageContainerPage>
+  );
+};
 
 export default PageContainer;
