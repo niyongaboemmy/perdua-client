@@ -39,6 +39,15 @@ export class PageContainer extends Component<
             }
           />
           <meta
+            name="title"
+            content={
+              this.props.page_title === undefined ||
+              this.props.page_title === ""
+                ? MAIN_PAGE_TITLE
+                : this.props.page_title
+            }
+          />
+          <meta
             name="description"
             content={
               this.props.page_description === undefined ||
@@ -47,16 +56,16 @@ export class PageContainer extends Component<
                 : this.props.page_description
             }
           />
+          <meta
+            name="keywords"
+            content="Perdua publishers, Perdua, publishers, books, Rwanda, ibitabo, abana, ikinyarwanda, gusoma, kwandika, reading books"
+          />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link
             rel="icon"
             href={
               this.props.logo === undefined ? DEFAULT_ICON.src : this.props.logo
             }
-          />
-          <meta
-            name="keywords"
-            content="Perdua publishers, Perdua, publishers, books, Rwanda, ibitabo, abana, ikinyarwanda, gusoma, kwandika, reading books"
           />
         </Head>
         <main
