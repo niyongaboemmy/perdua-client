@@ -88,7 +88,7 @@ const Modal = (props: ModalInterface): JSX.Element => {
       <div
         className={`z-50 fixed items-center justify-items-center ${
           props.marginTop === undefined ? ModalMarginTop.none : props.marginTop
-        } left-0 right-0 bottom-0 bg-white rounded shadow-xl self-center ${widthSizeClass} animate__animated ${
+        } left-0 right-0 bottom-0 bg-white rounded-md shadow-xl self-center ${widthSizeClass} animate__animated ${
           props.marginTop !== undefined &&
           props.marginTop !== ModalMarginTop.none
             ? "animate__fadeInUp"
