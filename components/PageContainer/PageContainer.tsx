@@ -49,10 +49,14 @@ export class PageContainer extends Component<
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link
-            rel="ico"
+            rel="icon"
             href={
               this.props.logo === undefined ? DEFAULT_ICON.src : this.props.logo
             }
+          />
+          <meta
+            name="keywords"
+            content="Perdua publishers, Perdua, publishers, books, Rwanda, ibitabo, abana, ikinyarwanda, gusoma, kwandika, reading books"
           />
         </Head>
         <main
