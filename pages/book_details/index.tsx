@@ -14,6 +14,7 @@ import Modal, {
 } from "../../components/Modal/Modal";
 import ContactPage from "../contact";
 import { BsArrowLeft } from "react-icons/bs";
+import { LoadingBooks } from "../../components/HomepageComponents/NewBooks";
 
 const BookDetailsPage = () => {
   const router = useRouter();
@@ -24,37 +25,42 @@ const BookDetailsPage = () => {
     product_title === undefined ||
     product_image === undefined
   ) {
+    // return (
+    //   <div className="mt-20 pt-6">
+    //     <Container>
+    //       <div className="flex flex-col items-center justify-center gap-2 p-6 bg-white rounded-md animate__animated animate__shakeX">
+    //         <div>
+    //           <div>
+    //             <RiErrorWarningFill className="text-7xl text-yellow-700 animate__animated animate__zoomIn" />
+    //           </div>
+    //         </div>
+    //         <div className="text-3xl font-bold">Page Not Found!</div>
+    //         <div className="text-gray-600">
+    //           The page that you are trying to visit is not valid, Please make
+    //           sure you visit the right page
+    //         </div>
+    //         <div className="flex flex-row items-center justify-center gap-3">
+    //           <Link
+    //             href={"/"}
+    //             className="bg-gray-100 hover:bg-gray-200 rounded-md px-4 py-2 w-max font-bold"
+    //           >
+    //             Homepage
+    //           </Link>
+    //           <Link
+    //             href={"/store"}
+    //             className="bg-green-100 rounded-md px-4 py-2 w-max font-bold text-green-800 hover:bg-green-700 hover:text-white"
+    //           >
+    //             Visit book store
+    //           </Link>
+    //         </div>
+    //       </div>
+    //     </Container>
+    //   </div>
+    // );
     return (
-      <div className="mt-20 pt-6">
-        <Container>
-          <div className="flex flex-col items-center justify-center gap-2 p-6 bg-white rounded-md animate__animated animate__shakeX">
-            <div>
-              <div>
-                <RiErrorWarningFill className="text-7xl text-yellow-700 animate__animated animate__zoomIn" />
-              </div>
-            </div>
-            <div className="text-3xl font-bold">Page Not Found!</div>
-            <div className="text-gray-600">
-              The page that you are trying to visit is not valid, Please make
-              sure you visit the right page
-            </div>
-            <div className="flex flex-row items-center justify-center gap-3">
-              <Link
-                href={"/"}
-                className="bg-gray-100 hover:bg-gray-200 rounded-md px-4 py-2 w-max font-bold"
-              >
-                Homepage
-              </Link>
-              <Link
-                href={"/store"}
-                className="bg-green-100 rounded-md px-4 py-2 w-max font-bold text-green-800 hover:bg-green-700 hover:text-white"
-              >
-                Visit book store
-              </Link>
-            </div>
-          </div>
-        </Container>
-      </div>
+      <Container className="bg-white rounded-lg">
+        <LoadingBooks cols={2} />
+      </Container>
     );
   }
   return (

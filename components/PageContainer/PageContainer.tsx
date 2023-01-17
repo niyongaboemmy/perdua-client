@@ -47,15 +47,14 @@ export class PageContainerPage extends Component<
           </title>
           <meta
             property="og:image"
-            content={`${API_URL}/${ImageFolder.cover}/${
-              product_image as string
-            }`}
+            content={
+              product_image !== undefined && product_image !== null
+                ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
+                : this.props.logo !== undefined
+                ? this.props.logo
+                : DEFAULT_ICON.src
+            }
           />
-          {/* {console.log({
-            CheckImage: `${API_URL}/${ImageFolder.cover}/${
-              product_image as string
-            }`,
-          })} */}
           <meta
             name="title"
             content={
@@ -82,7 +81,11 @@ export class PageContainerPage extends Component<
           <link
             rel="icon"
             href={
-              this.props.logo === undefined ? DEFAULT_ICON.src : this.props.logo
+              product_image !== undefined && product_image !== null
+                ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
+                : this.props.logo === undefined
+                ? DEFAULT_ICON.src
+                : this.props.logo
             }
           />
         </Head>
