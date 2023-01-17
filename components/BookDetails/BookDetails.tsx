@@ -28,12 +28,12 @@ import {
 } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import { MdLanguage } from "react-icons/md";
-import { RiBook3Line, RiLoader2Line } from "react-icons/ri";
+import { RiBook3Line } from "react-icons/ri";
 import { IoCallOutline, IoPricetagsOutline } from "react-icons/io5";
 import { LoadingBooks } from "../HomepageComponents/NewBooks";
 import { HiDatabase, HiOutlinePhotograph } from "react-icons/hi";
-import { BiImageAlt, BiLoaderCircle } from "react-icons/bi";
-import { FaUserCircle } from "react-icons/fa";
+import { BiLoaderCircle } from "react-icons/bi";
+import SocialMediaShare from "../SocialMediaShare/SocialMediaShare";
 
 const LoadingBillItem = () => {
   return (
@@ -487,6 +487,15 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                         )}
                       </div>
                     </div>
+                  </div>
+                  <div className="col-span-12">
+                    {/* Share on social media */}
+                    {window.location.host !== undefined && (
+                      <SocialMediaShare
+                        title="Share book on social media"
+                        link={`${window.location.host}/book_details?book=${this.state.book_details.book_id}&product_title=${this.state.book_details.title}&product_image=${this.state.book_details.book_cover}`}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
