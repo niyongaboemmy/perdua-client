@@ -14,11 +14,13 @@ import {
   FC_GetBasicSystemInfo,
   SystemBasicInfoData,
 } from "../../actions";
+import { AuthorGetInterface } from "../../actions/author.action";
 import {
   FC_GetBooksByAuthor,
   GetBookInterface,
   ImageFolder,
 } from "../../actions/books.action";
+import AuthorItem from "../../components/AuthorItem/AuthorItem";
 import { BookItem } from "../../components/BookItem/BookItem";
 import Container from "../../components/Container/Container";
 import { LoadingBooks } from "../../components/HomepageComponents/NewBooks";
@@ -168,189 +170,14 @@ const MyComponent = (props: AppProps): JSX.Element => {
                     searchData
                   ) as BookAuthor[]
                 ).map((item, i) => (
-                  <div
+                  <AuthorItem
                     key={i + 1}
-                    className="col-span-12 md:col-span-6 lg:col-span-3 animate__animated animate__fadeIn"
-                    data-aos="flip-left"
-                    data-aos-easing="ease-out-cubic"
-                    data-aos-duration="1000"
-                  >
-                    <div className="flex flex-col items-center justify-center w-full h-full rounded-xl bg-white group border hover:shadow-md hover:border-white">
-                      <div
-                        onClick={() => {
-                          setSelectedAuthorDetails(item);
-                        }}
-                        title="Click here to view books list"
-                        className="w-full h-full overflow-hidden rounded-t-xl bg-gray-50 cursor-pointer"
-                      >
-                        {item.author_pic === null ? (
-                          <div className="bg-white border-b h-full w-full flex flex-col items-center justify-center text-lg text-gray-500">
-                            <div>
-                              <AiOutlineFileImage className="text-8xl text-gray-300" />
-                            </div>
-                            <div className="mt-3">No picture available</div>
-                          </div>
-                        ) : (
-                          <Image
-                            src={`${API_URL}/${ImageFolder.author}/${item.author_pic}`}
-                            alt=""
-                            height={300}
-                            width={300}
-                            className="w-auto h-auto min-h-full min-w-full object-cover"
-                          />
-                        )}
-                      </div>
-                      <div className="p-3 text-left  w-full">
-                        <div className="font-semibold text-lg">
-                          {item.author_name}
-                        </div>
-                        <div className="flex flex-row items-center gap-2 text-sm mt-2">
-                          <span className="text-gray-500 group-hover:text-black">
-                            Phone:{" "}
-                          </span>
-                          <span className="">{item.phone}</span>
-                        </div>
-                        <div className="flex flex-row items-center gap-2 text-sm">
-                          <span className="text-gray-500 group-hover:text-black">
-                            Email:{" "}
-                          </span>
-                          <span className="">{item.email}</span>
-                        </div>
-                        <div className="flex flex-row items-center gap-2 mt-5">
-                          {GetBookSocialMedia(item.social_media).facebook !==
-                            undefined &&
-                            GetBookSocialMedia(item.social_media).facebook !==
-                              null &&
-                            GetBookSocialMedia(item.social_media).facebook !==
-                              "" && (
-                              <Link
-                                href={
-                                  GetBookSocialMedia(item.social_media).facebook
-                                }
-                                target="_blank"
-                                className=""
-                              >
-                                <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
-                                  <ImFacebook className="text-2xl" />
-                                </div>
-                              </Link>
-                            )}
-                          {GetBookSocialMedia(item.social_media).instagram !==
-                            undefined &&
-                            GetBookSocialMedia(item.social_media).instagram !==
-                              null &&
-                            GetBookSocialMedia(item.social_media).instagram !==
-                              "" && (
-                              <Link
-                                href={
-                                  GetBookSocialMedia(item.social_media)
-                                    .instagram
-                                }
-                                target="_blank"
-                                className=""
-                              >
-                                <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-600 hover:bg-yellow-600 hover:text-white rounded-full">
-                                  <RiInstagramFill className="text-2xl" />
-                                </div>
-                              </Link>
-                            )}
-                          {GetBookSocialMedia(item.social_media).twitter !==
-                            undefined &&
-                            GetBookSocialMedia(item.social_media).twitter !==
-                              null &&
-                            GetBookSocialMedia(item.social_media).twitter !==
-                              "" && (
-                              <Link
-                                href={
-                                  GetBookSocialMedia(item.social_media).twitter
-                                }
-                                target="_blank"
-                                className=""
-                              >
-                                <div className="h-10 w-10 flex items-center justify-center bg-white text-red-600 hover:bg-red-600 hover:text-white rounded-full">
-                                  <BsTwitter className="text-2xl" />
-                                </div>
-                              </Link>
-                            )}
-                          {GetBookSocialMedia(item.social_media).linkedin !==
-                            undefined &&
-                            GetBookSocialMedia(item.social_media).linkedin !==
-                              null &&
-                            GetBookSocialMedia(item.social_media).linkedin !==
-                              "" && (
-                              <Link
-                                href={
-                                  GetBookSocialMedia(item.social_media).linkedin
-                                }
-                                target="_blank"
-                                className=""
-                              >
-                                <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
-                                  <BsLinkedin className="text-2xl" />
-                                </div>
-                              </Link>
-                            )}
-                          {GetBookSocialMedia(item.social_media).googleSite !==
-                            undefined &&
-                            GetBookSocialMedia(item.social_media).googleSite !==
-                              null &&
-                            GetBookSocialMedia(item.social_media).googleSite !==
-                              "" && (
-                              <Link
-                                href={
-                                  GetBookSocialMedia(item.social_media)
-                                    .googleSite
-                                }
-                                target="_blank"
-                                className=""
-                              >
-                                <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-500 hover:bg-yellow-500 hover:text-white rounded-full">
-                                  <BsGoogle className="text-2xl" />
-                                </div>
-                              </Link>
-                            )}
-                          {GetBookSocialMedia(item.social_media)
-                            .researchGate !== undefined &&
-                            GetBookSocialMedia(item.social_media)
-                              .researchGate !== null &&
-                            GetBookSocialMedia(item.social_media)
-                              .researchGate !== "" && (
-                              <Link
-                                href={
-                                  GetBookSocialMedia(item.social_media)
-                                    .researchGate
-                                }
-                                target="_blank"
-                                className=""
-                              >
-                                <div className="h-10 w-10 flex items-center justify-center bg-white text-green-500 hover:bg-green-500 hover:text-white rounded-full">
-                                  <IoEarthSharp className="text-2xl" />
-                                </div>
-                              </Link>
-                            )}
-                        </div>
-                        <div className="flex flex-row items-center gap-3 mt-3 w-full">
-                          <div
-                            onClick={() => {
-                              setSelectedAuthorDetails(item);
-                            }}
-                            className="bg-gray-100 text-sm group-hover:bg-white group-hover:text-green-700 rounded-md w-full text-center px-4 py-2 text-gray-700 font-semibold cursor-pointer border border-white group-hover:border-green-600"
-                          >
-                            More info
-                          </div>
-                          <div
-                            onClick={() => {
-                              setSelectedAuthor(item);
-                              GetBooksListByLanguage(item.author_id);
-                            }}
-                            className="bg-green-50 text-sm group-hover:bg-green-800 group-hover:text-white rounded-md w-full text-center px-4 py-2 text-green-700 font-semibold cursor-pointer border border-white group-hover:border-green-700"
-                          >
-                            Books list
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                    item={item}
+                    setSelectedAuthorDetails={setSelectedAuthorDetails}
+                    setSelectedAuthor={setSelectedAuthor}
+                    GetBooksListByLanguage={GetBooksListByLanguage}
+                    GetBookSocialMedia={GetBookSocialMedia}
+                  />
                 ))
               )}
             </div>
