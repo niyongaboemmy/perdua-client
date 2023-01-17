@@ -63,7 +63,7 @@ const BookDetailsPage = () => {
         page_title={`${product_title} | Perdua Publishers`}
         logo={
           product_image !== null && product_image !== undefined
-            ? `${API_URL}/${ImageFolder.cover}/${product_image}`
+            ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
             : undefined
         }
       >

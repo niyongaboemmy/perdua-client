@@ -33,6 +33,12 @@ export class PageContainer extends Component<
               : this.props.page_title}
           </title>
           <meta
+            property="og:image"
+            content={
+              this.props.logo === undefined ? DEFAULT_ICON.src : this.props.logo
+            }
+          />
+          <meta
             name="description"
             content={
               this.props.page_description === undefined ||
