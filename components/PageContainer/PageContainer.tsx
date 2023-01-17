@@ -17,7 +17,6 @@ interface PageContainerProps {
   page_title?: string;
   page_description?: string;
   logo?: string;
-  bookLogo?: string;
   children: ReactNode;
   className?: string;
 }
@@ -48,16 +47,15 @@ export class PageContainerPage extends Component<
           </title>
           <meta
             property="og:image"
-            content={
-              this.props.bookLogo !== undefined &&
-              product_image !== undefined &&
-              product_image !== null
-                ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
-                : this.props.logo === undefined
-                ? DEFAULT_ICON.src
-                : this.props.logo
-            }
+            content={`${API_URL}/${ImageFolder.cover}/${
+              product_image as string
+            }`}
           />
+          {/* {console.log({
+            CheckImage: `${API_URL}/${ImageFolder.cover}/${
+              product_image as string
+            }`,
+          })} */}
           <meta
             name="title"
             content={
@@ -106,7 +104,6 @@ const PageContainer = (props: PageContainerProps) => {
   const router = useRouter();
   return (
     <PageContainerPage
-      bookLogo={props.bookLogo}
       className={props.className}
       logo={props.logo}
       page_title={props.page_title}

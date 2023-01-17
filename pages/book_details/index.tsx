@@ -66,11 +66,6 @@ const BookDetailsPage = () => {
             ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
             : undefined
         }
-        bookLogo={
-          product_image !== null && product_image !== undefined
-            ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
-            : undefined
-        }
       >
         <div className="pt-20">
           {book !== undefined && (
