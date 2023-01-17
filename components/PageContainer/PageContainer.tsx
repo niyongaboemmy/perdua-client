@@ -14,6 +14,7 @@ interface PageContainerProps {
   page_title?: string;
   page_description?: string;
   logo?: string;
+  bookLogo?: string;
   children: ReactNode;
   className?: string;
 }
@@ -35,7 +36,11 @@ export class PageContainer extends Component<
           <meta
             property="og:image"
             content={
-              this.props.logo === undefined ? DEFAULT_ICON.src : this.props.logo
+              this.props.bookLogo !== undefined
+                ? `${this.props.bookLogo}`
+                : this.props.logo === undefined
+                ? DEFAULT_ICON.src
+                : this.props.logo
             }
           />
           <meta
