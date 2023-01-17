@@ -77,6 +77,37 @@ export class PageContainerPage extends Component<
             name="keywords"
             content="Perdua publishers, Perdua, publishers, books, Rwanda, ibitabo, abana, ikinyarwanda, gusoma, kwandika, reading books"
           />
+          {/* {window !== undefined && window.location.href !== undefined && (
+            <meta property="og:url" content={window.location.href} />
+          )} */}
+          <meta
+            property="og:title"
+            content={
+              this.props.page_title === undefined ||
+              this.props.page_title === ""
+                ? MAIN_PAGE_TITLE
+                : this.props.page_title
+            }
+          />
+          <meta
+            property="og:description"
+            content={
+              this.props.page_description === undefined ||
+              this.props.page_description === ""
+                ? MAIN_PAGE_DESCRIPTION
+                : this.props.page_description
+            }
+          />
+          <meta
+            property="og:image"
+            content={
+              product_image !== undefined && product_image !== null
+                ? `${API_URL}/${ImageFolder.cover}/${product_image as string}`
+                : this.props.logo !== undefined
+                ? this.props.logo
+                : DEFAULT_ICON.src
+            }
+          />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link
             rel="icon"

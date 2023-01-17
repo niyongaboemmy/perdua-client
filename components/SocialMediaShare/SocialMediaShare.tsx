@@ -23,7 +23,11 @@ const SocialMediaShare = (props: {
     <div className="my-4">
       <div className="text-lg font-normal mb-2">{props.title}</div>
       <div className="flex flex-row items-center gap-3 w-full">
-        <FacebookShareButton url={props.link} title={props.share_title}>
+        <FacebookShareButton
+          url={props.link}
+          title={props.share_title}
+          quote={props.share_title}
+        >
           <FacebookIcon size={32} round />
         </FacebookShareButton>
         <WhatsappShareButton url={props.link} title={props.share_title}>

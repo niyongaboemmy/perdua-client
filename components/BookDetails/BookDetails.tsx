@@ -490,13 +490,15 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                   </div>
                   <div className="col-span-12">
                     {/* Share on social media */}
-                    {window.location.host !== undefined && (
-                      <SocialMediaShare
-                        title="Share book on social media"
-                        share_title={this.state.book_details.title}
-                        link={`${window.location.host}/book_details?book=${this.state.book_details.book_id}&product_title=${this.state.book_details.title}&product_image=${this.state.book_details.book_cover}`}
-                      />
-                    )}
+                    {window !== undefined &&
+                      window.location !== undefined &&
+                      window.location.host !== undefined && (
+                        <SocialMediaShare
+                          title="Share book on social media"
+                          share_title={this.state.book_details.title}
+                          link={`${window.location.host}/book_details?book=${this.state.book_details.book_id}&product_title=${this.state.book_details.title}&product_image=${this.state.book_details.book_cover}`}
+                        />
+                      )}
                   </div>
                 </div>
               </div>
