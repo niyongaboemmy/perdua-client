@@ -325,7 +325,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
         >
           <div>
             <div className="flex flex-col items-center justify-center">
-              <div className="w-72 h-72 rounded-md overflow-hidden">
+              <div className="w-72 h-auto rounded-md overflow-hidden">
                 {selectedAuthorDetails.author_pic === null ? (
                   <div className="bg-gray-100 h-full w-full flex flex-col items-center justify-center text-lg text-gray-500">
                     <div>
@@ -382,10 +382,6 @@ const MyComponent = (props: AppProps): JSX.Element => {
                 </div>
               </div>
               <div className="mb-4 w-full border-b pb-3">
-                {/* Social medial */}
-                {/* <div className="text-base text-gray-600 font-normal">
-                  Author Social media
-                </div> */}
                 <div className="bg-gray-100 p-3 mt-2 rounded-lg">
                   <div className="flex flex-row items-center gap-2">
                     {GetBookSocialMedia(selectedAuthorDetails.social_media)
