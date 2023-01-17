@@ -2,8 +2,6 @@ import React, { Fragment, useState } from "react";
 import { BookDetails } from "../../components/BookDetails/BookDetails";
 import { useRouter } from "next/router";
 import Container from "../../components/Container/Container";
-import { RiErrorWarningFill } from "react-icons/ri";
-import Link from "next/link";
 import PageContainer from "../../components/PageContainer/PageContainer";
 import { API_URL } from "../../utils/api";
 import { ImageFolder } from "../../actions/books.action";
@@ -59,7 +57,9 @@ const BookDetailsPage = () => {
     // );
     return (
       <Container className="bg-white rounded-lg">
-        <LoadingBooks cols={2} />
+        <div className="pt-20">
+          <LoadingBooks cols={2} />
+        </div>
       </Container>
     );
   }
