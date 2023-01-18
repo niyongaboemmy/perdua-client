@@ -42,7 +42,9 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
           {this.state.load_image === true && (
             <div className="h-full w-full bg-gray-100 rounded-md flex flex-col items-center justify-center">
               <BsImage className="text-8xl mb-3 text-gray-300 animate__animated animate__fadeIn animate__infinite animate__slower" />
-              <div className="flex flex-row items-center gap-2 text-gray-400"></div>
+              <div className="flex flex-row items-center gap-2 text-gray-400">
+                Loading...
+              </div>
             </div>
           )}
           <Image

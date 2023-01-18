@@ -110,8 +110,8 @@ const AuthorItem = (props: {
                     target="_blank"
                     className=""
                   >
-                    <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
-                      <ImFacebook className="text-2xl" />
+                    <div className="h-8 w-8 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
+                      <ImFacebook className="text-xl" />
                     </div>
                   </Link>
                 )}
@@ -129,8 +129,8 @@ const AuthorItem = (props: {
                     target="_blank"
                     className=""
                   >
-                    <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-600 hover:bg-yellow-600 hover:text-white rounded-full">
-                      <RiInstagramFill className="text-2xl" />
+                    <div className="h-8 w-8 flex items-center justify-center bg-white text-yellow-600 hover:bg-yellow-600 hover:text-white rounded-full">
+                      <RiInstagramFill className="text-xl" />
                     </div>
                   </Link>
                 )}
@@ -147,8 +147,8 @@ const AuthorItem = (props: {
                     target="_blank"
                     className=""
                   >
-                    <div className="h-10 w-10 flex items-center justify-center bg-white text-red-600 hover:bg-red-600 hover:text-white rounded-full">
-                      <BsTwitter className="text-2xl" />
+                    <div className="h-8 w-8 flex items-center justify-center bg-white text-red-600 hover:bg-red-600 hover:text-white rounded-full">
+                      <BsTwitter className="text-xl" />
                     </div>
                   </Link>
                 )}
@@ -165,8 +165,8 @@ const AuthorItem = (props: {
                     target="_blank"
                     className=""
                   >
-                    <div className="h-10 w-10 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
-                      <BsLinkedin className="text-2xl" />
+                    <div className="h-8 w-8 flex items-center justify-center bg-white text-blue-500 hover:bg-blue-500 hover:text-white rounded-full">
+                      <BsLinkedin className="text-xl" />
                     </div>
                   </Link>
                 )}
@@ -184,8 +184,8 @@ const AuthorItem = (props: {
                     target="_blank"
                     className=""
                   >
-                    <div className="h-10 w-10 flex items-center justify-center bg-white text-yellow-500 hover:bg-yellow-500 hover:text-white rounded-full">
-                      <BsGoogle className="text-2xl" />
+                    <div className="h-8 w-8 flex items-center justify-center bg-white text-yellow-500 hover:bg-yellow-500 hover:text-white rounded-full">
+                      <BsGoogle className="text-xl" />
                     </div>
                   </Link>
                 )}
@@ -203,8 +203,8 @@ const AuthorItem = (props: {
                     target="_blank"
                     className=""
                   >
-                    <div className="h-10 w-10 flex items-center justify-center bg-white text-green-500 hover:bg-green-500 hover:text-white rounded-full">
-                      <IoEarthSharp className="text-2xl" />
+                    <div className="h-8 w-8 flex items-center justify-center bg-white text-green-500 hover:bg-green-500 hover:text-white rounded-full">
+                      <IoEarthSharp className="text-xl" />
                     </div>
                   </Link>
                 )}
