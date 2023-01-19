@@ -4,6 +4,11 @@ import { API_URL } from "../utils/api";
 import { setAxiosToken } from "../utils/AxiosToken";
 import { errorToText } from "../utils/functions";
 
+export enum AuthorType {
+  AUTHOR = "AUTHOR",
+  ILLUSTRATOR = "ELLINSTRATOR",
+}
+
 export interface RegisterAuthorData {
   author_name: string;
   social_media: AuthorSocialMedia;
@@ -11,6 +16,7 @@ export interface RegisterAuthorData {
   phone: string;
   email: string;
   bibliography: string;
+  type: AuthorType;
 }
 
 export interface UpdateAuthorData {
@@ -21,6 +27,7 @@ export interface UpdateAuthorData {
   phone: string;
   email: string;
   bibliography: string;
+  type: AuthorType;
 }
 
 export interface AuthorGetInterface {
@@ -31,6 +38,7 @@ export interface AuthorGetInterface {
   phone: string;
   email: string;
   bibliography: string;
+  type: AuthorType;
 }
 
 export const FC_RegisterAuthor = async (
@@ -41,12 +49,13 @@ export const FC_RegisterAuthor = async (
   ) => void
 ) => {
   const formData = new FormData();
-  formData.append("author_name", JSON.stringify(data.author_name));
+  formData.append("author_name", data.author_name);
   formData.append("social_media", JSON.stringify(data.social_media));
   formData.append("author_pic", data.author_pic);
   formData.append("phone", data.phone);
   formData.append("email", data.email);
   formData.append("bibliography", data.bibliography);
+  formData.append("type", data.type);
   callback(true, null);
   try {
     setAxiosToken();
@@ -108,6 +117,7 @@ export const FC_UpdateAuthorDetails = async (
   formData.append("phone", data.phone);
   formData.append("email", data.email);
   formData.append("bibliography", data.bibliography);
+  formData.append("type", data.type);
   callback(true, null);
   try {
     setAxiosToken();

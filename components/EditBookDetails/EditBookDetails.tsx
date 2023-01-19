@@ -14,6 +14,7 @@ import {
   GetBookPublisherById,
   SystemBasicInfoData,
 } from "../../actions";
+import { AuthorType } from "../../actions/author.action";
 import {
   BookAvailability,
   FC_UpdateBookDetails,
@@ -79,7 +80,10 @@ interface RegisterBookFormState {
   openSelectLanguage: boolean;
   openSelectCategory: boolean;
   openSelectPublisher: boolean;
-  openSelectAuthors: boolean;
+  openSelectAuthors: {
+    status: boolean;
+    type: AuthorType;
+  };
 }
 
 class _EditBookForm extends Component<
@@ -113,7 +117,10 @@ class _EditBookForm extends Component<
       openSelectLanguage: false,
       openSelectCategory: false,
       openSelectPublisher: false,
-      openSelectAuthors: false,
+      openSelectAuthors: {
+        type: AuthorType.AUTHOR,
+        status: false,
+      },
     };
   }
   FC_SubmitBook = (e: React.FormEvent<HTMLFormElement>) => {
@@ -881,12 +888,18 @@ class _EditBookForm extends Component<
             </div>
           </div>
         </div>
-        {this.state.openSelectAuthors === true && (
+        {this.state.openSelectAuthors.status === true && (
           <Modal
             backDrop={true}
             theme={Themes.default}
             close={() =>
-              this.setState({ openSelectAuthors: false, error: null })
+              this.setState({
+                openSelectAuthors: {
+                  type: this.state.openSelectAuthors.type,
+                  status: false,
+                },
+                error: null,
+              })
             }
             backDropClose={true}
             widthSizeClass={ModalSize.large}
@@ -896,13 +909,14 @@ class _EditBookForm extends Component<
               body: true,
               footer: undefined,
             }}
-            title={"Book authors"}
+            title={"Book Contributors"}
           >
             <div>
               <SelectAuthors
                 authorDetails={this.authorDetails}
                 systemBasicInfo={this.props.systemBasicInfo}
                 onSelectAuthor={this.selectAuthor}
+                type={this.state.openSelectAuthors.type}
               />
             </div>
           </Modal>

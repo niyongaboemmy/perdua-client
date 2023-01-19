@@ -5,6 +5,7 @@ import { API_URL } from "../utils/api";
 import { errorToText } from "../utils/functions";
 import { setAxiosToken } from "../utils/AxiosToken";
 import { AuthorSocialMedia } from "../components/RegisterAuthor/RegisterAuthor";
+import { AuthorType } from "./author.action";
 
 export interface BookCategory {
   category_id: string;
@@ -30,6 +31,7 @@ export interface BookAuthor {
   email: string;
   bibliography: string | null;
   social_media: string; //AuthorSocialMedia;
+  type: AuthorType;
 }
 
 export interface BookLevel {

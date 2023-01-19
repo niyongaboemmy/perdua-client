@@ -2,11 +2,8 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { ImCheckboxUnchecked } from "react-icons/im";
-import {
-  BookAuthor,
-  SystemBasicInfo,
-  SystemBasicInfoData,
-} from "../../actions";
+import { BookAuthor, SystemBasicInfoData } from "../../actions";
+import { AuthorType } from "../../actions/author.action";
 import { ImageFolder } from "../../actions/books.action";
 import { API_URL } from "../../utils/api";
 import { search } from "../../utils/functions";
@@ -15,8 +12,19 @@ const SelectAuthors = (props: {
   systemBasicInfo: SystemBasicInfoData;
   authorDetails: (author_id: string) => boolean;
   onSelectAuthor: (author_id: string) => void;
+  type: AuthorType;
 }) => {
   const [searchData, setSearchData] = useState<string>("");
+  const FilteredData = () => {
+    return props.systemBasicInfo.basic_info === null
+      ? []
+      : (search(
+          props.systemBasicInfo.basic_info.authors.filter(
+            (itm) => itm.type === props.type
+          ),
+          searchData
+        ) as BookAuthor[]);
+  };
   if (props.systemBasicInfo.basic_info === null) {
     return <div>Loading...</div>;
   }
@@ -30,21 +38,11 @@ const SelectAuthors = (props: {
           className="bg-white border border-gray-500 px-3 py-2 rounded w-full mb-3"
         />
       </div>
-      {(
-        search(
-          props.systemBasicInfo.basic_info.authors,
-          searchData
-        ) as BookAuthor[]
-      ).length === 0 ? (
+      {FilteredData().length === 0 ? (
         <div>No result found</div>
       ) : (
         <div>
-          {(
-            search(
-              props.systemBasicInfo.basic_info.authors,
-              searchData
-            ) as BookAuthor[]
-          ).map((item, i) => (
+          {FilteredData().map((item, i) => (
             <div
               key={i + 1}
               className={`flex flex-row items-center justify-between gap-3 pr-4 p-1 rounded-md ${

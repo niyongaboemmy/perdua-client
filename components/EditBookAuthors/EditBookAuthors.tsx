@@ -8,6 +8,7 @@ import {
   GetBookAuthorsByIds,
   SystemBasicInfoData,
 } from "../../actions";
+import { AuthorType } from "../../actions/author.action";
 import {
   FC_AddBookAuthor,
   FC_RemoveBookAuthor,
@@ -34,6 +35,7 @@ interface EditBookAuthorsState {
   success: string;
   save_updates: boolean;
   search_author: string;
+  type: AuthorType;
 }
 
 class EditBookAuthors extends Component<
@@ -51,6 +53,7 @@ class EditBookAuthors extends Component<
       success: "",
       save_updates: false,
       search_author: "",
+      type: AuthorType.AUTHOR,
     };
   }
   authorDetails = (author_id: string): boolean => {
@@ -140,23 +143,57 @@ class EditBookAuthors extends Component<
         </div>
       );
     }
+    const selectedType =
+      this.state.type === AuthorType.AUTHOR ? "Author" : "Illustrator";
     if (this.state.openSelectAuthor === true) {
       return (
         <div className="mt-6 min-h-screen">
-          <div className="flex flex-row items-center gap-2">
+          <div className="flex flex-row items-center justify-between gap-3 w-full">
+            <div className="flex flex-row items-center gap-2">
+              <div>
+                <div
+                  onClick={() =>
+                    this.state.loading === false &&
+                    this.setState({ openSelectAuthor: false })
+                  }
+                  className="px-3 py-1 text-green-700 text-sm rounded-md border border-green-600 bg-green-50 cursor-pointer w-max hover:bg-green-600 hover:text-white"
+                >
+                  Go back
+                </div>
+              </div>
+              <div className="text-lg font-bold">Add new {selectedType}</div>
+            </div>
             <div>
-              <div
-                onClick={() =>
-                  this.state.loading === false &&
-                  this.setState({ openSelectAuthor: false })
-                }
-                className="px-3 py-1 text-green-700 text-sm rounded-md border border-green-600 bg-green-50 cursor-pointer w-max hover:bg-green-600 hover:text-white"
-              >
-                Go back
+              <div className="text-gray-700 text-base text-right mb-1">
+                Change contributor type
+              </div>
+              <div className="flex flex-row items-center gap-2">
+                <div
+                  onClick={() => this.setState({ type: AuthorType.AUTHOR })}
+                  className={`${
+                    this.state.type === AuthorType.AUTHOR
+                      ? "bg-yellow-600 text-white cursor-not-allowed animate__animated animate__bounceIn"
+                      : "bg-gray-100 text-black cursor-pointer"
+                  } font-bold text-sm px-4 py-2 rounded-full w-max`}
+                >
+                  {"Authors"}
+                </div>
+                <div
+                  onClick={() =>
+                    this.setState({ type: AuthorType.ILLUSTRATOR })
+                  }
+                  className={`${
+                    this.state.type === AuthorType.ILLUSTRATOR
+                      ? "bg-yellow-600 text-white cursor-not-allowed animate__animated animate__bounceIn"
+                      : "bg-gray-100 text-black cursor-pointer"
+                  } font-bold text-sm px-4 py-2 rounded-full w-max`}
+                >
+                  {"Illustrators"}
+                </div>
               </div>
             </div>
-            <div className="text-lg font-bold">Add new book author</div>
           </div>
+
           <div className="mt-4">
             <div className="mb-2">
               <div className="relative w-full">
@@ -185,7 +222,7 @@ class EditBookAuthors extends Component<
                     (itm) =>
                       this.state.authors.find(
                         (test) => test === itm.author_id
-                      ) === undefined
+                      ) === undefined && itm.type === this.state.type
                   ),
                   this.state.search_author
                 ) as BookAuthor[]
@@ -198,7 +235,7 @@ class EditBookAuthors extends Component<
                     (itm) =>
                       this.state.authors.find(
                         (test) => test === itm.author_id
-                      ) === undefined
+                      ) === undefined && itm.type === this.state.type
                   ),
                   this.state.search_author
                 ) as BookAuthor[]
@@ -209,11 +246,11 @@ class EditBookAuthors extends Component<
                     this.authorDetails(item.author_id) === true
                       ? "bg-gray-100 font-extrabold"
                       : "bg-gray-100 hover:bg-green-700 hover:text-white"
-                  } cursor-pointer mb-2 group`}
+                  } cursor-pointer mb-2 group animate__animated animate__fadeIn`}
                   onClick={() => {
                     if (
                       window.confirm(
-                        `Are you sure do you want to add author ${item.author_name}?`
+                        `Are you sure do you want to add ${selectedType} ${item.author_name}?`
                       ) === true &&
                       this.state.loading === false
                     ) {
@@ -267,7 +304,7 @@ class EditBookAuthors extends Component<
         <div className="mt-6">
           <div className="flex flex-row items-center justify-between gap-3">
             <div className="font-bold flex flex-row items-center gap-2">
-              <span>Book authors</span>{" "}
+              <span>Book contributors</span>{" "}
               <div className="bg-yellow-600 text-white px-2 rounded-md text-sm">
                 {this.state.authors.length}
               </div>
@@ -284,7 +321,7 @@ class EditBookAuthors extends Component<
                   }}
                   className="bg-white text-green-600 border border-green-600 hover:border-green-700 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
                 >
-                  Add authors
+                  Add contributors
                 </div>
               )}
             </div>
@@ -310,9 +347,11 @@ class EditBookAuthors extends Component<
           {this.state.authors.length === 0 ? (
             <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-md px-4 py-6 mt-3">
               <div></div>
-              <div className="text-xl font-semibold">No authors added</div>
+              <div className="text-xl font-semibold">
+                No {selectedType}s added
+              </div>
               <div className="text-sm mb-3">
-                Click the following button to add authors for this book
+                Click the following button to add {selectedType}s for this book
               </div>
               <div>
                 <div
@@ -325,7 +364,7 @@ class EditBookAuthors extends Component<
                   }}
                   className="px-3 py-2 rounded-md w-max cursor-pointer bg-green-700 text-white hover:bg-green-800"
                 >
-                  Select authors
+                  Select {selectedType}s
                 </div>
               </div>
             </div>
@@ -370,6 +409,20 @@ class EditBookAuthors extends Component<
                             </div>
                             <div>
                               Email: <span>{item.email}</span>
+                            </div>
+                          </div>
+                          <div className="flex flex-row items-center gap-3 text-sm font-normal">
+                            <div>Category:</div>
+                            <div
+                              className={`rounded-full ${
+                                item.type === AuthorType.AUTHOR
+                                  ? "bg-green-600"
+                                  : "bg-blue-600"
+                              } text-white px-2 py-0 text-sm w-max`}
+                            >
+                              {item.type === AuthorType.AUTHOR
+                                ? "Author"
+                                : "Illustrator"}
                             </div>
                           </div>
                         </div>

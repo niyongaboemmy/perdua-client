@@ -57,7 +57,7 @@ export const AdminNavigation: {
   },
   {
     id: "3",
-    title: "Authors",
+    title: "Contributors",
     path: "/authors_list",
     icon: MdOutlineAdminPanelSettings,
   },

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { Component } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { FC_RegisterAuthor } from "../../actions/author.action";
+import { AuthorType, FC_RegisterAuthor } from "../../actions/author.action";
 import { Alert } from "../Alert/Alert";
 import FilePreview from "../FilePreview/FilePreview";
 import Button from "../FormItems/Button";
@@ -36,6 +36,7 @@ interface RegisterAuthorState {
     msg: string;
   } | null;
   success: string;
+  type: AuthorType;
 }
 
 const initialState: RegisterAuthorState = {
@@ -55,6 +56,7 @@ const initialState: RegisterAuthorState = {
   bibliography: "",
   error: null,
   success: "",
+  type: AuthorType.AUTHOR,
 };
 
 class RegisterAuthor extends Component<
@@ -125,6 +127,7 @@ class RegisterAuthor extends Component<
         email: this.state.email,
         phone: this.state.phone,
         social_media: this.state.social_media,
+        type: this.state.type,
       },
       (
         loading: boolean,
@@ -172,7 +175,7 @@ class RegisterAuthor extends Component<
               href={"/authors_list"}
               className="px-3 py-2 rounded border border-gray-400 text-gray-700 font-semibold animate__animated animate__fadeIn animate__slow"
             >
-              View authors list
+              View contributors
             </Link>
           </div>
         </div>
@@ -187,9 +190,33 @@ class RegisterAuthor extends Component<
           >
             <div className="col-span-12 md:col-span-6 lg:col-span-9 grid grid-cols-12 gap-3">
               <div className="col-span-12 lg:col-span-6">
-                <div className="font-bold mb-5">Author information</div>
+                <div className="font-bold mb-5">Contributor information</div>
                 <div className="flex flex-col mb-4">
-                  <span className="text-sm">Author names</span>
+                  <span className="text-sm">Contributor category</span>
+                  <select
+                    disabled={this.state.loading}
+                    className={`rounded border border-yellow-600 text-yellow-600 font-semibold px-3 py-2 w-full mt-1`}
+                    value={this.state.type}
+                    onChange={(e) =>
+                      this.setState({
+                        type:
+                          e.target.value === ""
+                            ? AuthorType.AUTHOR
+                            : (e.target.value as AuthorType),
+                        error: null,
+                      })
+                    }
+                  >
+                    <option value={AuthorType.AUTHOR}>
+                      Author Contributor
+                    </option>
+                    <option value={AuthorType.ILLUSTRATOR}>
+                      Illustrator Contributor
+                    </option>
+                  </select>
+                </div>
+                <div className="flex flex-col mb-4">
+                  <span className="text-sm">Contributor names</span>
                   <input
                     type="text"
                     disabled={this.state.loading}
@@ -291,7 +318,7 @@ class RegisterAuthor extends Component<
                         error: null,
                       })
                     }
-                    style={{ minHeight: "207px" }}
+                    style={{ minHeight: "130px" }}
                   ></textarea>
                   {this.state.error?.target === "bibliography" && (
                     <div className="mt-2">
@@ -583,7 +610,7 @@ class RegisterAuthor extends Component<
                       title={`${
                         this.state.loading === true
                           ? "Loading..."
-                          : "Register author"
+                          : "Register contributor"
                       }`}
                       theme="success"
                       type="submit"

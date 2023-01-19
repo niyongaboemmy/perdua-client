@@ -48,8 +48,8 @@ class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
                   <MdOutlineAdminPanelSettings className="text-5xl text-green-600" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">Authors</div>
-                  <div className="text-sm">List of available authors</div>
+                  <div className="text-2xl font-bold">Contributors</div>
+                  <div className="text-sm">List of available contributors</div>
                 </div>
               </div>
               <Link
@@ -59,7 +59,7 @@ class AuthorsList extends Component<AuthorsListProps, AuthorsListState> {
                 <div>
                   <MdLibraryBooks className="text-2xl" />
                 </div>
-                <span>Register author</span>
+                <span>Register contributors</span>
               </Link>
             </div>
             {/* Contents here */}

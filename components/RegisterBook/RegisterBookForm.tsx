@@ -18,6 +18,7 @@ import {
   GetBookThemesByIds,
   SystemBasicInfoData,
 } from "../../actions";
+import { AuthorType } from "../../actions/author.action";
 import {
   BookAvailability,
   FC_RegisterBook,
@@ -32,6 +33,7 @@ import Button from "../FormItems/Button";
 import Loading from "../Loading/Loading";
 import Modal, { ModalSize, Themes } from "../Modal/Modal";
 import SelectCustom from "../SelectCustom/SelectCustom";
+import BookAuthors from "./BookAuthors";
 import SelectAuthors from "./SelectAuthors";
 import SelectLevels from "./SelectLevels";
 import SelectThemes from "./SelectThemes";
@@ -82,7 +84,10 @@ interface RegisterBookFormState {
   openSelectLanguage: boolean;
   openSelectCategory: boolean;
   openSelectPublisher: boolean;
-  openSelectAuthors: boolean;
+  openSelectAuthors: {
+    status: boolean;
+    type: AuthorType;
+  };
   openSelectLevels: boolean;
   openSelectThemes: boolean;
 }
@@ -118,7 +123,10 @@ class _RegisterBookForm extends Component<
       openSelectLanguage: false,
       openSelectCategory: false,
       openSelectPublisher: false,
-      openSelectAuthors: false,
+      openSelectAuthors: {
+        type: AuthorType.AUTHOR,
+        status: false,
+      },
       openSelectLevels: false,
       openSelectThemes: false,
     };
@@ -361,7 +369,10 @@ class _RegisterBookForm extends Component<
       openSelectLanguage: false,
       openSelectCategory: false,
       openSelectPublisher: false,
-      openSelectAuthors: false,
+      openSelectAuthors: {
+        type: AuthorType.AUTHOR,
+        status: false,
+      },
     });
   };
   render() {
@@ -1125,124 +1136,45 @@ class _RegisterBookForm extends Component<
                       )}
                     </div>
                     {/* Book authors section */}
-                    <div className="col-span-12 lg:col-span-12">
-                      <div className="flex flex-row items-center justify-between gap-3">
-                        <div className="font-bold flex flex-row items-center gap-2">
-                          <span>Book authors</span>{" "}
-                          <div className="bg-yellow-600 text-white px-2 rounded-md text-sm">
-                            {this.state.authors.length}
-                          </div>
-                        </div>
-                        <div>
-                          {this.state.authors.length > 0 && (
-                            <div
-                              onClick={() => {
-                                this.state.loading_form === false &&
-                                  this.setState({
-                                    openSelectAuthors: true,
-                                    error: null,
-                                  });
-                              }}
-                              className="bg-white text-green-600 border border-green-600 hover:border-green-700 hover:bg-green-700 hover:text-white rounded px-3 py-1 w-max cursor-pointer font-semibold"
-                            >
-                              Add authors
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      {this.state.authors.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center w-full bg-gray-100 rounded-md px-4 py-6 mt-3">
-                          <div></div>
-                          <div className="text-xl font-semibold">
-                            No authors added
-                          </div>
-                          <div className="text-sm mb-3">
-                            Click the following button to add authors for this
-                            book
-                          </div>
-                          <div>
-                            <div
-                              onClick={() => {
-                                this.state.loading_form === false &&
-                                  this.setState({
-                                    openSelectAuthors: true,
-                                    error: null,
-                                  });
-                              }}
-                              className="px-3 py-2 rounded-md w-max cursor-pointer bg-green-700 text-white hover:bg-green-800"
-                            >
-                              Select authors
-                            </div>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="mt-3">
-                          {GetBookAuthorsByIds(
-                            this.state.authors,
-                            this.props.systemBasicInfo.basic_info
-                          ) !== null &&
-                            GetBookAuthorsByIds(
-                              this.state.authors,
-                              this.props.systemBasicInfo.basic_info
-                            ).map((item, i) => (
-                              <div
-                                key={i + 1}
-                                className={`flex flex-row items-center justify-between gap-3 pr-4 p-1 rounded-md ${
-                                  this.authorDetails(item.author_id) === true
-                                    ? "bg-gray-100 font-extrabold"
-                                    : "bg-gray-100 hover:bg-green-700 hover:text-white"
-                                } mb-2 group`}
-                              >
-                                <div className="flex flex-row items-center gap-3">
-                                  <div>
-                                    <div className="h-16 w-16 bg-white rounded overflow-hidden">
-                                      <Image
-                                        src={`${API_URL}/${ImageFolder.author}/${item.author_pic}`}
-                                        alt=""
-                                        width={100}
-                                        height={100}
-                                        className={"object-cover"}
-                                      />
-                                    </div>
-                                  </div>
-                                  <div className="flex flex-col">
-                                    <div className="text-lg font-semibold">
-                                      {item.author_name}
-                                    </div>
-                                    <div className="flex flex-row items-center gap-3 text-sm font-normal">
-                                      <div>
-                                        Contact: <span>{item.phone},</span>
-                                      </div>
-                                      <div>
-                                        Email: <span>{item.email}</span>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div>
-                                  <div
-                                    onClick={() => {
-                                      if (
-                                        window.confirm(
-                                          `Are you sure do you want to remove ${item.author_name}?`
-                                        ) === true &&
-                                        this.state.loading_form === false
-                                      ) {
-                                        this.selectAuthor(item.author_id);
-                                      }
-                                    }}
-                                    className="flex flex-row items-center justify-center gap-2 rounded-full bg-white h-10 w-10 text-red-700 font-bold text-sm cursor-pointer hover:bg-red-700 hover:text-white"
-                                  >
-                                    <div>
-                                      <MdClose className="text-3xl" />
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            ))}
-                        </div>
-                      )}
-                    </div>
+                    <BookAuthors
+                      GetBookAuthorsByIds={GetBookAuthorsByIds}
+                      authorDetails={this.authorDetails}
+                      authors={this.state.authors}
+                      loading_form={this.state.loading_form}
+                      selectAuthor={this.selectAuthor}
+                      systemBasicInfo={this.props.systemBasicInfo.basic_info}
+                      type={AuthorType.AUTHOR}
+                      openSelectAuthors={() => {
+                        this.state.loading_form === false &&
+                          this.setState({
+                            openSelectAuthors: {
+                              type: AuthorType.AUTHOR,
+                              status: true,
+                            },
+                            error: null,
+                          });
+                      }}
+                    />
+                    {/* Illustrators */}
+                    <BookAuthors
+                      GetBookAuthorsByIds={GetBookAuthorsByIds}
+                      authorDetails={this.authorDetails}
+                      authors={this.state.authors}
+                      loading_form={this.state.loading_form}
+                      selectAuthor={this.selectAuthor}
+                      systemBasicInfo={this.props.systemBasicInfo.basic_info}
+                      type={AuthorType.ILLUSTRATOR}
+                      openSelectAuthors={() => {
+                        this.state.loading_form === false &&
+                          this.setState({
+                            openSelectAuthors: {
+                              type: AuthorType.ILLUSTRATOR,
+                              status: true,
+                            },
+                            error: null,
+                          });
+                      }}
+                    />
                     {this.state.error?.target === "main" && (
                       <div className="col-span-12 my-3">
                         <Alert
@@ -1307,12 +1239,18 @@ class _RegisterBookForm extends Component<
             </div>
           </div>
         </div>
-        {this.state.openSelectAuthors === true && (
+        {this.state.openSelectAuthors.status === true && (
           <Modal
             backDrop={true}
             theme={Themes.default}
             close={() =>
-              this.setState({ openSelectAuthors: false, error: null })
+              this.setState({
+                openSelectAuthors: {
+                  type: this.state.openSelectAuthors.type,
+                  status: false,
+                },
+                error: null,
+              })
             }
             backDropClose={true}
             widthSizeClass={ModalSize.large}
@@ -1322,13 +1260,18 @@ class _RegisterBookForm extends Component<
               body: true,
               footer: undefined,
             }}
-            title={"Book authors"}
+            title={
+              this.state.openSelectAuthors.type === AuthorType.AUTHOR
+                ? "Book authors"
+                : "Book illustrators"
+            }
           >
             <div>
               <SelectAuthors
                 authorDetails={this.authorDetails}
                 systemBasicInfo={this.props.systemBasicInfo}
                 onSelectAuthor={this.selectAuthor}
+                type={this.state.openSelectAuthors.type}
               />
             </div>
           </Modal>

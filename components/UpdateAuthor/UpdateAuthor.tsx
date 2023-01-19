@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import { AiOutlineFileImage } from "react-icons/ai";
 import {
   AuthorGetInterface,
+  AuthorType,
   FC_UpdateAuthorDetails,
 } from "../../actions/author.action";
 import { ImageFolder } from "../../actions/books.action";
@@ -35,6 +36,7 @@ interface UpdateAuthorState {
   phone: string;
   email: string;
   bibliography: string;
+  type: AuthorType;
   error: {
     target:
       | "author_name"
@@ -90,6 +92,7 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
       phone: this.props.selectedAuthor.phone,
       email: this.props.selectedAuthor.email,
       bibliography: this.props.selectedAuthor.bibliography,
+      type: this.props.selectedAuthor.type,
       error: null,
       success: "",
     };
@@ -141,6 +144,7 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
         email: this.state.email,
         phone: this.state.phone,
         social_media: this.state.social_media,
+        type: this.state.type,
       },
       (
         loading: boolean,
@@ -193,9 +197,33 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
           >
             <div className="col-span-12 md:col-span-6 lg:col-span-9 grid grid-cols-12 gap-3">
               <div className="col-span-12 lg:col-span-6">
-                <div className="font-bold mb-5">Author information</div>
+                <div className="font-bold mb-5">Contributors information</div>
                 <div className="flex flex-col mb-4">
-                  <span className="text-sm">Author names</span>
+                  <span className="text-sm">Contributor category</span>
+                  <select
+                    disabled={this.state.loading}
+                    className={`rounded border border-green-600 text-green-700 font-semibold px-3 py-2 w-full mt-1`}
+                    value={this.state.type}
+                    onChange={(e) =>
+                      this.setState({
+                        type:
+                          e.target.value === ""
+                            ? AuthorType.AUTHOR
+                            : (e.target.value as AuthorType),
+                        error: null,
+                      })
+                    }
+                  >
+                    <option value={AuthorType.AUTHOR}>
+                      Author Contributor
+                    </option>
+                    <option value={AuthorType.ILLUSTRATOR}>
+                      Illustrator Contributor
+                    </option>
+                  </select>
+                </div>
+                <div className="flex flex-col mb-4">
+                  <span className="text-sm">Contributor names</span>
                   <input
                     type="text"
                     disabled={this.state.loading}
@@ -297,7 +325,7 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
                         error: null,
                       })
                     }
-                    style={{ minHeight: "207px" }}
+                    style={{ minHeight: "130px" }}
                   ></textarea>
                   {this.state.error?.target === "bibliography" && (
                     <div className="mt-2">
@@ -552,7 +580,7 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
               <div className="mt-5">
                 <div className="flex flex-col">
                   <span className="text-sm font-bold">
-                    Upload author picture
+                    Upload Contributor picture
                   </span>
                   <input
                     type="file"
@@ -599,7 +627,7 @@ class UpdateAuthor extends Component<UpdateAuthorProps, UpdateAuthorState> {
                       title={`${
                         this.state.loading === true
                           ? "Loading..."
-                          : "Update author"
+                          : "Update Contributor"
                       }`}
                       theme="success"
                       type="submit"

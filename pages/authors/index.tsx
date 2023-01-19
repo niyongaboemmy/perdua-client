@@ -130,16 +130,16 @@ const MyComponent = (props: AppProps): JSX.Element => {
         title={`${
           selectedAuthor !== null
             ? `${selectedAuthor.author_name} books`
-            : "Authors"
+            : "Contributors"
         }`}
-        description="Perdua Publishers authors"
+        description="Perdua Publishers contributors"
       >
         <div className="mb-3">
           <div className="relative">
             <input
               type="search"
               className="bg-gray-100 rounded-md px-5 py-3 w-full pl-12"
-              placeholder="Search by author name"
+              placeholder="Search by contributor name"
               value={searchData}
               onChange={(e) => setSearchData(e.target.value)}
             />
@@ -152,7 +152,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
           ) : (
             <div className="grid grid-cols-12 gap-6">
               {props.systemBasicInfo.basic_info.authors.length === 0 ? (
-                <div>No authors found!</div>
+                <div>No contributors found!</div>
               ) : (
                   search(
                     props.systemBasicInfo.basic_info.authors,
@@ -361,7 +361,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
                     }}
                     className="bg-green-600 text-white text-sm hover:bg-green-700 rounded-md w-full text-center px-4 py-2 font-semibold cursor-pointer"
                   >
-                    Author Books
+                    Contributor Books
                   </div>
                 </div>
               </div>
@@ -375,7 +375,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
               </div>
               <div className="mb-1 w-full border-b pb-3">
                 <div className="text-base text-gray-600 font-normal">
-                  Author email
+                  Contributor email
                 </div>
                 <div className="font-semibold">
                   {selectedAuthorDetails.email}

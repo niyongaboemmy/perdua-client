@@ -480,7 +480,7 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                           {menu === "edit_details" && "Edit book details"}
                           {menu === "edit_price" && "Edit book price"}
                           {menu === "edit_image" && "Edit book image"}
-                          {menu === "authors" && "Book authors"}
+                          {menu === "authors" && "Book contributors"}
                           {menu === "levels" && "Book levels"}
                           {menu === "themes" && "Book themes"}
                           {menu === "remove" && "Remove book"}
@@ -711,7 +711,7 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                       </div>
                       <div>
                         <div className="font-extrabold text-xl">
-                          Book authors
+                          Book contributors
                         </div>
                       </div>
                     </div>
