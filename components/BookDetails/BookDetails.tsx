@@ -34,6 +34,7 @@ import { LoadingBooks } from "../HomepageComponents/NewBooks";
 import { HiDatabase, HiOutlinePhotograph } from "react-icons/hi";
 import { BiLoaderCircle } from "react-icons/bi";
 import SocialMediaShare from "../SocialMediaShare/SocialMediaShare";
+import { AuthorType } from "../../actions/author.action";
 
 const LoadingBillItem = () => {
   return (
@@ -411,12 +412,18 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                   </div>
                   <div className="col-span-12 lg:col-span-12 flex flex-row gap-2 w-full">
                     <div className="flex flex-col w-full">
-                      <span className="text-base font-bold ">Book authors</span>
+                      <span className="text-base font-bold ">
+                        Book contributors
+                      </span>
                       <div className="grid grid-cols-12 gap-2">
                         {this.state.book_details.book_authors.map(
                           (author, a) => (
                             <Link
-                              href={`/authors?author_id=${author.author_id}`}
+                              href={`/${
+                                author.type === AuthorType.ILLUSTRATOR
+                                  ? "illustrators"
+                                  : "authors"
+                              }?author_id=${author.author_id}`}
                               title="Click to view list of books"
                               key={a + 1}
                               className="col-span-12 lg:col-span-6"
@@ -479,6 +486,17 @@ export class BookDetails extends Component<BookDetailsProps, BookDetailsState> {
                                   </div>
                                   <div className="text-sm">
                                     Email: {author.email}
+                                  </div>
+                                  <div
+                                    className={`text-sm px-2 rounded-full bg-${
+                                      author.type === AuthorType.ILLUSTRATOR
+                                        ? "yellow"
+                                        : "green"
+                                    }-600 text-white w-max`}
+                                  >
+                                    {author.type === AuthorType.ILLUSTRATOR
+                                      ? "Illustrator"
+                                      : "Author"}
                                   </div>
                                 </div>
                               </div>

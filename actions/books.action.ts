@@ -2,6 +2,7 @@ import axios from "axios";
 import { API_URL } from "../utils/api";
 import { setAxiosToken } from "../utils/AxiosToken";
 import { errorToText } from "../utils/functions";
+import { AuthorType } from "./author.action";
 import { BookLevel, BookTheme } from "./system.action";
 
 export interface RegisterBookData {
@@ -72,6 +73,7 @@ export interface BookAuthorDetails {
   email: string;
   phone: string;
   social_media: string;
+  type: AuthorType;
 }
 
 export interface BookPriceDetails {

@@ -6,7 +6,7 @@ import { AiOutlineFileImage } from "react-icons/ai";
 import { BsGoogle, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { ImFacebook } from "react-icons/im";
-import { IoEarthSharp, IoLogoYoutube } from "react-icons/io5";
+import { IoEarthSharp } from "react-icons/io5";
 import { RiInstagramFill, RiSearchLine } from "react-icons/ri";
 import { connect } from "react-redux";
 import {
@@ -14,7 +14,7 @@ import {
   FC_GetBasicSystemInfo,
   SystemBasicInfoData,
 } from "../../actions";
-import { AuthorGetInterface, AuthorType } from "../../actions/author.action";
+import { AuthorType } from "../../actions/author.action";
 import {
   FC_GetBooksByAuthor,
   GetBookInterface,
@@ -130,16 +130,16 @@ const MyComponent = (props: AppProps): JSX.Element => {
         title={`${
           selectedAuthor !== null
             ? `${selectedAuthor.author_name} books`
-            : "Authors"
+            : "Illustrators"
         }`}
-        description="Perdua Publishers authors"
+        description="Perdua Publishers Illustrators"
       >
         <div className="mb-3">
           <div className="relative">
             <input
               type="search"
               className="bg-gray-100 rounded-md px-5 py-3 w-full pl-12"
-              placeholder="Search by author name"
+              placeholder="Search by illustrator name"
               value={searchData}
               onChange={(e) => setSearchData(e.target.value)}
             />
@@ -152,13 +152,13 @@ const MyComponent = (props: AppProps): JSX.Element => {
           ) : (
             <div className="grid grid-cols-12 gap-6">
               {props.systemBasicInfo.basic_info.authors.filter(
-                (itm) => itm.type === AuthorType.AUTHOR
+                (itm) => itm.type === AuthorType.ILLUSTRATOR
               ).length === 0 ? (
-                <div>No authors found!</div>
+                <div>No Illustrators found!</div>
               ) : (
                   search(
                     props.systemBasicInfo.basic_info.authors.filter(
-                      (itm) => itm.type === AuthorType.AUTHOR
+                      (itm) => itm.type === AuthorType.ILLUSTRATOR
                     ),
                     searchData
                   ) as BookAuthor[]
@@ -171,7 +171,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
                 (
                   search(
                     props.systemBasicInfo.basic_info.authors.filter(
-                      (itm) => itm.type === AuthorType.AUTHOR
+                      (itm) => itm.type === AuthorType.ILLUSTRATOR
                     ),
                     searchData
                   ) as BookAuthor[]
@@ -367,7 +367,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
                     }}
                     className="bg-green-600 text-white text-sm hover:bg-green-700 rounded-md w-full text-center px-4 py-2 font-semibold cursor-pointer"
                   >
-                    Author Books
+                    Illustrator Books
                   </div>
                 </div>
               </div>
@@ -381,7 +381,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
               </div>
               <div className="mb-1 w-full border-b pb-3">
                 <div className="text-base text-gray-600 font-normal">
-                  Author email
+                  Illustrator email
                 </div>
                 <div className="font-semibold">
                   {selectedAuthorDetails.email}

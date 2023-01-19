@@ -83,6 +83,12 @@ export class Footer extends Component<FooterProps, FooterState> {
                     Meet Our Authors
                   </Link>
                   <Link
+                    href="/illustrators"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
+                    Illustrators
+                  </Link>
+                  <Link
                     href="/store"
                     className="mb-2 hover:underline hover:text-green-400 w-max"
                   >

@@ -22,9 +22,12 @@ import { IconType } from "react-icons";
 import { RiSearchLine } from "react-icons/ri";
 import { HiMenu, HiOutlineArrowLeft } from "react-icons/hi";
 import { BiDetail } from "react-icons/bi";
-import { FiMenu, FiPhoneCall } from "react-icons/fi";
+import { FiPhoneCall } from "react-icons/fi";
 import { BsCheckCircle, BsFileEarmarkPdf } from "react-icons/bs";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
+import {
+  MdOutlineAdminPanelSettings,
+  MdOutlineDesignServices,
+} from "react-icons/md";
 import Loading from "../Loading/Loading";
 import BookSearch from "../BookSearch/BookSearch";
 
@@ -52,6 +55,11 @@ export const PublicMenus: {
     title: "Our authors",
     path: "/authors",
     icon: MdOutlineAdminPanelSettings,
+  },
+  {
+    title: "Illustrators",
+    path: "/illustrators",
+    icon: MdOutlineDesignServices,
   },
   {
     title: "Catalogue",
