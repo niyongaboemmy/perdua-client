@@ -115,14 +115,14 @@ export class BooksByLanguageContainer extends Component<
     }
     return (
       <Container className="bg-white py-6 md:py-14 lg:py-20 my-3">
-        <div className="grid grid-cols-12 gap-4 md:gap-12">
+        <div className="grid grid-cols-12 gap-4 md:gap-6 lg:gap-12">
           {this.props.side === "LEFT" && (
-            <div className="col-span-12 md:col-span-5">
+            <div className="col-span-12 md:col-span-12 lg:col-span-5">
               <this.DescriptionComponent />
             </div>
           )}
-          <div className="col-span-12 md:col-span-7">
-            <div className="grid grid-cols-12 gap-2 md:gap-12">
+          <div className="col-span-12 md:col-span-12 lg:col-span-7">
+            <div className="grid grid-cols-12 gap-2 md:gap-6 lg:gap-12">
               {this.state.books.map((book, i) => (
                 <Link
                   href={`/book_details?book=${book.book_id}&product_title=${book.title}&product_image=${book.book_cover}`}
@@ -141,7 +141,7 @@ export class BooksByLanguageContainer extends Component<
             </div>
           </div>
           {this.props.side === "RIGHT" && (
-            <div className="col-span-12 md:col-span-5">
+            <div className="col-span-12 md:gap-6 lg:gap-12">
               <this.DescriptionComponent />
             </div>
           )}
