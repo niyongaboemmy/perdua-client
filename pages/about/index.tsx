@@ -13,7 +13,6 @@ import AboutImage from "../../assets/page_about.jpeg";
 import Image from "next/image";
 import { FaChalkboardTeacher, FaRegAddressBook } from "react-icons/fa";
 import { IconType } from "react-icons";
-import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export const PerduaServices: {
   id: string;

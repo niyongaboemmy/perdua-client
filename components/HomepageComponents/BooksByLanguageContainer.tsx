@@ -141,7 +141,7 @@ export class BooksByLanguageContainer extends Component<
             </div>
           </div>
           {this.props.side === "RIGHT" && (
-            <div className="col-span-12 md:gap-6 lg:gap-12">
+            <div className="col-span-12 md:col-span-12 lg:col-span-5">
               <this.DescriptionComponent />
             </div>
           )}
