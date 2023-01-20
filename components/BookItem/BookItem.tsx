@@ -10,6 +10,8 @@ interface BookItemProps {
   item: GetBookInterface;
   hide_title?: boolean;
   hide_price?: boolean;
+  height_pixels?: string; //pixels
+  className?: string;
   onClick: () => void;
 }
 interface BookItemState {
@@ -30,14 +32,21 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
         title={`${this.props.item.title} - ${
           this.props.hide_price !== true ? commaFy(this.props.item.price) : ""
         }`}
-        className={`cursor-pointer bg-white rounded-lg group border border-white hover:border-green-600 animate__animated animate__fadeIn h-full`}
+        className={`cursor-pointer bg-white rounded-lg group border border-white hover:border-green-600 animate__animated animate__fadeIn h-full ${
+          this.props.className !== undefined ? this.props.className : ""
+        }`}
         onClick={this.props.onClick}
         data-aos="zoom-in-up"
         data-aos-duration="700"
       >
         <div
           className="mb-2 overflow-hidden bg-gray-100 rounded-md group-hover:rounded-b-none object-cover"
-          style={{ height: "228px" }}
+          style={{
+            height:
+              this.props.height_pixels !== undefined
+                ? this.props.height_pixels
+                : "230px",
+          }}
         >
           {this.state.load_image === true && (
             <div className="h-full w-full bg-gray-100 rounded-md flex flex-col items-center justify-center">

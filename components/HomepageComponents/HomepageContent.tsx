@@ -169,7 +169,11 @@ export class HomepageContent extends Component<
           {this.props.systemBasicInfo.basic_info !== null &&
             this.props.systemBasicInfo.basic_info.languages.length > 0 &&
             this.props.systemBasicInfo.basic_info.languages.map((item, i) => (
-              <BooksByLanguageContainerContent language={item} key={i + 1} />
+              <BooksByLanguageContainerContent
+                side={i % 2 !== 0 ? "LEFT" : "RIGHT"}
+                language={item}
+                key={i + 1}
+              />
             ))}
           <AboutUs />
           <BooksConsultanciesContent />

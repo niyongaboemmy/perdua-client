@@ -16,6 +16,7 @@ export interface BookLanguage {
   language_id: string;
   language_code: string;
   language_name: string;
+  description: string;
 }
 
 export interface BookPublishers {
