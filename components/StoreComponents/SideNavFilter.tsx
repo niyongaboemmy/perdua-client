@@ -4,19 +4,33 @@ import { BiCategory, BiReset } from "react-icons/bi";
 import { BsCheckCircleFill } from "react-icons/bs";
 import { FiChevronsLeft } from "react-icons/fi";
 import { ImRadioUnchecked } from "react-icons/im";
-import { BookCategory, BookLanguage, SystemBasicInfoData } from "../../actions";
+import {
+  BookCategory,
+  BookLanguage,
+  BookLevel,
+  SystemBasicInfoData,
+} from "../../actions";
 import Loading from "../Loading/Loading";
 
 interface sideNavFilterProps {
   router: NextRouter;
-  initializeSelectLanguage: () => void;
+  initializeSelectLanguage: (
+    callBack: (
+      selectedLanguage: BookLanguage | null,
+      selectedCategory: BookCategory | null,
+      selectLevel: BookLevel | null
+    ) => void
+  ) => void;
   systemBasicInfo: SystemBasicInfoData;
   selectedLanguage: BookLanguage | null;
   onSelectLanguage: (data: BookLanguage) => void;
   selectedCategory: BookCategory | null;
   onSelectCategory: (data: BookCategory | null) => void;
+  selectedLevel: BookLevel | null;
+  onSelectLevel: (data: BookLevel | null) => void;
   loading: boolean;
   selectedBooksCategoryId: string[];
+  selectedBooksLevelId: string[];
   hideNav: boolean;
   setHideNav: (hideNav: boolean) => void;
 }
@@ -29,7 +43,18 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
     this.state = {};
   }
   componentDidMount(): void {
-    this.props.initializeSelectLanguage();
+    this.props.initializeSelectLanguage(
+      (
+        selectedLanguage: BookLanguage | null,
+        selectedCategory: BookCategory | null,
+        selectLevel: BookLevel | null
+      ) => {
+        selectedLanguage !== null &&
+          this.props.onSelectLanguage(selectedLanguage);
+        this.props.onSelectCategory(selectedCategory);
+        this.props.onSelectLevel(selectLevel);
+      }
+    );
   }
   render() {
     if (this.props.systemBasicInfo.basic_info === null) {
@@ -61,7 +86,11 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
     return (
       <div
         // className="fixed lg:block top-30 left-4 right-4 bg-gray-100 h-auto border border-b border-gray-200 lg:border-none rounded-md lg:rounded-none shadow-lg lg:shadow-none"
-        style={{ zIndex: 9 }}
+        style={{
+          zIndex: 9,
+          // maxHeight: "calc(100vh - 100px)",
+          overflowY: "auto",
+        }}
       >
         <div className="bg-white rounded-lg p-4 animate__animated animate__fadeInLeft animate__fast">
           <div className="flex flex-row items-center justify-between gap-2">
@@ -109,6 +138,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
             ))}
           </div>
         </div>
+        {/* Books categories */}
         <div className="bg-white rounded-lg p-4 mt-4 animate__animated animate__fadeInLeft">
           <div className="flex flex-row items-center justify-between gap-3">
             <div className="flex flex-row items-center gap-3">
@@ -181,6 +211,81 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
                       )}
                     </div>
                     <span className="font-normal">{item.category_name}</span>
+                  </div>
+                ))
+            )}
+          </div>
+        </div>
+        {/* Books levels */}
+        <div className="bg-white rounded-lg p-4 mt-4 animate__animated animate__fadeInLeft">
+          <div className="flex flex-row items-center justify-between gap-3">
+            <div className="flex flex-row items-center gap-3">
+              <div>
+                <div className="flex items-center justify-center h-9 w-9 rounded-full cursor-pointer bg-gray-100 hover:bg-yellow-600 hover:text-white">
+                  <FiChevronsLeft className="text-2xl" />
+                </div>
+              </div>
+              <div className="font-semibold">Books levels</div>
+            </div>
+            {this.props.selectedLevel !== null && (
+              <div
+                onClick={() => this.props.onSelectLevel(null)}
+                className="flex flex-row items-center justify-center gap-1 rounded-md w-max cursor-pointer text-sm p-1 pr-2 text-yellow-600 border border-yellow-300 hover:border-none font-bold bg-yellow-50 hover:bg-yellow-600 hover:text-white"
+              >
+                <div>
+                  <BiReset className="text-2xl animate-spi animate__animated animate__zoomIn" />
+                </div>
+                <span>Reset</span>
+              </div>
+            )}
+          </div>
+          {/* Data here */}
+          <div className="mt-3">
+            {this.props.loading === true ? (
+              <div>
+                {[1, 2, 3].map((count, c) => (
+                  <div
+                    key={c + 1}
+                    className={`bg-gray-100 animate__animated animate__fadeIn animate__infinite animate__${
+                      c % 2 !== 0 ? "slow" : c !== 3 ? "fast" : "slower"
+                    } h-10 rounded-lg w-full mb-3`}
+                  ></div>
+                ))}
+              </div>
+            ) : (
+              this.props.systemBasicInfo.basic_info.level
+                .filter(
+                  (itm) =>
+                    this.props.selectedBooksLevelId.find(
+                      (cat) => cat === itm.level_id
+                    ) !== undefined
+                )
+                .map((item, i) => (
+                  <div
+                    key={i + 1}
+                    className={`flex flex-row items-center gap-3 w-full p-2 mb-2 cursor-pointer rounded-lg ${
+                      this.props.selectedLevel !== null &&
+                      this.props.selectedLevel.level_id === item.level_id
+                        ? "bg-white text-yellow-600 font-semibold animate__animated animate__zoomIn"
+                        : "bg-gray-50 hover:bg-yellow-50 hover:text-yellow-600"
+                    } group`}
+                    onClick={() => {
+                      this.props.onSelectLevel(
+                        item.level_id === this.props.selectedLevel?.level_id
+                          ? null
+                          : item
+                      );
+                    }}
+                  >
+                    <div>
+                      {this.props.selectedLevel !== null &&
+                      this.props.selectedLevel.level_id === item.level_id ? (
+                        <BsCheckCircleFill className="text-xl text-yellow-600" />
+                      ) : (
+                        <ImRadioUnchecked className="text-xl group-hover:text-yellow-700" />
+                      )}
+                    </div>
+                    <span className="font-normal">{item.level}</span>
                   </div>
                 ))
             )}

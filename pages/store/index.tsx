@@ -2,7 +2,12 @@ import React, { Component } from "react";
 import PageContainer from "../../components/PageContainer/PageContainer";
 import { PublicDataPage } from "../../components/PublicDataPage/PublicDataPage";
 import { StoreState } from "../../reducers";
-import { BookCategory, BookLanguage, SystemBasicInfoData } from "../../actions";
+import {
+  BookCategory,
+  BookLanguage,
+  BookLevel,
+  SystemBasicInfoData,
+} from "../../actions";
 import { connect } from "react-redux";
 import {
   FC_GetBooksByLanguage,
@@ -34,6 +39,7 @@ interface BookStoreState {
   showRightNav: boolean;
   selectedLanguage: BookLanguage | null;
   selectedCategory: BookCategory | null;
+  selectedLevel: BookLevel | null;
   books: GetBookInterface[] | null;
   hideNav: boolean;
 }
@@ -53,6 +59,7 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
       selectedCategory: null,
       books: null,
       hideNav: false,
+      selectedLevel: null,
     };
   }
   SetHideNav = (hideNav: boolean) => {
@@ -72,11 +79,34 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
     }
     return response;
   };
-  initializeSelectLanguage = () => {
+  selectedBooksLevelId = () => {
+    if (this.state.books === null) {
+      return [];
+    }
+    var response: string[] = [];
+    if (this.state.books.length > 0) {
+      for (const b of this.state.books) {
+        if (
+          response.find(
+            (itm) => b.book_level.find((test) => test === itm) !== undefined
+          ) === undefined
+        ) {
+          response = [...response, ...b.book_level];
+        }
+      }
+    }
+    return response;
+  };
+  initializeSelectLanguage = (
+    callBack: (
+      selectedLanguage: BookLanguage | null,
+      selectedCategory: BookCategory | null,
+      selectLevel: BookLevel | null
+    ) => void
+  ) => {
     if (this.props.systemBasicInfo.basic_info !== null) {
       if (this.state.selectedLanguage === null) {
-        const { language_id, language_name, category_id, category_name } =
-          this.props.router.query;
+        const { language_id, category_id, level_id } = this.props.router.query;
 
         if (this.props.systemBasicInfo.basic_info.languages.length > 0) {
           if (
@@ -95,26 +125,14 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                   ? null
                   : selectedLanguageDetails,
             });
+            // callBack(
+            //   selectedLanguageDetails === undefined
+            //     ? null
+            //     : selectedLanguageDetails,
+            //   null,
+            //   null
+            // );
             this.GetBooksListByLanguage(language_id as string);
-            // Category
-            if (
-              category_id !== undefined &&
-              category_id !== null &&
-              category_id !== ""
-            ) {
-              const selectedCategoryDetails =
-                this.props.systemBasicInfo.basic_info.categories.find(
-                  (itm) => itm.category_id.toString() === category_id.toString()
-                );
-              selectedCategoryDetails !== undefined &&
-                this.setState({ selectedCategory: selectedCategoryDetails });
-              selectedCategoryDetails !== undefined &&
-                this.props.router.push(
-                  `/store?language_id=${language_id}&category_id=${selectedCategoryDetails.category_id}`
-                );
-            } else {
-              this.props.router.push(`/store?language_id=${language_id}`);
-            }
           } else {
             this.setState({
               selectedLanguage:
@@ -132,6 +150,7 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
     }
   };
   GetBooksListByLanguage = (language_id: string) => {
+    const { category_id, level_id } = this.props.router.query;
     this.state.loading_data === false && this.setState({ loading_data: true });
     FC_GetBooksByLanguage(
       language_id,
@@ -156,11 +175,91 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
             error: "",
             books: res.data,
             loading_data: false,
-            selectedCategory: null,
           });
+          if (this.props.systemBasicInfo.basic_info !== null) {
+            // Category
+            if (
+              category_id !== undefined &&
+              category_id !== null &&
+              category_id !== ""
+            ) {
+              const selectedCategoryDetails =
+                this.props.systemBasicInfo.basic_info.categories.find(
+                  (itm) => itm.category_id.toString() === category_id.toString()
+                );
+              // callBack(
+              //   selectedLanguageDetails === undefined
+              //     ? null
+              //     : selectedLanguageDetails,
+              //   selectedCategoryDetails === undefined
+              //     ? null
+              //     : selectedCategoryDetails,
+              //   null
+              // );
+              selectedCategoryDetails !== undefined &&
+                this.setState({ selectedCategory: selectedCategoryDetails });
+              selectedCategoryDetails !== undefined &&
+                this.props.router.push(
+                  `/store?language_id=${language_id}&category_id=${selectedCategoryDetails.category_id}`
+                );
+            }
+            if (
+              level_id !== undefined &&
+              level_id !== null &&
+              level_id !== ""
+            ) {
+              const selectedLevel =
+                this.props.systemBasicInfo.basic_info.level.find(
+                  (itm) => itm.level_id.toString() === level_id.toString()
+                );
+              if (selectedLevel !== undefined) {
+                this.setState({ selectedLevel: selectedLevel });
+                // callBack(
+                //   this.state.selectedLanguage,
+                //   this.state.selectedCategory,
+                //   selectedLevel
+                // );
+                this.props.router.push(
+                  `/store?language_id=${language_id}${
+                    category_id !== undefined &&
+                    category_id !== null &&
+                    category_id !== ""
+                      ? `&category_id=${category_id}`
+                      : ""
+                  }&level_id=${level_id}`
+                );
+              }
+            }
+          }
         }
       }
     );
+  };
+  FilteredBooks = () => {
+    if (this.state.books === null) {
+      return [];
+    }
+    var response =
+      this.state.selectedCategory === null
+        ? this.state.books
+        : this.state.books.filter(
+            (itm) =>
+              this.state.selectedCategory !== null &&
+              itm.category_id === this.state.selectedCategory.category_id
+          );
+    response =
+      this.state.selectedLevel === null
+        ? response
+        : response.filter(
+            (itm) =>
+              this.state.selectedLevel !== null &&
+              itm.book_level.find(
+                (test) =>
+                  this.state.selectedLevel !== null &&
+                  test === this.state.selectedLevel.level_id
+              ) !== undefined
+          );
+    return response;
   };
   componentDidMount(): void {}
   render() {
@@ -172,6 +271,10 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
               ? `${this.state.selectedLanguage.language_name}${
                   this.state.selectedCategory !== null
                     ? " - " + this.state.selectedCategory.category_name
+                    : ""
+                }${
+                  this.state.selectedLevel !== null
+                    ? ` - ${this.state.selectedLevel.level}`
                     : ""
                 } books`
               : "Books store"
@@ -192,7 +295,11 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                   systemBasicInfo={this.props.systemBasicInfo}
                   selectedLanguage={this.state.selectedLanguage}
                   onSelectLanguage={(data: BookLanguage) => {
-                    this.setState({ selectedLanguage: data });
+                    this.setState({
+                      selectedLanguage: data,
+                      selectedCategory: null,
+                      selectedLevel: null,
+                    });
                     this.props.systemBasicInfo.basic_info !== null &&
                       this.GetBooksListByLanguage(data.language_id);
                     this.props.router.push(
@@ -211,6 +318,10 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                           data !== null
                             ? `&category_id=${data.category_id}`
                             : ""
+                        }${
+                          this.state.selectedLevel !== null
+                            ? `&level_id=${this.state.selectedLevel.level_id}`
+                            : ""
                         }`
                       );
                     }
@@ -219,6 +330,23 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                   selectedBooksCategoryId={this.selectedBooksCategoryId()}
                   hideNav={this.state.hideNav}
                   setHideNav={this.SetHideNav}
+                  selectedLevel={this.state.selectedLevel}
+                  onSelectLevel={(data: BookLevel | null) => {
+                    if (this.state.selectedLanguage !== null) {
+                      this.setState({ selectedLevel: data });
+
+                      this.props.router.push(
+                        `/store?language_id=${
+                          this.state.selectedLanguage.language_id
+                        }${
+                          this.state.selectedCategory !== null
+                            ? `&category_id=${this.state.selectedCategory.category_id}`
+                            : ""
+                        }${data !== null ? `&level_id=${data.level_id}` : ""}`
+                      );
+                    }
+                  }}
+                  selectedBooksLevelId={this.selectedBooksLevelId()}
                 />
               </div>
               <div
@@ -253,16 +381,7 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                     </div>
                   ) : this.state.selectedLanguage !== null ? (
                     <ProductsListContent
-                      books={
-                        this.state.selectedCategory === null
-                          ? this.state.books
-                          : this.state.books.filter(
-                              (itm) =>
-                                this.state.selectedCategory !== null &&
-                                itm.category_id ===
-                                  this.state.selectedCategory.category_id
-                            )
-                      }
+                      books={this.FilteredBooks()}
                       systemBasicInfo={this.props.systemBasicInfo}
                       selectedLanguage={this.state.selectedLanguage}
                       selectedCategory={this.state.selectedCategory}

@@ -7,7 +7,8 @@ import { IoMdCall } from "react-icons/io";
 import Container from "../Container/Container";
 import Loading from "../Loading/Loading";
 import AboutUs from "./AboutUs";
-import Books from "../../assets/books_old.jpg";
+// import Books from "../../assets/books_old.jpg";
+import Books from "../../assets/HomepageImage.png";
 import { SystemBasicInfoData } from "../../actions";
 import dynamic from "next/dynamic";
 import { PerduaServices } from "../../pages/about";
@@ -77,10 +78,10 @@ export class HomepageContent extends Component<
           />
           <div className="absolute top-40 md:top-60 lg:top-0 bottom-0 right-0 left-0 flex flex-col lg:justify-center">
             <Container className="flex flex-col px-6 lg:px-0">
-              <div className="text-4xl md:text-6xl font-extrabold mb-4 pr-10 md:px-0 animate__animated animate__zoomIn">
+              <div className="text-4xl md:text-6xl font-extrabold mb-4 pr-10 md:px-0 animate__animated animate__zoomIn text-white">
                 Perdua Publishers
               </div>
-              <div className="text-base md:text-xl animate__animated animate__fadeIn w-full md:w-3/4 lg:w-1/2 pr-0 md:pr-32">
+              <div className="text-base md:text-xl animate__animated animate__fadeIn w-full md:w-3/4 lg:w-1/2 pr-0 md:pr-32 text-white">
                 Produce high-quality age appropriate story books in terms of
                 content and design.
               </div>
@@ -128,15 +129,17 @@ export class HomepageContent extends Component<
                     data-aos="fade-up"
                     data-aos-duration="1000"
                   >
-                    <div className="w-full bg-white bg-opacity-70 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
+                    <div className="w-full bg-black bg-opacity-40 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
                       <div className="-mt-12">
-                        <div className="flex items-center justify-center h-16 w-16 bg-white rounded-full shadow-xl animate-pulse">
+                        <div className="flex items-center justify-center h-16 w-16 bg-green-900 rounded-full shadow-xl animate-pulse">
                           <SelectedServiceIcon className="text-4xl text-green-500" />
                         </div>
                       </div>
                       <div className="flex flex-col text-center -mt-1">
-                        <span className="text-lg font-bold">{item.short}</span>
-                        <span className="text-sm text-gray-600">
+                        <span className="text-lg font-bold text-gray-200">
+                          {item.short}
+                        </span>
+                        <span className="text-sm text-gray-400">
                           {item.title}
                         </span>
                       </div>

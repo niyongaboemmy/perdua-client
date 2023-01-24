@@ -1,15 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { Component } from "react";
-import { AiFillStar, AiOutlineRead } from "react-icons/ai";
-import { BsArrowRight, BsStarHalf } from "react-icons/bs";
+import { BsArrowRight } from "react-icons/bs";
 import { BookLanguage } from "../../actions";
 import {
   FC_GetBooksByLanguageLimit,
   GetBookInterface,
-  ImageFolder,
 } from "../../actions/books.action";
-import { API_URL } from "../../utils/api";
 import { BookItem } from "../BookItem/BookItem";
 import Container from "../Container/Container";
 import { LoadingBooks } from "./NewBooks";
@@ -80,7 +77,7 @@ export class BooksByLanguageContainer extends Component<
             <div className="text-3xl font-bold">
               {this.props.language.language_name} books
             </div>
-            <div className="text-gray-500 text-sm mb-5 mt-4">
+            <div className="text-gray-800 text-base mb-5 mt-4">
               {this.props.language.description}
             </div>
             <Link
