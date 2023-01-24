@@ -13,6 +13,7 @@ import { LoadingBooks } from "../HomepageComponents/NewBooks";
 
 interface BookConsultanciesProps {
   allow_remove?: boolean;
+  isComponent?: boolean;
 }
 interface BookConsultanciesState {
   loading: boolean;
@@ -107,19 +108,26 @@ class BookConsultancies extends Component<
     }
     return (
       <Container
-        className={`${this.props.allow_remove === true ? "" : "py-6 md:py-20"}`}
+        className={`${
+          this.props.allow_remove === true
+            ? ""
+            : this.props.isComponent === true
+            ? ""
+            : "py-6 md:py-20"
+        }`}
       >
-        {this.props.allow_remove !== true && (
-          <div className="flex flex-row items-center mb-8">
-            <div></div>
-            <div>
-              <div className="font-bold text-3xl">Consultancies</div>
-              <div className="text-sm text-gray-600">
-                Providing a thorough introduction to management consultancy
+        {this.props.allow_remove !== true &&
+          this.props.isComponent !== true && (
+            <div className="flex flex-row items-center mb-8">
+              <div></div>
+              <div>
+                <div className="font-bold text-3xl">Consultancies</div>
+                <div className="text-sm text-gray-600">
+                  Providing a thorough introduction to management consultancy
+                </div>
               </div>
             </div>
-          </div>
-        )}
+          )}
         {this.state.success !== "" && (
           <div className="mb-3">
             <Alert

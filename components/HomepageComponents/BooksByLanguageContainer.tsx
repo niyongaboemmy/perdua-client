@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import React, { Component } from "react";
 import { BsArrowRight } from "react-icons/bs";

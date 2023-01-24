@@ -25,6 +25,7 @@ import { BiDetail } from "react-icons/bi";
 import { FiPhoneCall } from "react-icons/fi";
 import { BsCheckCircle, BsFileEarmarkPdf } from "react-icons/bs";
 import {
+  MdAdminPanelSettings,
   MdOutlineAdminPanelSettings,
   MdOutlineDesignServices,
 } from "react-icons/md";
@@ -70,6 +71,11 @@ export const PublicMenus: {
     title: "Books store",
     path: "/store",
     icon: AiOutlineShoppingCart,
+  },
+  {
+    title: "Consultancies",
+    path: "/consultancies",
+    icon: MdAdminPanelSettings,
   },
 ];
 

@@ -6,7 +6,7 @@ import { AiOutlineFileImage } from "react-icons/ai";
 import { BsGoogle, BsLinkedin, BsTwitter } from "react-icons/bs";
 import { HiOutlineArrowSmLeft } from "react-icons/hi";
 import { ImFacebook } from "react-icons/im";
-import { IoEarthSharp, IoLogoYoutube } from "react-icons/io5";
+import { IoEarthSharp } from "react-icons/io5";
 import { RiInstagramFill, RiSearchLine } from "react-icons/ri";
 import { connect } from "react-redux";
 import {
@@ -14,7 +14,7 @@ import {
   FC_GetBasicSystemInfo,
   SystemBasicInfoData,
 } from "../../actions";
-import { AuthorGetInterface, AuthorType } from "../../actions/author.action";
+import { AuthorType } from "../../actions/author.action";
 import {
   FC_GetBooksByAuthor,
   GetBookInterface,
@@ -35,6 +35,7 @@ import { AuthorSocialMedia } from "../../components/RegisterAuthor/RegisterAutho
 import { StoreState } from "../../reducers";
 import { API_URL } from "../../utils/api";
 import { search } from "../../utils/functions";
+import BackImage from "../../assets/authors.png";
 
 interface AppProps {
   systemBasicInfo: SystemBasicInfoData;
@@ -133,6 +134,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
             : "Authors"
         }`}
         description="Perdua Publishers authors"
+        BackPhoto={BackImage}
       >
         <div className="mb-3">
           <div className="relative">

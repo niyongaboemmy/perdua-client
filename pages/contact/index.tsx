@@ -11,6 +11,7 @@ interface ContactPageState {
   loading: boolean;
   email: string;
   message: string;
+  phone: string;
   error: string;
   success: string;
 }
@@ -21,6 +22,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
 
     this.state = {
       loading: false,
+      phone: "",
       email: "",
       message: "",
       error: "",
@@ -29,6 +31,11 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
   }
   onSubmitData = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (this.state.phone === "") {
+      return this.setState({
+        error: "Please fill your phone number",
+      });
+    }
     if (this.state.email === "") {
       return this.setState({
         error: "Please fill your email",
@@ -39,6 +46,13 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
         error: "Please provide your message",
       });
     }
+    this.setState({
+      success: "Message sent successfully!",
+      error: "",
+      message: "",
+      phone: "",
+      email: "",
+    });
   };
   MainComponentDetails = () => {
     return (
@@ -88,7 +102,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                   <div>Kigali, Rwanda</div>
                   <div className="flex flex-row items-center gap-2">
                     <span>Location: </span>
-                    <span className="font-semibold">Kicukiro</span>
+                    <span className="font-semibold">Remera - Giporoso</span>
                   </div>
                 </div>
               </div>
@@ -98,13 +112,29 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
           <div className="col-span-12 md:col-span-6">
             <div className="bg-gray-50 rounded-md p-3 md:p-6 animate__animated animate__fadeIn">
               <div className="font-bold text-xl mb-2">Submit your enquiry</div>
-              <form onSubmit={this.onSubmitData}>
+              <form onSubmit={this.onSubmitData} className="mt-4">
+                <div className="flex flex-col mb-3">
+                  <span>Phone number</span>
+                  <input
+                    type="tel"
+                    className="border border-gray-300 bg-white rounded-md px-3 py-2 w-full"
+                    placeholder=""
+                    onChange={(e) =>
+                      this.setState({ phone: e.target.value, error: "" })
+                    }
+                    value={this.state.phone}
+                  />
+                </div>
                 <div className="flex flex-col mb-3">
                   <span>Email</span>
                   <input
                     type="email"
                     className="border border-gray-300 bg-white rounded-md px-3 py-2 w-full"
                     placeholder="example@gmail.com"
+                    onChange={(e) =>
+                      this.setState({ email: e.target.value, error: "" })
+                    }
+                    value={this.state.email}
                   />
                 </div>
                 <div className="flex flex-col mb-3">
@@ -112,6 +142,10 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                   <textarea
                     className="border border-gray-300 bg-white rounded-md px-3 py-2 w-full"
                     placeholder="Type message"
+                    onChange={(e) =>
+                      this.setState({ message: e.target.value, error: "" })
+                    }
+                    value={this.state.message}
                   ></textarea>
                 </div>
                 {this.state.error !== "" && (
@@ -122,6 +156,18 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                       allow_time_out={true}
                       onClose={() => {
                         this.setState({ error: "" });
+                      }}
+                    />
+                  </div>
+                )}
+                {this.state.success !== "" && (
+                  <div className="my-3">
+                    <Alert
+                      title={this.state.success}
+                      type="success"
+                      allow_time_out={true}
+                      onClose={() => {
+                        this.setState({ error: "", success: "" });
                       }}
                     />
                   </div>
@@ -142,7 +188,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
           </div>
           <div className="col-span-12 md:col-span-6">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63799.52609891436!2d30.02869225324941!3d-1.9657387101841561!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca6f46d387275%3A0x7b8b917a7206d1e2!2sKigali%20Convention%20Centre!5e0!3m2!1sen!2srw!4v1672383652583!5m2!1sen!2srw"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3987.488790938404!2d30.11529321508763!3d-1.95801629467517!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x19dca7a9e43b279b%3A0x3ad3777ac395baf8!2sBank%20of%20Kigali%2C%20Giporoso%20Branch!5e0!3m2!1sen!2srw!4v1674575969290!5m2!1sen!2srw"
               width="100%"
               height="450"
               style={{ border: "0" }}

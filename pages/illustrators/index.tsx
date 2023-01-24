@@ -35,6 +35,7 @@ import { AuthorSocialMedia } from "../../components/RegisterAuthor/RegisterAutho
 import { StoreState } from "../../reducers";
 import { API_URL } from "../../utils/api";
 import { search } from "../../utils/functions";
+import BackImage from "../../assets/illustrator.png";
 
 interface AppProps {
   systemBasicInfo: SystemBasicInfoData;
@@ -133,6 +134,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
             : "Illustrators"
         }`}
         description="Perdua Publishers Illustrators"
+        BackPhoto={BackImage}
       >
         <div className="mb-3">
           <div className="relative">

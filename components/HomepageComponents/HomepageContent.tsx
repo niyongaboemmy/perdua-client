@@ -7,7 +7,7 @@ import { IoMdCall } from "react-icons/io";
 import Container from "../Container/Container";
 import Loading from "../Loading/Loading";
 import AboutUs from "./AboutUs";
-// import Books from "../../assets/books_old.jpg";
+import Consultancies from "../../assets/consultancies.webp";
 import Books from "../../assets/HomepageImage.png";
 import { SystemBasicInfoData } from "../../actions";
 import dynamic from "next/dynamic";
@@ -123,11 +123,12 @@ export class HomepageContent extends Component<
               {PerduaServices.map((item, i) => {
                 const SelectedServiceIcon = item.icon;
                 return (
-                  <div
+                  <Link
                     key={i + 1}
                     className="col-span-12 md:col-span-6 lg:col-span-3 h-full pt-10"
                     data-aos="fade-up"
                     data-aos-duration="1000"
+                    href={item.link}
                   >
                     <div className="w-full bg-black bg-opacity-40 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
                       <div className="-mt-12">
@@ -144,7 +145,7 @@ export class HomepageContent extends Component<
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 );
               })}
             </div>
@@ -179,7 +180,42 @@ export class HomepageContent extends Component<
               />
             ))}
           <AboutUs />
-          <BooksConsultanciesContent />
+          <Container>
+            <div className="py-24">
+              <div className="grid grid-cols-12 gap-6">
+                <div className="col-span-12 md:col-span-4 lg:cols-span-2 flex items-center justify-center">
+                  <div>
+                    <Image
+                      src={Consultancies}
+                      height={500}
+                      width={500}
+                      alt=""
+                      className="h-72 w-auto rounded-md"
+                    />
+                  </div>
+                </div>
+                <div className="col-span-12 md:col-span-7 lg:cols-span-9 flex flex-col justify-center">
+                  <div className="text-3xl font-bold">Consultancies</div>
+                  <div className="mt-5 text-gray-600 mb-6">
+                    If you're a writer trying to get published, you've probably
+                    figured out by now that the book publishing journey can be
+                    pretty complicated. There's designing, marketing,
+                    publishing, promoting, and social networking involved, and
+                    performing these tasks yourself can be intimidating, to say
+                    the least. That's where a book marketing consultant can help
+                  </div>
+                  <div>
+                    <Link
+                      href={"/consultancies"}
+                      className="flex flex-row items-center justify-center gap-2 w-max text-lg text-white bg-green-600 hover:bg-green-800 hover:text-white px-5 py-3 rounded-md hover:shadow-2xl cursor-pointer animate__animated animate__zoomIn"
+                    >
+                      View consultancies
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Container>
         </div>
       </div>
     );

@@ -20,6 +20,7 @@ export const PerduaServices: {
   title: string;
   icon: IconType;
   color: string;
+  link: string;
 }[] = [
   {
     id: "1",
@@ -27,6 +28,7 @@ export const PerduaServices: {
     title: "We publish novels and story books of Rwandan authors",
     icon: MdPublic,
     color: "green",
+    link: "/store",
   },
   {
     id: "2",
@@ -35,6 +37,7 @@ export const PerduaServices: {
       "We sell books and distribute overstock to different communities that are in great need",
     icon: MdShoppingCart,
     color: "green",
+    link: "/store",
   },
   {
     id: "3",
@@ -42,6 +45,7 @@ export const PerduaServices: {
     title: "We support authors to edit and publish their books",
     icon: MdSettingsSuggest,
     color: "green",
+    link: "/contact",
   },
   {
     id: "4",
@@ -49,6 +53,7 @@ export const PerduaServices: {
     title: "We develop modules/guide for NGOs and train their beneficiaries",
     icon: FaChalkboardTeacher,
     color: "green",
+    link: "/about",
   },
 ];
 
