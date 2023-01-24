@@ -197,12 +197,13 @@ export class HomepageContent extends Component<
                 <div className="col-span-12 md:col-span-7 lg:cols-span-9 flex flex-col justify-center">
                   <div className="text-3xl font-bold">Consultancies</div>
                   <div className="mt-5 text-gray-600 mb-6">
-                    If you're a writer trying to get published, you've probably
-                    figured out by now that the book publishing journey can be
-                    pretty complicated. There's designing, marketing,
-                    publishing, promoting, and social networking involved, and
-                    performing these tasks yourself can be intimidating, to say
-                    the least. That's where a book marketing consultant can help
+                    If you&apos;re a writer trying to get published, you&apos;ve
+                    probably figured out by now that the book publishing journey
+                    can be pretty complicated. There&apos;s designing,
+                    marketing, publishing, promoting, and social networking
+                    involved, and performing these tasks yourself can be
+                    intimidating, to say the least. That&apos;s where a book
+                    marketing consultant can help
                   </div>
                   <div>
                     <Link
