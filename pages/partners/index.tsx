@@ -72,27 +72,25 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                   No partners found!
                 </div>
               ) : (
-                <div>
-                  {this.state.partners.map((item, i) => (
-                    <div
-                      className="cols-span-12 md:col-span-4 col-span-3 p-3 bg-gray-100 rounded-lg overflow-hidden"
-                      key={i + 1}
-                    >
-                      <Link href={item.link} target="_blank">
-                        <Image
-                          src={`${API_URL}/${ImageFolder.partner}/${item.partner_logo}`}
-                          alt=""
-                          height={200}
-                          width={200}
-                          className="w-full h-44 rounded-lg animate__animated animate__fadeIn animate__infinite"
-                          onLoadingComplete={(img: HTMLImageElement) => {
-                            img.className = "w-full h-auto rounded-lg";
-                          }}
-                        />
-                      </Link>
-                    </div>
-                  ))}
-                </div>
+                this.state.partners.map((item, i) => (
+                  <div
+                    className="cols-span-12 md:col-span-4 col-span-3 p-3 bg-gray-100 rounded-lg overflow-hidden"
+                    key={i + 1}
+                  >
+                    <Link href={item.link} target="_blank">
+                      <Image
+                        src={`${API_URL}/${ImageFolder.partner}/${item.partner_logo}`}
+                        alt=""
+                        height={200}
+                        width={200}
+                        className="w-full h-44 rounded-lg animate__animated animate__fadeIn animate__infinite"
+                        onLoadingComplete={(img: HTMLImageElement) => {
+                          img.className = "w-full h-auto rounded-lg";
+                        }}
+                      />
+                    </Link>
+                  </div>
+                ))
               )}
             </div>
           )}
