@@ -110,6 +110,7 @@ export interface GetBookDetailsInterface {
 export enum ImageFolder {
   cover = "cover",
   author = "author",
+  partner = "partner",
 }
 export enum BookAvailability {
   IN_STOCK = "IN_STOCK",

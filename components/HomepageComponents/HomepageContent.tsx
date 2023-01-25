@@ -12,6 +12,7 @@ import Books from "../../assets/HomepageImage.png";
 import { SystemBasicInfoData } from "../../actions";
 import dynamic from "next/dynamic";
 import { PerduaServices } from "../../pages/about";
+import { LoadingBooks } from "./NewBooks";
 
 interface HomepageContentProps {
   setShowOpenModal: (status: boolean) => void;
@@ -160,7 +161,9 @@ export class HomepageContent extends Component<
               systemBasicInfo={this.props.systemBasicInfo.basic_info}
             />
           ) : (
-            <Loading className="bg-white" />
+            <div className="rounded-md py-6 bg-white">
+              <LoadingBooks cols={2} />
+            </div>
           )}
           {this.props.systemBasicInfo.basic_info !== null ? (
             <BooksCategoriesContent
@@ -168,7 +171,9 @@ export class HomepageContent extends Component<
               setShowOpenModal={this.props.setShowOpenModal}
             />
           ) : (
-            <Loading className="bg-white" />
+            <div className="rounded-md py-6 bg-white">
+              <LoadingBooks cols={2} />
+            </div>
           )}
           {this.props.systemBasicInfo.basic_info !== null &&
             this.props.systemBasicInfo.basic_info.languages.length > 0 &&

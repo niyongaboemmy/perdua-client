@@ -23,7 +23,7 @@ import Loading from "../Loading/Loading";
 import ActiveLink from "../NavBar/ActiveLink";
 import PageContainer from "../PageContainer/PageContainer";
 import { HiClipboardDocumentList } from "react-icons/hi2";
-import { IoPersonAddSharp } from "react-icons/io5";
+import { IoBusinessOutline, IoPersonAddSharp } from "react-icons/io5";
 
 export const AdminNavigation: {
   id: string;
@@ -50,28 +50,34 @@ export const AdminNavigation: {
     icon: HiClipboardDocumentList,
   },
   {
-    id: "3",
+    id: "4",
     title: "Books languages",
     path: "/book_languages",
     icon: MdOutlineLanguage,
   },
   {
-    id: "3",
+    id: "5",
     title: "Contributors",
     path: "/authors_list",
     icon: MdOutlineAdminPanelSettings,
   },
   {
-    id: "3",
+    id: "6",
     title: "Register Author",
     path: "/register_author",
     icon: IoPersonAddSharp,
   },
   {
-    id: "3",
+    id: "7",
     title: "Consultancies",
     path: "/booksConsultanciesManagement",
     icon: SiConsul,
+  },
+  {
+    id: "8",
+    title: "Partners",
+    path: "/partnersManagement",
+    icon: IoBusinessOutline,
   },
 ];
 

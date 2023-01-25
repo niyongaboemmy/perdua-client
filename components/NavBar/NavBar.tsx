@@ -31,6 +31,7 @@ import {
 } from "react-icons/md";
 import Loading from "../Loading/Loading";
 import BookSearch from "../BookSearch/BookSearch";
+import { IoBusinessOutline } from "react-icons/io5";
 
 export const PublicMenus: {
   title: string;
@@ -76,6 +77,11 @@ export const PublicMenus: {
     title: "Consultancies",
     path: "/consultancies",
     icon: MdAdminPanelSettings,
+  },
+  {
+    title: "Partners",
+    path: "/partners",
+    icon: IoBusinessOutline,
   },
 ];
 

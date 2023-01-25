@@ -10,12 +10,16 @@ export const errorToText = (error: any): string => {
   if (error.response?.data?.message !== undefined) {
     return error.response?.data?.message;
   }
-  let error_res = JSON.parse(error?.request?.response);
-  if (error_res.errors.length >= 1) {
-    if (error_res.errors[0].message.message) {
-      return error_res.errors[0].message.message;
+  if (error?.request?.response) {
+    let error_res = JSON.parse(error?.request?.response);
+    if (error_res.errors.length >= 1) {
+      if (error_res.errors[0].message.message) {
+        return error_res.errors[0].message.message;
+      }
+      return error_res.errors[0].message;
+    } else {
+      return "Something went wrong, please try again later";
     }
-    return error_res.errors[0].message;
   } else {
     return "Something went wrong, please try again later";
   }

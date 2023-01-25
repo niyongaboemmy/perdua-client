@@ -100,6 +100,12 @@ export class Footer extends Component<FooterProps, FooterState> {
                   >
                     Consultancies
                   </Link>
+                  <Link
+                    href="/partners"
+                    className="mb-2 hover:underline hover:text-green-400 w-max"
+                  >
+                    Partners
+                  </Link>
                 </div>
               </div>
             </div>

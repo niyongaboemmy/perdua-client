@@ -164,6 +164,12 @@ export interface FerchLoginDetails {
   payload: Auth;
 }
 
+export interface PartnerGetInterface {
+  pertner_id: string;
+  partner_logo: string;
+  link: string;
+}
+
 /**
  * * ****************************** ACTIONS *****************************
  */
@@ -443,5 +449,84 @@ export const FC_GetDistricts = async (
     callBack(true, res.data, "");
   } catch (error: any) {
     callBack(false, null, "Try again!");
+  }
+};
+
+export const FC_GetPartners = async (
+  callBack: (
+    loading: boolean,
+    response: PartnerGetInterface[] | null,
+    msg: string
+  ) => void
+) => {
+  callBack(true, null, "");
+  try {
+    const res = await axios.get<PartnerGetInterface[]>(`${API_URL}/partner`);
+    console.log(res);
+    if (res.status === 200) {
+      callBack(false, res.data, "");
+    } else {
+      callBack(false, null, "Error occurred, try again later!");
+    }
+  } catch (error: any) {
+    console.log("Testing my err", error);
+    console.log("Testing my err", { ...error });
+    callBack(false, null, errorToText(error));
+  }
+};
+
+export const FC_RegisterNewPartner = async (
+  data: FormData,
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  try {
+    const res = await axios.post(`${API_URL}/partner`, data);
+    console.log(res);
+    callBack(false, {
+      type: "success",
+      msg: "Partner registered successfully!",
+    });
+  } catch (error: any) {
+    console.log("Testing my err", error);
+    console.log("Testing my err", { ...error });
+    callBack(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_RemoveNewPartner = async (
+  partner_id: string,
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  try {
+    const res = await axios.delete(`${API_URL}/partner/${partner_id}`);
+    console.log(res);
+    callBack(false, {
+      type: "success",
+      msg: "Partner removed successfully!",
+    });
+  } catch (error: any) {
+    console.log("Testing my err", error);
+    console.log("Testing my err", { ...error });
+    callBack(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
   }
 };
