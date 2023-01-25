@@ -74,7 +74,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
               ) : (
                 this.state.partners.map((item, i) => (
                   <div
-                    className="cols-span-12 md:col-span-4 col-span-3 p-3 bg-gray-100 rounded-lg overflow-hidden"
+                    className="cols-span-6 md:col-span-3 lg:col-span-2 p-3 bg-gray-100 rounded-lg overflow-hidden"
                     key={i + 1}
                   >
                     <Link href={item.link} target="_blank">
