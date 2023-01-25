@@ -530,3 +530,69 @@ export const FC_RemoveNewPartner = async (
     });
   }
 };
+
+export const FC_ContactUsForm = async (
+  data: {
+    phone_number: string;
+    email: string;
+    message: string;
+  },
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      msg: string;
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  try {
+    const res = await axios.post(`${API_URL}/contact`, data);
+    console.log(res);
+    callBack(false, {
+      type: "success",
+      msg: "Action done successfully!",
+    });
+  } catch (error: any) {
+    console.log("Testing my err", error);
+    console.log("Testing my err", { ...error });
+    callBack(false, {
+      type: "error",
+      msg: errorToText(error),
+    });
+  }
+};
+
+export const FC_GetContactUs = async (
+  callBack: (
+    loading: boolean,
+    res: {
+      type: "success" | "error";
+      data: {
+        phone_number: string;
+        email: string;
+        message: string;
+      }[];
+      msg: string;
+    } | null
+  ) => void
+) => {
+  callBack(true, null);
+  try {
+    const res = await axios.get(`${API_URL}/contact`);
+    console.log(res);
+    callBack(false, {
+      type: "success",
+      data: res.data,
+      msg: "",
+    });
+  } catch (error: any) {
+    console.log("Testing my err", error);
+    console.log("Testing my err", { ...error });
+    callBack(false, {
+      type: "error",
+      data: [],
+      msg: errorToText(error),
+    });
+  }
+};

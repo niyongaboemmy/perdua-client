@@ -131,17 +131,17 @@ export class HomepageContent extends Component<
                     data-aos-duration="1000"
                     href={item.link}
                   >
-                    <div className="w-full bg-black bg-opacity-40 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
+                    <div className="w-full bg-white md:bg-black bg-opacity-100 md:bg-opacity-40 rounded-xl p-3 h-full px-4 flex flex-col items-center gap-3 hover:bg-opacity-100">
                       <div className="-mt-12">
-                        <div className="flex items-center justify-center h-16 w-16 bg-green-900 rounded-full shadow-xl animate-pulse">
-                          <SelectedServiceIcon className="text-4xl text-green-500" />
+                        <div className="flex items-center justify-center h-16 w-16 bg-green-600 md:bg-green-900 rounded-full shadow-xl animate-pulse">
+                          <SelectedServiceIcon className="text-4xl text-white md:text-green-500" />
                         </div>
                       </div>
                       <div className="flex flex-col text-center -mt-1">
-                        <span className="text-lg font-bold text-gray-200">
+                        <span className="text-lg font-bold md:text-gray-200">
                           {item.short}
                         </span>
-                        <span className="text-sm text-gray-400">
+                        <span className="text-sm md:text-gray-400">
                           {item.title}
                         </span>
                       </div>

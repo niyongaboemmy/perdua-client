@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { Component, ReactNode } from "react";
 import { IconType } from "react-icons";
-import { AiOutlineLogin } from "react-icons/ai";
+import { AiOutlineLogin, AiOutlineMessage } from "react-icons/ai";
 import { BsArrowLeft } from "react-icons/bs";
 import { SiConsul } from "react-icons/si";
 import {
@@ -78,6 +78,12 @@ export const AdminNavigation: {
     title: "Partners",
     path: "/partnersManagement",
     icon: IoBusinessOutline,
+  },
+  {
+    id: "8",
+    title: "Contact us",
+    path: "/contactList",
+    icon: AiOutlineMessage,
   },
 ];
 

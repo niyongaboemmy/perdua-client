@@ -1,6 +1,8 @@
 import React, { Component } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FiSend } from "react-icons/fi";
 import { MdContactSupport, MdLocationPin } from "react-icons/md";
+import { FC_ContactUsForm } from "../../actions";
 import { Alert } from "../../components/Alert/Alert";
 import { PageDetails } from "../../components/PageDetails/PageDetails";
 
@@ -46,13 +48,36 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
         error: "Please provide your message",
       });
     }
-    this.setState({
-      success: "Message sent successfully!",
-      error: "",
-      message: "",
-      phone: "",
-      email: "",
-    });
+    this.setState({ loading: true });
+    FC_ContactUsForm(
+      {
+        phone_number: this.state.phone,
+        email: this.state.email,
+        message: this.state.message,
+      },
+      (
+        loading: boolean,
+        res: {
+          type: "success" | "error";
+          msg: string;
+        } | null
+      ) => {
+        this.setState({ loading: loading });
+        if (res?.type === "success") {
+          this.setState({
+            success: res.msg,
+            error: "",
+            message: "",
+            phone: "",
+            email: "",
+            loading: false,
+          });
+        }
+        if (res?.type === "error") {
+          this.setState({ loading: false, error: res.msg, success: "" });
+        }
+      }
+    );
   };
   MainComponentDetails = () => {
     return (
@@ -123,6 +148,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                       this.setState({ phone: e.target.value, error: "" })
                     }
                     value={this.state.phone}
+                    disabled={this.state.loading}
                   />
                 </div>
                 <div className="flex flex-col mb-3">
@@ -135,6 +161,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                       this.setState({ email: e.target.value, error: "" })
                     }
                     value={this.state.email}
+                    disabled={this.state.loading}
                   />
                 </div>
                 <div className="flex flex-col mb-3">
@@ -146,6 +173,7 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                       this.setState({ message: e.target.value, error: "" })
                     }
                     value={this.state.message}
+                    disabled={this.state.loading}
                   ></textarea>
                 </div>
                 {this.state.error !== "" && (
@@ -175,12 +203,21 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
                 <div className="">
                   <button
                     type="submit"
-                    className="flex flex-row items-center gap-3 justify-center px-3 py-2 rounded-md bg-primary-800 hover:bg-green-700 text-white animate__animated animate__zoomIn"
+                    className="flex flex-row items-center gap-3 justify-center pl-2 pr-3 py-2 rounded-md bg-primary-800 hover:bg-green-700 text-white animate__animated animate__zoomIn"
+                    disabled={this.state.loading}
                   >
                     <div>
-                      <FiSend className="text-xl" />
+                      {this.state.loading === true ? (
+                        <AiOutlineLoading3Quarters className="text-2xl animate-spin" />
+                      ) : (
+                        <FiSend className="text-xl ml-1" />
+                      )}
                     </div>
-                    <span>Submit</span>
+                    <span>
+                      {this.state.loading === true
+                        ? "Loading, please wait..."
+                        : "Submit"}
+                    </span>
                   </button>
                 </div>
               </form>
