@@ -122,7 +122,7 @@ export class index extends Component<AppProps, AppState> {
                 ) : (
                   this.state.data.map((item, i) => (
                     <div
-                      className="col-span-6 p-3 bg-white rounded-lg text-sm"
+                      className="col-span-12 md:col-span-6 p-3 bg-white rounded-lg text-sm"
                       key={i + 1}
                     >
                       <div className="mb-2">
