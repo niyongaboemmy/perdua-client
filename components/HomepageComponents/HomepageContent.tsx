@@ -200,8 +200,10 @@ export class HomepageContent extends Component<
                   </div>
                 </div>
                 <div className="col-span-12 md:col-span-7 lg:cols-span-9 flex flex-col justify-center">
-                  <div className="text-3xl font-bold">Consultancies</div>
-                  <div className="mt-5 text-gray-600 mb-6">
+                  <div className="text-3xl font-bold text-center md:text-left">
+                    Consultancies
+                  </div>
+                  <div className="mt-5 text-gray-600 mb-6 text-center md:text-left">
                     If you&apos;re a writer trying to get published, you&apos;ve
                     probably figured out by now that the book publishing journey
                     can be pretty complicated. There&apos;s designing,
