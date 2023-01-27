@@ -208,10 +208,14 @@ export class index extends Component<AppProps, AppState> {
                 ) : (
                   this.state.partners.map((item, i) => (
                     <div
-                      className="col-span-3 p-3 bg-gray-100 rounded-lg overflow-hidden"
+                      className="col-span-3 p-2 bg-white border rounded-lg overflow-hidden  flex flex-col justify-between"
                       key={i + 1}
                     >
-                      <Link href={item.link} target="_blank">
+                      <Link
+                        href={item.link}
+                        target="_blank"
+                        title="Click to open the page"
+                      >
                         <Image
                           src={`${API_URL}/${ImageFolder.partner}/${item.partner_logo}`}
                           alt=""
@@ -230,7 +234,7 @@ export class index extends Component<AppProps, AppState> {
                           this.state.deleting === item.pertner_id
                             ? "bg-gray-200 font-bold cursor-not-allowed animate__animated animate__fadeIn animate__infinite"
                             : "bg-red-100 text-red-700 hover:bg-red-700 hover:text-white cursor-pointer"
-                        } px-3 py-2 rounded-md w-max`}
+                        } px-3 py-2 rounded-md w-max mt-5`}
                       >
                         {this.state.deleting === item.pertner_id
                           ? "Removing..."
