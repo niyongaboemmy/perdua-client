@@ -88,6 +88,7 @@ export class PageContainerPage extends Component<
                 ? MAIN_PAGE_TITLE
                 : this.props.page_title
             }
+            key="title"
           />
           <meta
             property="og:description"
@@ -97,6 +98,7 @@ export class PageContainerPage extends Component<
                 ? MAIN_PAGE_DESCRIPTION
                 : this.props.page_description
             }
+            key="description"
           />
           <meta
             property="og:image"
@@ -107,6 +109,7 @@ export class PageContainerPage extends Component<
                 ? this.props.logo
                 : DEFAULT_ICON.src
             }
+            key="image"
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <link

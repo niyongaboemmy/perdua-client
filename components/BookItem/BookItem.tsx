@@ -13,6 +13,7 @@ interface BookItemProps {
   height_pixels?: string; //pixels
   className?: string;
   onClick: () => void;
+  disable_animate?: boolean;
 }
 interface BookItemState {
   load_image: boolean;
@@ -36,8 +37,8 @@ export class BookItem extends Component<BookItemProps, BookItemState> {
           this.props.className !== undefined ? this.props.className : ""
         }`}
         onClick={this.props.onClick}
-        data-aos="zoom-in-up"
-        data-aos-duration="700"
+        data-aos={this.props.disable_animate === true ? "" : "zoom-in-up"}
+        data-aos-duration={this.props.disable_animate === true ? "" : "700"}
       >
         <div
           className="mb-2 overflow-hidden bg-gray-100 rounded-md group-hover:rounded-b-none object-cover"

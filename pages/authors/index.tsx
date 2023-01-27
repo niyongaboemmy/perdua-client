@@ -236,7 +236,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
                 </div>
               </div>
               <div className="text-2xl font-bold">
-                {selectedAuthor.author_name}
+                {selectedAuthor.author_name} books
               </div>
             </div>
           }
@@ -286,6 +286,7 @@ const MyComponent = (props: AppProps): JSX.Element => {
                               item={item}
                               onClick={() => {}}
                               hide_price={true}
+                              disable_animate={true}
                             />
                           </Link>
                         )
