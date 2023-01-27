@@ -455,23 +455,30 @@ export const FC_GetDistricts = async (
 export const FC_GetPartners = async (
   callBack: (
     loading: boolean,
-    response: PartnerGetInterface[] | null,
-    msg: string
+    res: {
+      type: "success" | "error";
+      response: PartnerGetInterface[] | null;
+      msg: string;
+    } | null
   ) => void
 ) => {
-  callBack(true, null, "");
+  callBack(true, null);
   try {
     const res = await axios.get<PartnerGetInterface[]>(`${API_URL}/partner`);
     console.log(res);
-    if (res.status === 200) {
-      callBack(false, res.data, "");
-    } else {
-      callBack(false, null, "Error occurred, try again later!");
-    }
+    callBack(false, {
+      msg: "",
+      response: res.data,
+      type: "success",
+    });
   } catch (error: any) {
     console.log("Testing my err", error);
     console.log("Testing my err", { ...error });
-    callBack(false, null, errorToText(error));
+    callBack(false, {
+      type: "error",
+      msg: errorToText(error),
+      response: [],
+    });
   }
 };
 

@@ -51,14 +51,18 @@ export class index extends Component<AppProps, AppState> {
     FC_GetPartners(
       (
         loading: boolean,
-        response: PartnerGetInterface[] | null,
-        msg: string
+        res: {
+          type: "success" | "error";
+          response: PartnerGetInterface[] | null;
+          msg: string;
+        } | null
       ) => {
         this.setState({ loading: loading });
-        if (msg === "" && response !== null) {
-          this.setState({ loading: false, partners: response });
-        } else {
-          this.setState({ error: msg, partners: [], loading: false });
+        if (res?.type === "success") {
+          this.setState({ loading: false, partners: res.response });
+        }
+        if (res?.type === "error") {
+          this.setState({ error: res.msg, partners: [], loading: false });
         }
       }
     );

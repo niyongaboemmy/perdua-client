@@ -33,14 +33,18 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
     FC_GetPartners(
       (
         loading: boolean,
-        response: PartnerGetInterface[] | null,
-        msg: string
+        res: {
+          type: "success" | "error";
+          response: PartnerGetInterface[] | null;
+          msg: string;
+        } | null
       ) => {
         this.setState({ loading: loading });
-        if (response !== null) {
-          this.setState({ loading: false, partners: response });
-        } else {
-          this.setState({ error: msg, partners: [], loading: false });
+        if (res?.type === "success") {
+          this.setState({ loading: false, partners: res.response });
+        }
+        if (res?.type === "error") {
+          this.setState({ error: res.msg, partners: [], loading: false });
         }
       }
     );
@@ -74,10 +78,14 @@ class ContactPage extends Component<ContactPageProps, ContactPageState> {
               ) : (
                 this.state.partners.map((item, i) => (
                   <div
-                    className="cols-span-6 md:col-span-3 lg:col-span-2 p-3 bg-gray-100 rounded-lg overflow-hidden"
+                    className="cols-span-6 md:col-span-3 lg:col-span-2 bg-gray-100 rounded-lg overflow-hidden"
                     key={i + 1}
                   >
-                    <Link href={item.link} target="_blank">
+                    <Link
+                      href={item.link}
+                      target="_blank"
+                      className="h-full flex flex-col items-center p-3 justify-center hover:bg-white border border-white rounded-lg overflow-hidden hover:border-green-600"
+                    >
                       <Image
                         src={`${API_URL}/${ImageFolder.partner}/${item.partner_logo}`}
                         alt=""
