@@ -5,7 +5,6 @@ import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BsArrowRight } from "react-icons/bs";
 import { IoMdCall } from "react-icons/io";
 import Container from "../Container/Container";
-import Loading from "../Loading/Loading";
 import AboutUs from "./AboutUs";
 import Consultancies from "../../assets/consultancies.webp";
 import Books from "../../assets/HomepageImage.png";
@@ -66,17 +65,19 @@ export class HomepageContent extends Component<
     return (
       <div>
         <div
-          className="relative md:overflow-hidden"
+          className="relative md:overflow-hidden bg-black"
           style={{ height: "100vh" }}
         >
-          <Image
-            src={Books}
-            priority={true}
-            alt="Books"
-            className="h-screen min-w-full w-auto object-cover animate__animated animate__fadeIn"
-            height={2000}
-            width={2000}
-          />
+          <div className="h-full">
+            <Image
+              src={Books}
+              priority={true}
+              alt="Books"
+              className="h-screen min-w-full w-auto object-cover animate__animated animate__fadeIn"
+              height={2000}
+              width={2000}
+            />
+          </div>
           <div className="absolute top-40 md:top-60 lg:top-0 bottom-0 right-0 left-0 flex flex-col lg:justify-center">
             <Container className="flex flex-col px-6 lg:px-0">
               <div className="text-4xl md:text-6xl font-extrabold mb-4 pr-10 md:px-0 animate__animated animate__zoomIn text-white">
