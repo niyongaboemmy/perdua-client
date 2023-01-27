@@ -45,7 +45,7 @@ export class PageContainerPage extends Component<
               ? MAIN_PAGE_TITLE
               : this.props.page_title}
           </title>
-          <meta
+          {/* <meta
             property="og:image"
             content={
               product_image !== undefined && product_image !== null
@@ -72,19 +72,20 @@ export class PageContainerPage extends Component<
                 ? MAIN_PAGE_DESCRIPTION
                 : this.props.page_description
             }
-          />
+          /> */}
           <meta
             name="keywords"
             content="Perdua publishers, Perdua, publishers, books, Rwanda, ibitabo, abana, ikinyarwanda, gusoma, kwandika, reading books"
           />
-          {/* {window !== undefined && window.location.href !== undefined && (
-            <meta property="og:url" content={window.location.href} />
-          )} */}
           <meta
             property="og:title"
             content={
-              this.props.page_title === undefined ||
-              this.props.page_title === ""
+              product_title !== undefined &&
+              product_title !== null &&
+              product_title !== ""
+                ? (product_title as string)
+                : this.props.page_title === undefined ||
+                  this.props.page_title === ""
                 ? MAIN_PAGE_TITLE
                 : this.props.page_title
             }
@@ -121,6 +122,7 @@ export class PageContainerPage extends Component<
                 ? DEFAULT_ICON.src
                 : this.props.logo
             }
+            key={"icon"}
           />
         </Head>
         <main
