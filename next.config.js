@@ -9,6 +9,12 @@ const nextConfig = {
         port: "",
         pathname: "/pbapi/**",
       },
+      {
+        protocol: "https",
+        hostname: "deafactionrda.org",
+        port: "",
+        pathname: "/pbapi/**",
+      },
     ],
   },
 };

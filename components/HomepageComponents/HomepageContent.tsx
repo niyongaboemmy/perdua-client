@@ -188,17 +188,6 @@ export class HomepageContent extends Component<
           <Container>
             <div className="py-24">
               <div className="grid grid-cols-12 gap-6">
-                <div className="col-span-12 md:col-span-4 lg:cols-span-2 flex items-center justify-center">
-                  <div>
-                    <Image
-                      src={Consultancies}
-                      height={500}
-                      width={500}
-                      alt=""
-                      className="h-72 w-auto rounded-md"
-                    />
-                  </div>
-                </div>
                 <div className="col-span-12 md:col-span-7 lg:cols-span-9 flex flex-col justify-center">
                   <div className="text-3xl font-bold text-center md:text-left">
                     Consultancies
@@ -212,13 +201,24 @@ export class HomepageContent extends Component<
                     intimidating, to say the least. That&apos;s where a book
                     marketing consultant can help
                   </div>
-                  <div>
+                  <div className="flex flex-row items-center justify-center md:justify-start w-full">
                     <Link
                       href={"/consultancies"}
                       className="flex flex-row items-center justify-center gap-2 w-max text-lg text-white bg-green-600 hover:bg-green-800 hover:text-white px-5 py-3 rounded-md hover:shadow-2xl cursor-pointer animate__animated animate__zoomIn"
                     >
                       View consultancies
                     </Link>
+                  </div>
+                </div>
+                <div className="col-span-12 md:col-span-4 lg:cols-span-2 flex items-center justify-center">
+                  <div>
+                    <Image
+                      src={Consultancies}
+                      height={500}
+                      width={500}
+                      alt=""
+                      className="h-72 w-auto rounded-md"
+                    />
                   </div>
                 </div>
               </div>
