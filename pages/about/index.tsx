@@ -37,7 +37,7 @@ export const PerduaServices: {
       "We sell books and distribute overstock to different communities that are in great need",
     icon: MdShoppingCart,
     color: "green",
-    link: "/store",
+    link: "/partners",
   },
   {
     id: "3",
@@ -53,7 +53,7 @@ export const PerduaServices: {
     title: "We develop modules/guide for NGOs and train their beneficiaries",
     icon: FaChalkboardTeacher,
     color: "green",
-    link: "/about",
+    link: "/",
   },
 ];
 
