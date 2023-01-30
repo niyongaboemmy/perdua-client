@@ -91,8 +91,9 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
           // maxHeight: "calc(100vh - 100px)",
           overflowY: "auto",
         }}
+        className="text-sm"
       >
-        <div className="bg-white rounded-lg p-4 animate__animated animate__fadeInLeft animate__fast">
+        <div className="bg-white rounded-lg p-1 animate__animated animate__fadeInLeft animate__fast">
           <div className="flex flex-row items-center justify-between gap-2">
             <div className="flex flex-row items-center gap-3">
               <div>
@@ -114,7 +115,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
             {this.props.systemBasicInfo.basic_info.languages.map((item, i) => (
               <div
                 key={i + 1}
-                className={`flex flex-row items-center gap-3 w-full p-2 mb-2 cursor-pointer rounded-lg ${
+                className={`flex flex-row items-center gap-3 w-full p-1 mb-2 cursor-pointer rounded-lg ${
                   this.props.selectedLanguage !== null &&
                   this.props.selectedLanguage.language_id === item.language_id
                     ? "bg-green-50 text-green-700 font-semibold animate__animated animate__zoomIn"
@@ -139,7 +140,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
           </div>
         </div>
         {/* Books categories */}
-        <div className="bg-white rounded-lg p-4 mt-4 animate__animated animate__fadeInLeft">
+        <div className="bg-white rounded-lg p-1 mt-2 animate__animated animate__fadeInLeft">
           <div className="flex flex-row items-center justify-between gap-3">
             <div className="flex flex-row items-center gap-3">
               <div>
@@ -152,11 +153,11 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
             {this.props.selectedCategory !== null && (
               <div
                 onClick={() => this.props.onSelectCategory(null)}
-                className="flex flex-row items-center justify-center gap-1 rounded-md w-max cursor-pointer text-sm p-1 pr-2 text-yellow-600 border border-yellow-300 hover:border-none font-bold bg-yellow-50 hover:bg-yellow-600 hover:text-white"
+                className="flex flex-row items-center justify-center gap-1 rounded-md w-max cursor-pointer text-sm px-2 py-1 text-yellow-600 border border-yellow-300 hover:border-none font-bold bg-yellow-50 hover:bg-yellow-600 hover:text-white"
               >
-                <div>
+                {/* <div>
                   <BiReset className="text-2xl animate-spi animate__animated animate__zoomIn" />
-                </div>
+                </div> */}
                 <span>Reset</span>
               </div>
             )}
@@ -185,7 +186,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
                 .map((item, i) => (
                   <div
                     key={i + 1}
-                    className={`flex flex-row items-center gap-3 w-full p-2 mb-2 cursor-pointer rounded-lg ${
+                    className={`flex flex-row items-center gap-3 w-full p-1 mb-2 cursor-pointer rounded-lg ${
                       this.props.selectedCategory !== null &&
                       this.props.selectedCategory.category_id ===
                         item.category_id
@@ -217,7 +218,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
           </div>
         </div>
         {/* Books levels */}
-        <div className="bg-white rounded-lg p-4 mt-4 animate__animated animate__fadeInLeft">
+        <div className="bg-white rounded-lg p-1 mt-2 animate__animated animate__fadeInLeft">
           <div className="flex flex-row items-center justify-between gap-3">
             <div className="flex flex-row items-center gap-3">
               <div>
@@ -230,11 +231,11 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
             {this.props.selectedLevel !== null && (
               <div
                 onClick={() => this.props.onSelectLevel(null)}
-                className="flex flex-row items-center justify-center gap-1 rounded-md w-max cursor-pointer text-sm p-1 pr-2 text-yellow-600 border border-yellow-300 hover:border-none font-bold bg-yellow-50 hover:bg-yellow-600 hover:text-white"
+                className="flex flex-row items-center justify-center gap-1 rounded-md w-max cursor-pointer text-sm px-2 py-1 text-yellow-600 border border-yellow-300 hover:border-none font-bold bg-yellow-50 hover:bg-yellow-600 hover:text-white"
               >
-                <div>
+                {/* <div>
                   <BiReset className="text-2xl animate-spi animate__animated animate__zoomIn" />
-                </div>
+                </div> */}
                 <span>Reset</span>
               </div>
             )}
@@ -263,7 +264,7 @@ class SideNavFilter extends Component<sideNavFilterProps, sideNavFilterState> {
                 .map((item, i) => (
                   <div
                     key={i + 1}
-                    className={`flex flex-row items-center gap-3 w-full p-2 mb-2 cursor-pointer rounded-lg ${
+                    className={`flex flex-row items-center gap-3 w-full p-1 mb-2 cursor-pointer rounded-lg ${
                       this.props.selectedLevel !== null &&
                       this.props.selectedLevel.level_id === item.level_id
                         ? "bg-white text-yellow-600 font-semibold animate__animated animate__zoomIn"

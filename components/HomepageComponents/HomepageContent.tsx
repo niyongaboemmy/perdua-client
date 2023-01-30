@@ -25,12 +25,7 @@ interface HomepageContentProps {
 }
 interface HomepageContentState {}
 
-const NewBooksContent = dynamic(() => import("./NewBooks"));
 const BooksCategoriesContent = dynamic(() => import("./BookCategories"));
-const ServicesSectionContent = dynamic(() => import("./ServicesSection"));
-const BooksConsultanciesContent = dynamic(
-  () => import("../BookConsultancies/BookConsultancies")
-);
 const BooksByAvailabilityContent = dynamic(
   () => import("./BooksByAvailability")
 );
@@ -193,19 +188,35 @@ export class HomepageContent extends Component<
                   <div className="text-3xl font-bold text-center md:text-left">
                     Consultancies
                   </div>
-                  <div className="mt-5 text-gray-600 mb-6 text-center md:text-left">
-                    If you&apos;re a writer trying to get published, you&apos;ve
-                    probably figured out by now that the book publishing journey
-                    can be pretty complicated. There&apos;s designing,
-                    marketing, publishing, promoting, and social networking
-                    involved, and performing these tasks yourself can be
-                    intimidating, to say the least. That&apos;s where a book
-                    marketing consultant can help
+                  <div className="mt-5 text-gray-700 mb-6 text-center md:text-left">
+                    <div className="mb-2 text-justify">
+                      Perdua Publishers has many years of experience in working
+                      with civil society organizations and other projects in
+                      conceptualizing, developing and field-testing
+                      modules/guides for teachers, students, parents and other
+                      beneficiaries in education sector on a variety of topics.
+                    </div>
+                    <div className="mb-2 text-justify">
+                      Our team is multi-disciplinary and composed of gurus in
+                      education to give your project the perfect content that
+                      meets your goal. The design of our products is phenomenon,
+                      and our customers are always satisfied due to our timely
+                      and qualitative work.
+                    </div>
+                    <div>
+                      <Link
+                        href={"/contact"}
+                        target="_blank"
+                        className="underline hover:text-green-700 text-black text-sm"
+                      >
+                        Contact us for more details.
+                      </Link>
+                    </div>
                   </div>
                   <div className="flex flex-row items-center justify-center md:justify-start w-full">
                     <Link
                       href={"/consultancies"}
-                      className="flex flex-row items-center justify-center gap-2 w-max text-lg text-white bg-green-600 hover:bg-green-800 hover:text-white px-5 py-3 rounded-md hover:shadow-2xl cursor-pointer animate__animated animate__zoomIn"
+                      className="flex flex-row items-center justify-center gap-2 w-max text-base text-white bg-green-600 hover:bg-green-800 hover:text-white px-3 py-2 rounded-md hover:shadow-2xl cursor-pointer animate__animated animate__zoomIn"
                     >
                       View consultancies
                     </Link>

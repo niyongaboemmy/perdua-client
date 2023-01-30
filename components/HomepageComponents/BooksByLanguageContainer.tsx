@@ -76,7 +76,7 @@ export class BooksByLanguageContainer extends Component<
             <div className="text-3xl font-bold">
               {this.props.language.language_name} books
             </div>
-            <div className="text-gray-800 text-base mb-5 mt-4">
+            <div className="text-gray-800 text-justify text-base mb-5 mt-4">
               {this.props.language.description}
             </div>
             <Link

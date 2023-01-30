@@ -30,13 +30,13 @@ export class AboutUs extends Component<AboutUsProps, AboutUsState> {
                 <div className="text-4xl font-bold mb-4">
                   About Perdua Publishers
                 </div>
-                <div className="mb-5 text-gray-500">
+                <div className="mb-5 text-gray-500 text-justify">
                   We are a Rwandan Publishing house; passionate about sharing
                   best books but most importantly motivating and cultivating the
                   love of reading, with high quality books, for all age ranges
                   in Kinyarwanda, French, Swahili, and English.
                 </div>
-                <div className="mb-5 text-gray-500">
+                <div className="mb-5 text-gray-500 text-justify">
                   We publish and avail quality books which offer holistic and
                   innovative educational ends and promote the culture of
                   reading. We believe that reading helps in exercising the

@@ -286,7 +286,7 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                 className={`col-span-12 ${
                   this.state.hideNav === true
                     ? "lg:col-span-12"
-                    : "lg:col-span-3"
+                    : "lg:col-span-2"
                 }`}
               >
                 <SideNavFilterContent
@@ -353,7 +353,7 @@ class _BookStore extends Component<BookStoreProps, BookStoreState> {
                 className={`col-span-12 ${
                   this.state.hideNav === true
                     ? "lg:col-span-12"
-                    : "lg:col-span-9"
+                    : "lg:col-span-10"
                 }`}
               >
                 <div className="bg-white rounded-lg p-3 min-h-screen mb-3">
