@@ -140,7 +140,8 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                     Books store catalogue
                   </div>
                   <div className="text-sm">
-                    List of books and their description. Verify and publish them
+                    List of books and their details. Thus, verify and publish
+                    them
                   </div>
                 </div>
               </div>
