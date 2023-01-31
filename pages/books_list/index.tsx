@@ -285,7 +285,9 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                           <th className="border px-3 py-2 truncate">
                             Availability
                           </th>
-                          <th className="border px-3 py-2 truncate">Qty</th>
+                          <th className="border px-3 py-2 truncate">
+                            Quantity
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
