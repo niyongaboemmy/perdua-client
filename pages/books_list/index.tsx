@@ -285,6 +285,7 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                           <th className="border px-3 py-2 truncate">
                             Availability
                           </th>
+                          <th className="border px-3 py-2 truncate">Qty</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -348,6 +349,9 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                                 {item.availability === BookAvailability.IN_STOCK
                                   ? "In stock"
                                   : "Out stock"}
+                              </td>
+                              <td className="border px-3 py-2">
+                                {item.quantity}
                               </td>
                             </tr>
                           ))
