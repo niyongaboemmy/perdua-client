@@ -277,7 +277,7 @@ class _BooksList extends Component<BooksListProps, BooksListState> {
                             Number of Pages
                           </th>
                           <th className="border px-3 py-2 truncate">
-                            Publication Date
+                            Publication year
                           </th>
                           <th className="border px-3 py-2 truncate">
                             Book price
